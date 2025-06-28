@@ -1021,43 +1021,53 @@
     </script>
     <!-- At the VERY END of your HTML file, before </body> -->
     <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const form = document.getElementById("silent-subscribe-form");
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('silent-subscribe-form');
+  
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value;
+    const button = form.querySelector('button[type="submit"]');
+    
+    // Show loading state
+    button.disabled = true;
+    button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
 
-        if (form) {
-          form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const email = document.getElementById("email").value;
-
-            try {
-              const response = await fetch(
-                "https://api.sender.net/v2/subscribers",
-                {
-                  method: "POST",
-                  headers: {
-                    Authorization: "Bearer YOUR_API_TOKEN_HERE",
-                    "Content-Type": "application/json",
-                  },
-                  body: JSON.stringify({
-                    email: email,
-                    trigger_automation: false, // Blocks automations
-                    force_subscribe: false, // Blocks confirmations
-                  }),
-                }
-              );
-
-              if (response.ok) {
-                alert("Thank you! You'll receive resources shortly.");
-              } else {
-                alert("Subscription failed. Please try again.");
-              }
-            } catch (error) {
-              console.error("Error:", error);
-            }
-          });
-        }
+    try {
+      const response = await fetch("https://api.sender.net/v2/subscribers", {
+        method: "POST",
+        headers: {
+          "Authorization": "Bearer YOUR_API_TOKEN",
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        },
+        body: JSON.stringify({
+          email: email,
+          trigger_automation: false,
+          force_subscribe: false,
+          do_not_send_welcome: true
+        })
       });
-    </script>
+
+      const data = await response.json();
+      console.log("API Response:", data);
+
+      if (response.ok) {
+        alert("Thank you! You've been subscribed.");
+        form.reset();
+      } else {
+        alert("Error: " + (data.message || "Please try again later."));
+      }
+    } catch (error) {
+      console.error("Network Error:", error);
+      alert("Connection failed. Please check your network.");
+    } finally {
+      button.disabled = false;
+      button.textContent = "Get Resources";
+    }
+  });
+});
+</script>
     <script>
       document.querySelectorAll('a[href="#"]').forEach((link) => {
         link.addEventListener("click", (e) => {
