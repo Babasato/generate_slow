@@ -1,4 +1,8 @@
 <?php
+// Enable error reporting for debugging
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 // Basic security - prevent direct access
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header('Location: index.html');
@@ -28,8 +32,9 @@ if (file_exists($file)) {
 $timestamp = date('Y-m-d H:i:s');
 $entry = $email . ' - ' . $timestamp . PHP_EOL;
 
-// Save email to file
-if (file_put_contents($file, $entry, FILE_APPEND | LOCK_EX)) {
+// Try to save email to file with error checking
+$result = file_put_contents($file, $entry, FILE_APPEND | LOCK_EX);
+if ($result !== false) {
     // Success - redirect or show message
     echo '<!DOCTYPE html>
     <html>
@@ -49,6 +54,12 @@ if (file_put_contents($file, $entry, FILE_APPEND | LOCK_EX)) {
     </body>
     </html>';
 } else {
-    die('Error saving email. Please try again. <a href="javascript:history.back()">Go back</a>');
+    // Show detailed error information
+    $error = error_get_last();
+    die('Error saving email. Details: ' . ($error ? $error['message'] : 'Unknown error') . 
+        '<br>Current directory: ' . getcwd() . 
+        '<br>File path: ' . realpath('.') . '/emails.txt' .
+        '<br>Directory writable: ' . (is_writable('.') ? 'YES' : 'NO') .
+        '<br><a href="javascript:history.back()">Go back</a>');
 }
 ?>
