@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- COPY EVERYTHING from <head> in your index.html -->
+</head>
+<body class="text-gray-800">
+  <!-- PASTE YOUR HEADER from index.html -->
+
+  <main class="max-w-4xl mx-auto px-4 py-12">
+    <article class="glass-card p-8 rounded-xl" id="dynamic-post">
+      <!-- Content loads here automatically -->
+      <div class="text-center py-12">
+        <div class="inline-block loading-spinner"></div>
+        <p class="text-purple-700 mt-2">Loading...</p>
+      </div>
+    </article>
+  </main>
+
+  <!-- PASTE YOUR FOOTER from index.html -->
+
+  <script>
+    // 1. Extract URL slug (e.g. "my-post" from /blog/my-post)
+    const slug = window.location.pathname.split('/').pop();
+    
+    // 2. Fetch matching post from Contentful
+    fetch(`https://cdn.contentful.com/spaces/gt8n4z9u155i/entries?access_token=5pJ150DbrMTkua2vEatsNYRmcMmCC5t2CkcN6OmCfFM&content_type=blogPost&fields.slug=${slug}`)
+      .then(response => response.json())
+      .then(data => {
+        const post = data.items[0];
+        
+        // 3. Render the post
+        document.getElementById('dynamic-post').innerHTML = `
+          <h1 class="text-3xl font-bold mb-6">${post.fields.title}</h1>
+          <div class="prose max-w-none">
+            ${post.fields.content}
+          </div>
+          <a href="/" class="text-purple-600 mt-8 inline-block">← Back to Blog</a>
+        `;
+      })
+      .catch(() => {
+        document.getElementById('dynamic-post').innerHTML = `
+          <div class="text-center py-12">
+            <h2 class="text-2xl text-purple-700">Post Not Found</h2>
+            <a href="/" class="text-purple-600 mt-4 inline-block">Go Home</a>
+          </div>
+        `;
+      });
+  </script>
+</body>
+</html>
