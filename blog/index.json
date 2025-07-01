@@ -1,9 +1,9 @@
 [
   {
-    "title": "Sample Math Post",
-    "slug": "sample-post",  // Must match filename
-    "excerpt": "This will appear on your site immediately",
-    "image": "https://images.unsplash.com/...",
-    "date": "2024-05-23"
+    "title": "Fun With Fractions",
+    "slug": "fraction-fun",
+    "excerpt": "Learn fractions through pizza games!",
+    "image": "/blog/images/pizza-math.jpg",
+    "date": "2024-05-24"
   }
 ]
