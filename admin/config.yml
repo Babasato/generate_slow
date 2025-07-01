@@ -10,9 +10,11 @@ collections:
     label: "Blog Posts"
     folder: "blog"
     create: true
+    slug: "{{slug}}"
     fields:
       - { name: "title", label: "Title", widget: "string" }
-      - { name: "date", label: "Date", widget: "datetime" }
-      - { name: "excerpt", label: "Excerpt", widget: "text" }
+      - { name: "slug", label: "URL Slug", widget: "string", pattern: ["^[a-z0-9-]+$", "Lowercase letters, numbers, and hyphens only"] }
+      - { name: "date", label: "Publish Date", widget: "datetime" }
+      - { name: "excerpt", label: "Short Excerpt", widget: "text" }
       - { name: "image", label: "Featured Image", widget: "image" }
       - { name: "body", label: "Content", widget: "markdown" }
