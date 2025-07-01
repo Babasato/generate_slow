@@ -70,7 +70,7 @@
     <link rel="manifest" href="/site.webmanifest?v=2" />
     <link rel="shortcut icon" href="/favicon.ico?v=2" />
 
-    <title>Free Homeschool Math Resources</title>
+    
     <link
       href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
       rel="stylesheet"
@@ -263,6 +263,21 @@
       .resource-card:hover .icon-wrapper {
         transform: scale(1.1);
       }
+
+      .loading-spinner {
+        border: 2px solid transparent;
+        border-top: 2px solid white;
+        border-radius: 50%;
+        width: 20px;
+        height: 20px;
+        animation: spin 1s linear infinite;
+        display: inline-block;
+        margin-right: 8px;
+      }
+     @keyframes spin {
+     0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+    }
     </style>
 
     <!-- Favicon Implementation -->
@@ -1020,23 +1035,33 @@
 
 
 <script>
-  // Contentful API Config (using your actual keys)
+  // Contentful Configuration (using your actual API keys)
   const SPACE_ID = "gt8n4z9u155i";
   const ACCESS_TOKEN = "5pJ150DbrMTkua2vEatsNYRmcMmCC5t2CkcN6OmCfFM";
+  const ENVIRONMENT = "master"; // Default environment
 
-  // Fetch all blog posts from Contentful
-  fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/entries?access_token=${ACCESS_TOKEN}&content_type=blogPost`)
+  // Show loading state
+  document.getElementById('blog-posts').innerHTML = `
+    <div class="col-span-3 text-center py-12">
+      <div class="inline-block loading-spinner"></div>
+      <span class="text-white">Loading posts...</span>
+    </div>
+  `;
+
+  // Fetch blog posts from Contentful
+  fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/entries?access_token=${ACCESS_TOKEN}&content_type=blogPost&order=-sys.createdAt`)
     .then(response => response.json())
     .then(data => {
       const blogContainer = document.getElementById('blog-posts');
+      blogContainer.innerHTML = ''; // Clear loading state
       
       data.items.forEach(post => {
-        // Extract image URL if exists
+        // Get image URL if available
         let imageUrl = '';
         if (post.fields.featuredImage) {
           const imageId = post.fields.featuredImage.sys.id;
           const asset = data.includes.Asset.find(a => a.sys.id === imageId);
-          imageUrl = asset.fields.file.url;
+          imageUrl = 'https:' + asset.fields.file.url;
         }
 
         // Create blog card HTML
@@ -1052,7 +1077,14 @@
         `;
       });
     })
-    .catch(error => console.error("Error loading blog posts:", error));
+    .catch(error => {
+      console.error("Error loading blog posts:", error);
+      document.getElementById('blog-posts').innerHTML = `
+        <div class="col-span-3 text-center text-white py-12">
+          <p>Blog posts couldn't be loaded. Please try again later.</p>
+        </div>
+      `;
+    });
 </script>
 
   </body>
