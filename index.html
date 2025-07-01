@@ -1026,33 +1026,7 @@
   }
 </script>
 
-<script>
-  const sheetURL = 'https://docs.google.com/spreadsheets/d/1Skrka3NCNJrW4re1ZPE_54xKMDebvoGx1GXy71N8IMY/pub?output=csv';
 
-  fetch(sheetURL)
-    .then(response => response.text())
-    .then(data => {
-      const rows = data.split('\n').slice(1); // skip header row
-      const blogContainer = document.getElementById('blog-posts');
-
-      rows.forEach(row => {
-        const [title, slug, description, image] = row.split(',');
-
-        const card = `
-        <article class="glass-card rounded-xl overflow-hidden blog-card">
-          <img src="${image}" alt="${title}" class="w-full h-48 object-cover" />
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">${title}</h3>
-            <p class="text-gray-600 mb-4">${description}</p>
-            <a href="/blog/${slug}" class="text-purple-600 font-medium">Read More →</a>
-          </div>
-        </article>
-        `;
-
-        blogContainer.innerHTML += card;
-      });
-    });
-</script>
     
   </body>
 </html>
