@@ -1,50 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- COPY EVERYTHING from <head> in your index.html -->
+  <!-- Keep your existing head content -->
+  <style>
+    /* Add this CSS to fix content display */
+    .blog-content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .blog-content img {
+      max-width: 100%;
+      height: auto;
+      margin: 20px 0;
+      border-radius: 8px;
+    }
+    .blog-content h2 {
+      color: #667eea;
+      margin-top: 30px;
+    }
+  </style>
 </head>
-<body class="text-gray-800">
-  <!-- PASTE YOUR HEADER from index.html -->
+<body>
+  <!-- Keep your existing header -->
 
-  <main class="max-w-4xl mx-auto px-4 py-12">
-    <article class="glass-card p-8 rounded-xl" id="dynamic-post">
-      <!-- Content loads here automatically -->
-      <div class="text-center py-12">
-        <div class="inline-block loading-spinner"></div>
-        <p class="text-purple-700 mt-2">Loading...</p>
-      </div>
-    </article>
+  <main class="blog-content">
+    <div id="post-content">
+      <!-- Content will load here -->
+      <div class="loading-spinner"></div>
+    </div>
+    <a href="/" class="back-link">← Back to Blog</a>
   </main>
 
-  <!-- PASTE YOUR FOOTER from index.html -->
+  <!-- Keep your existing footer -->
 
   <script>
-    // 1. Extract URL slug (e.g. "my-post" from /blog/my-post)
-    const slug = window.location.pathname.split('/').pop();
-    
-    // 2. Fetch matching post from Contentful
-    fetch(`https://cdn.contentful.com/spaces/gt8n4z9u155i/entries?access_token=5pJ150DbrMTkua2vEatsNYRmcMmCC5t2CkcN6OmCfFM&content_type=blogPost&fields.slug=${slug}`)
-      .then(response => response.json())
-      .then(data => {
-        const post = data.items[0];
-        
-        // 3. Render the post
-        document.getElementById('dynamic-post').innerHTML = `
-          <h1 class="text-3xl font-bold mb-6">${post.fields.title}</h1>
-          <div class="prose max-w-none">
-            ${post.fields.content}
-          </div>
-          <a href="/" class="text-purple-600 mt-8 inline-block">← Back to Blog</a>
-        `;
-      })
-      .catch(() => {
-        document.getElementById('dynamic-post').innerHTML = `
-          <div class="text-center py-12">
-            <h2 class="text-2xl text-purple-700">Post Not Found</h2>
-            <a href="/" class="text-purple-600 mt-4 inline-block">Go Home</a>
-          </div>
-        `;
-      });
+    document.addEventListener('DOMContentLoaded', function() {
+      const slug = window.location.pathname.split('/').pop();
+      
+      fetch(`https://cdn.contentful.com/spaces/gt8n4z9u155i/entries?access_token=5pJ150DbrMTkua2vEatsNYRmcMmCC5t2CkcN6OmCfFM&content_type=blogPost&fields.slug=${slug}&include=2`)
+        .then(response => response.json())
+        .then(data => {
+          const post = data.items[0];
+          if (!post) return;
+          
+          let html = `
+            <h1>${post.fields.title}</h1>
+            ${post.fields.featuredImage ? 
+              `<img src="https:${data.includes.Asset.find(a => a.sys.id === post.fields.featuredImage.sys.id).fields.file.url}" 
+                   alt="${post.fields.title}">` : ''}
+            <div class="post-body">
+              ${formatContentfulRichText(post.fields.content)}
+            </div>
+          `;
+          
+          document.getElementById('post-content').innerHTML = html;
+        })
+        .catch(error => {
+          document.getElementById('post-content').innerHTML = `
+            <p class="error">Error loading post. Please try again later.</p>
+          `;
+        });
+    });
+
+    // Helper for rich text formatting
+    function formatContentfulRichText(content) {
+      if (!content) return '';
+      if (typeof content === 'string') return content;
+      
+      // Simple rich text parser (expand as needed)
+      return content.content.map(item => {
+        if (item.nodeType === 'paragraph') {
+          return `<p>${item.content.map(text => text.value).join('')}</p>`;
+        }
+        if (item.nodeType === 'heading-2') {
+          return `<h2>${item.content[0].value}</h2>`;
+        }
+        return '';
+      }).join('');
+    }
   </script>
 </body>
 </html>
