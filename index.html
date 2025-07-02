@@ -1045,71 +1045,171 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 
 <!-- Replace your entire blog script section with this simple version -->
 <script>
-  // Simple Contentful Configuration
-  const SPACE_ID = "gt8n4z9u155i";
-  const ACCESS_TOKEN = "5pJ150DbrMTkua2vEatsNYRmcMmCC5t2CkcN6OmCfFM";
-  const ENVIRONMENT = "master";
+  // Improved Contentful Configuration
+// Helper function to extract text from Contentful rich text
+// Helper function to extract text from Contentful rich text
+function extractTextFromRichText(richText) {
+  if (!richText || !richText.content) return '';
+  
+  let text = '';
+  function traverse(node) {
+    if (node.nodeType === 'text') {
+      text += node.value;
+    } else if (node.content) {
+      node.content.forEach(traverse);
+    }
+  }
+  
+  richText.content.forEach(traverse);
+  return text;
+}
 
-  // Show loading state
-  document.getElementById('blog-posts').innerHTML = `
-    <div class="col-span-3 text-center py-12">
-      <div class="inline-block loading-spinner"></div>
-      <span class="text-white">Loading posts...</span>
-    </div>
-  `;
+// Improved Contentful Configuration
+const SPACE_ID = "gt8n4z9u155i";
+const ACCESS_TOKEN = "5pJ150DbrMTkua2vEatsNYRmcMmCC5t2CkcN6OmCfFM";
+const ENVIRONMENT = "master";
 
-  // Fetch and display blog posts
-  fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/entries?access_token=${ACCESS_TOKEN}&content_type=blogPost&order=-sys.createdAt`)
-    .then(response => response.json())
-    .then(data => {
-      const blogContainer = document.getElementById('blog-posts');
-      blogContainer.innerHTML = ''; // Clear loading
+// Show loading state
+document.getElementById('blog-posts').innerHTML = `
+  <div class="col-span-3 text-center py-12">
+    <div class="inline-block loading-spinner"></div>
+    <span class="text-white">Loading posts...</span>
+  </div>
+`;
 
-      // Check if we have posts
-      if (!data.items || data.items.length === 0) {
-        blogContainer.innerHTML = `
-          <div class="col-span-3 text-center text-white py-12">
-            <p>No blog posts available yet. Check back soon!</p>
-          </div>
-        `;
-        return;
+// Fetch and display blog posts
+fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/entries?access_token=${ACCESS_TOKEN}&content_type=blogPost&order=-sys.createdAt&include=2`)
+  .then(response => response.json())
+  .then(data => {
+    const blogContainer = document.getElementById('blog-posts');
+    blogContainer.innerHTML = ''; // Clear loading
+    
+    // Check if we have posts
+    if (!data.items || data.items.length === 0) {
+      blogContainer.innerHTML = `
+        <div class="col-span-3 text-center text-white py-12">
+          <p>No blog posts available yet. Check back soon!</p>
+        </div>
+      `;
+      return;
+    }
+    
+    // Display each post
+    data.items.forEach(post => {
+      const fields = post.fields || {};
+      
+      // Get image if it exists
+      let imageUrl = '';
+      if (fields.featuredImage && data.includes && data.includes.Asset) {
+        const imageId = fields.featuredImage.sys.id;
+        const asset = data.includes.Asset.find(a => a.sys.id === imageId);
+        if (asset && asset.fields && asset.fields.file) {
+          imageUrl = 'https:' + asset.fields.file.url;
+        }
       }
       
-      // Display each post
-      data.items.forEach(post => {
-        // Get image if it exists
-        let imageUrl = '';
-        if (post.fields.featuredImage && data.includes && data.includes.Asset) {
-          const imageId = post.fields.featuredImage.sys.id;
-          const asset = data.includes.Asset.find(a => a.sys.id === imageId);
-          if (asset) {
-            imageUrl = 'https:' + asset.fields.file.url;
-          }
+      // Check if post has meaningful content (handle different content types)
+      const hasContent = fields.content && 
+        (typeof fields.content === 'string' ? fields.content.trim().length > 0 : 
+         fields.content.content && fields.content.content.length > 0);
+      const hasTitle = fields.title && typeof fields.title === 'string' && fields.title.trim().length > 0;
+      const hasSummary = fields.summary && typeof fields.summary === 'string' && fields.summary.trim().length > 0;
+      
+      // Determine if post is ready to be clickable
+      const isComplete = hasTitle && (hasContent || hasSummary);
+      
+      // Create display text (handle rich text content)
+      const title = hasTitle ? fields.title : 'Untitled Post';
+      
+      // Extract text from content (handle both string and rich text)
+      let contentText = '';
+      if (fields.content) {
+        if (typeof fields.content === 'string') {
+          contentText = fields.content;
+        } else if (fields.content.content) {
+          // Extract text from rich text structure
+          contentText = extractTextFromRichText(fields.content);
         }
-
-        // Create simple blog card (no links, no dates)
-        const cardHTML = `
-          <article class="glass-card rounded-xl overflow-hidden">
-            ${imageUrl ? `<img src="${imageUrl}" alt="${post.fields.title || 'Blog post'}" class="w-full h-48 object-cover">` : ''}
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2">${post.fields.title || 'Untitled Post'}</h3>
-              <p class="text-gray-600">${post.fields.summary || 'Coming soon...'}</p>
+      }
+      
+      const summary = hasSummary ? fields.summary : 
+                     contentText ? contentText.substring(0, 150) + '...' : 
+                     'Coming soon...';
+      
+      // Create blog card with conditional interactivity
+      const cardHTML = `
+        <article class="glass-card rounded-xl overflow-hidden ${isComplete ? 'cursor-pointer hover:transform hover:scale-105 transition-transform duration-200' : 'opacity-75'}" 
+                 ${isComplete ? `onclick="openBlogPost('${post.sys.id}')"` : ''}>
+          ${imageUrl ? `<img src="${imageUrl}" alt="${title}" class="w-full h-48 object-cover">` : ''}
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-2">
+              <h3 class="text-xl font-bold ${isComplete ? 'text-white' : 'text-gray-400'}">${title}</h3>
+              ${!isComplete ? '<span class="text-xs bg-yellow-600 text-white px-2 py-1 rounded">Draft</span>' : ''}
             </div>
-          </article>
-        `;
-        
-        blogContainer.innerHTML += cardHTML;
+            <p class="text-gray-600">${summary}</p>
+            ${isComplete ? '<p class="text-blue-400 text-sm mt-3">Click to read more →</p>' : ''}
+          </div>
+        </article>
+      `;
+      
+      blogContainer.innerHTML += cardHTML;
+    });
+  })
+  .catch(error => {
+    console.error("Error loading blog posts:", error);
+    document.getElementById('blog-posts').innerHTML = `
+      <div class="col-span-3 text-center text-white py-12">
+        <p>Blog posts couldn't be loaded right now.</p>
+        <p class="text-sm text-gray-400 mt-2">Please check your internet connection and try again.</p>
+      </div>
+    `;
+  });
+
+// Function to handle blog post clicks
+function openBlogPost(postId) {
+  // Fetch the specific post with full content
+  fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/entries/${postId}?access_token=${ACCESS_TOKEN}&include=2`)
+    .then(response => response.json())
+    .then(post => {
+      // Create a modal or navigate to a detailed view
+      const fields = post.fields || {};
+      
+      // Simple modal implementation
+      const modal = document.createElement('div');
+      modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+      modal.innerHTML = `
+        <div class="bg-white rounded-xl max-w-4xl max-h-[90vh] overflow-y-auto">
+          <div class="p-6">
+            <div class="flex justify-between items-start mb-4">
+              <h1 class="text-3xl font-bold text-gray-900">${fields.title || 'Untitled'}</h1>
+              <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
+            </div>
+            <div class="prose max-w-none text-gray-700">
+              ${fields.content ? 
+                (typeof fields.content === 'string' ? 
+                  fields.content.replace(/\n/g, '<br>') : 
+                  extractTextFromRichText(fields.content).replace(/\n/g, '<br>')
+                ) : 'No content available.'}
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modal);
+      
+      // Close modal when clicking outside
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.remove();
+        }
       });
     })
     .catch(error => {
-      console.error("Error loading blog posts:", error);
-      document.getElementById('blog-posts').innerHTML = `
-        <div class="col-span-3 text-center text-white py-12">
-          <p>Blog posts couldn't be loaded right now.</p>
-        </div>
-      `;
+      console.error('Error loading post details:', error);
+      alert('Sorry, this post could not be loaded.');
     });
-</script>
+}
+</script
 
   </body>
 </html>
