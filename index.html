@@ -122,11 +122,6 @@
         transform: translateY(-2px);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
       }
-      .glass-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-      }
       .resource-card {
         transition: all 0.3s ease;
         cursor: pointer;
@@ -204,12 +199,75 @@
     </style>
 
     <style>
-      .glass-card {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-      }
+      /* Remove the duplicate .glass-card definition and replace with this unified version */
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Specific styling for blog cards */
+.blog-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  transition: all 0.3s ease;
+  overflow: visible;
+}
+
+.blog-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+}
+
+/* Ensure blog section has proper layout */
+#blog {
+  min-height: auto;
+  overflow: visible;
+  position: relative;
+}
+
+#blog-posts {
+  min-height: 400px;
+  overflow: visible;
+}
+
+/* Fix for blog content */
+.blog-content * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+
+.blog-content h1, 
+.blog-content h2, 
+.blog-content h3 {
+  margin: 1em 0 0.5em;
+  font-weight: bold;
+}
+
+.blog-content p {
+  margin-bottom: 1em;
+}
+
+/* Ensure body allows proper scrolling */
+  body {
+  font-family: "Nunito", sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+/* Fix any potential container issues */
+     html {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
 
       body {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -277,8 +335,52 @@
      @keyframes spin {
      0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
-    }
+     }
+
+    .blog-content * {
+       all: revert; /* Reset inherited styles */
+       box-sizing: border-box;
+     }
     </style>
+
+    <!-- Add this CSS to fix any remaining styling issues -->
+<style>
+/* Enhanced modal styles */
+.fixed.inset-0 {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+/* Ensure modal content is readable */
+.prose h3 {
+  color: #1f2937 !important;
+  font-weight: 700 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.prose p {
+  margin-bottom: 1rem !important;
+  line-height: 1.7 !important;
+}
+
+/* Smooth scrolling for modal */
+.overflow-y-auto {
+  scroll-behavior: smooth;
+}
+
+/* Ensure backdrop is clickable */
+.fixed.inset-0.bg-black {
+  cursor: pointer;
+}
+
+.fixed.inset-0.bg-black > div {
+  cursor: default;
+}
+</style>
 
     <!-- Favicon Implementation -->
     <!-- Modern browsers -->
@@ -736,11 +838,129 @@
       Tips, strategies and inspiration for teaching math at home
     </p>
   </div>
-
+  
   <div id="blog-posts" class="grid md:grid-cols-3 gap-8">
-    <!-- Posts will appear here automatically -->
+    <!-- Loading state -->
+    <div id="blog-loading" class="col-span-3 text-center py-12">
+      <div class="loading-spinner"></div>
+      <span class="text-white ml-2">Loading posts...</span>
+    </div>
   </div>
 </section>
+
+<script>
+// Simple blog loader for Netlify
+async function loadBlogPosts() {
+  const container = document.getElementById('blog-posts');
+  const loading = document.getElementById('blog-loading');
+  
+  try {
+    // Call your Netlify function
+    const response = await fetch('/.netlify/functions/blog-posts');
+    
+    if (!response.ok) {
+      throw new Error('Failed to load posts');
+    }
+    
+    const data = await response.json();
+    
+    // Hide loading
+    loading.style.display = 'none';
+    
+    // Clear container
+    container.innerHTML = '';
+    
+    // Check if we have posts
+    if (!data.items || data.items.length === 0) {
+      container.innerHTML = `
+        <div class="col-span-3 text-center py-12">
+          <div class="glass-card rounded-xl p-8 max-w-md mx-auto">
+            <p class="text-white">No blog posts available yet.</p>
+          </div>
+        </div>
+      `;
+      return;
+    }
+    
+    // Create posts
+    data.items.forEach(post => {
+      // Get image if available
+      let imageUrl = '';
+      if (post.fields.featuredImage && data.includes && data.includes.Asset) {
+        const imgId = post.fields.featuredImage.sys.id;
+        const asset = data.includes.Asset.find(a => a.sys.id === imgId);
+        if (asset && asset.fields && asset.fields.file) {
+          imageUrl = asset.fields.file.url.startsWith('//') 
+            ? 'https:' + asset.fields.file.url 
+            : asset.fields.file.url;
+        }
+      }
+      
+      // Get text preview
+      let preview = 'No preview available';
+      if (post.fields.summary) {
+        preview = post.fields.summary;
+      } else if (post.fields.content && post.fields.content.content) {
+        const textContent = post.fields.content.content
+          .filter(item => item.nodeType === 'paragraph')
+          .map(para => para.content && para.content[0] ? para.content[0].value : '')
+          .join(' ');
+        preview = textContent.substring(0, 120) + '...';
+      }
+      
+      // Create post card
+      const article = document.createElement('article');
+      article.className = 'glass-card rounded-xl overflow-hidden blog-card';
+      
+      article.innerHTML = `
+        ${imageUrl ? `
+          <img src="${imageUrl}" 
+               alt="${post.fields.title || 'Blog post'}"
+               class="w-full h-48 object-cover"
+               loading="lazy">
+        ` : ''}
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-3 text-white">
+            ${post.fields.title || 'Untitled Post'}
+          </h3>
+          <p class="text-gray-300 mb-4">
+            ${preview}
+          </p>
+          <a href="/blog/${post.fields.slug || 'untitled'}" 
+             class="text-purple-300 hover:text-purple-100 font-medium">
+            Read More →
+          </a>
+        </div>
+      `;
+      
+      container.appendChild(article);
+    });
+    
+  } catch (error) {
+    console.error('Error:', error);
+    loading.style.display = 'none';
+    container.innerHTML = `
+      <div class="col-span-3 text-center py-12">
+        <div class="glass-card rounded-xl p-8 max-w-md mx-auto">
+          <p class="text-white mb-4">Couldn't load blog posts.</p>
+          <button onclick="loadBlogPosts()" 
+                  class="bg-purple-600 text-white px-4 py-2 rounded">
+            Try Again
+          </button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+// Load posts when page loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadBlogPosts);
+} else {
+  loadBlogPosts();
+}
+</script>
+
 
     <footer
       class="mt-20 py-8 text-center text-white opacity-80 bg-gray-900 bg-opacity-50"
@@ -1171,45 +1391,135 @@ function openBlogPost(postId) {
   fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/entries/${postId}?access_token=${ACCESS_TOKEN}&include=2`)
     .then(response => response.json())
     .then(post => {
-      // Create a modal or navigate to a detailed view
       const fields = post.fields || {};
       
-      // Simple modal implementation
+      // Create improved modal with proper scrolling
       const modal = document.createElement('div');
-      modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4';
+      modal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-start justify-center z-50 p-4 overflow-y-auto';
+      modal.style.paddingTop = '2rem';
+      modal.style.paddingBottom = '2rem';
+      
       modal.innerHTML = `
-        <div class="bg-white rounded-xl max-w-4xl max-h-[90vh] overflow-y-auto">
-          <div class="p-6">
-            <div class="flex justify-between items-start mb-4">
-              <h1 class="text-3xl font-bold text-gray-900">${fields.title || 'Untitled'}</h1>
-              <button onclick="this.closest('.fixed').remove()" class="text-gray-500 hover:text-gray-700 text-2xl">&times;</button>
-            </div>
-            <div class="prose max-w-none text-gray-700">
+        <div class="bg-white rounded-xl w-full max-w-4xl mx-auto my-8 shadow-2xl" style="min-height: auto;">
+          <!-- Header with close button -->
+          <div class="sticky top-0 bg-white border-b border-gray-200 p-6 rounded-t-xl flex justify-between items-start">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 pr-8 leading-tight">
+              ${fields.title || 'Untitled'}
+            </h1>
+            <button onclick="closeBlogModal()" 
+                    class="text-gray-400 hover:text-gray-600 text-3xl font-bold flex-shrink-0 w-8 h-8 flex items-center justify-center">
+              &times;
+            </button>
+          </div>
+          
+          <!-- Content area -->
+          <div class="p-6 pt-4">
+            <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
               ${fields.content ? 
                 (typeof fields.content === 'string' ? 
-                  fields.content.replace(/\n/g, '<br>') : 
-                  extractTextFromRichText(fields.content).replace(/\n/g, '<br>')
-                ) : 'No content available.'}
+                  formatContent(fields.content) : 
+                  formatContent(extractTextFromRichText(fields.content))
+                ) : '<p class="text-gray-500 italic">No content available for this post yet.</p>'}
+            </div>
+            
+            <!-- Close button at bottom -->
+            <div class="mt-8 pt-6 border-t border-gray-200 text-center">
+              <button onclick="closeBlogModal()" 
+                      class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors">
+                Close
+              </button>
             </div>
           </div>
         </div>
       `;
       
+      // Add modal to page
       document.body.appendChild(modal);
       
-      // Close modal when clicking outside
+      // Prevent body scroll when modal is open
+      document.body.style.overflow = 'hidden';
+      
+      // Store modal reference for closing
+      window.currentBlogModal = modal;
+      
+      // Close modal when clicking outside (on the backdrop)
       modal.addEventListener('click', (e) => {
         if (e.target === modal) {
-          modal.remove();
+          closeBlogModal();
         }
       });
+      
+      // Close modal with Escape key
+      const escapeHandler = (e) => {
+        if (e.key === 'Escape') {
+          closeBlogModal();
+          document.removeEventListener('keydown', escapeHandler);
+        }
+      };
+      document.addEventListener('keydown', escapeHandler);
     })
     .catch(error => {
       console.error('Error loading post details:', error);
-      alert('Sorry, this post could not be loaded.');
+      alert('Sorry, this post could not be loaded. Please try again later.');
     });
 }
-</script
+
+// Function to close blog modal
+function closeBlogModal() {
+  if (window.currentBlogModal) {
+    window.currentBlogModal.remove();
+    window.currentBlogModal = null;
+  }
+  // Restore body scroll
+  document.body.style.overflow = 'auto';
+}
+
+// Helper function to format content with proper paragraphs
+function formatContent(content) {
+  if (!content) return '';
+  
+  // Split content into paragraphs and format
+  return content
+    .split('\n\n')
+    .map(paragraph => {
+      const trimmed = paragraph.trim();
+      if (trimmed.length === 0) return '';
+      
+      // Handle headings (lines that end with : or are all caps)
+      if (trimmed.endsWith(':') || (trimmed === trimmed.toUpperCase() && trimmed.length < 50)) {
+        return `<h3 class="text-xl font-bold mt-6 mb-3 text-gray-900">${trimmed}</h3>`;
+      }
+      
+      // Regular paragraphs
+      return `<p class="mb-4">${trimmed.replace(/\n/g, '<br>')}</p>`;
+    })
+    .join('');
+}
+
+// Enhanced text extraction for rich text content
+function extractTextFromRichText(richText) {
+  if (!richText || !richText.content) return '';
+  
+  let text = '';
+  function traverse(node) {
+    if (node.nodeType === 'text') {
+      text += node.value;
+    } else if (node.nodeType === 'paragraph') {
+      if (text && !text.endsWith('\n\n')) {
+        text += '\n\n';
+      }
+      if (node.content) {
+        node.content.forEach(traverse);
+      }
+    } else if (node.content) {
+      node.content.forEach(traverse);
+    }
+  }
+  
+  richText.content.forEach(traverse);
+  return text;
+}
+</script>
 
   </body>
 </html>
