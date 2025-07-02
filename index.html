@@ -1387,262 +1387,256 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 
 
 <!-- Replace your entire blog script section with this simple version -->
-<script>
-  // Improved Contentful Configuration
-// Helper function to extract text from Contentful rich text
-// Helper function to extract text from Contentful rich text
-function extractTextFromRichText(richText) {
-  if (!richText || !richText.content) return '';
+<!-- Replace your entire blog section with this -->
+<section id="blog" class="max-w-6xl mx-auto px-4 py-12">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold text-white mb-4">Homeschool Math Blog</h2>
+    <p class="text-white opacity-90 text-lg">
+      Tips, strategies and inspiration for teaching math at home
+    </p>
+  </div>
   
-  let text = '';
-  function traverse(node) {
-    if (node.nodeType === 'text') {
-      text += node.value;
-    } else if (node.content) {
-      node.content.forEach(traverse);
-    }
+  <div id="blog-posts" class="grid md:grid-cols-3 gap-8">
+    <!-- Loading state -->
+    <div id="blog-loading" class="col-span-3 text-center py-12">
+      <div class="loading-spinner"></div>
+      <span class="text-white ml-2">Loading posts...</span>
+    </div>
+  </div>
+</section>
+
+<!-- Blog Modal - EXACTLY like your legal pages modal -->
+<div id="blog-modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+  <div class="fixed inset-0 flex items-center justify-center p-4">
+    <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] relative">
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center p-6 border-b border-gray-200">
+        <h2 id="blog-modal-title" class="text-2xl font-bold text-gray-800"></h2>
+        <button onclick="closeBlogModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold leading-none">
+          ×
+        </button>
+      </div>
+      
+      <!-- Modal Body - with proper scrolling INSIDE the modal -->
+      <div id="blog-modal-body" class="p-6 overflow-y-auto" style="max-height: 60vh;">
+        <!-- Content will be loaded here -->
+      </div>
+      
+      <!-- Modal Footer -->
+      <div class="p-6 border-t border-gray-200 bg-gray-50">
+        <button onclick="closeBlogModal()" 
+                class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors duration-200">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Blog modal functions - EXACTLY like your legal pages
+function showBlogModal(title, content, imageUrl) {
+  const modal = document.getElementById("blog-modal-overlay");
+  const modalTitle = document.getElementById("blog-modal-title");
+  const modalBody = document.getElementById("blog-modal-body");
+  
+  if (!modal || !modalTitle || !modalBody) {
+    console.error('Modal elements not found');
+    return;
   }
   
-  richText.content.forEach(traverse);
-  return text;
+  modalTitle.textContent = title;
+  
+  // Create content with proper styling - EXACTLY like your legal pages
+  let modalContent = '';
+  
+  if (imageUrl) {
+    modalContent += `
+      <div class="mb-6">
+        <img src="${imageUrl}" alt="${title}" class="w-full h-64 object-cover rounded-lg">
+      </div>
+    `;
+  }
+  
+  modalContent += `<div class="blog-content">${content}</div>`;
+  
+  modalBody.innerHTML = modalContent;
+  
+  // Add scrolling styles to the modal body - EXACTLY like your legal pages
+  modalBody.style.maxHeight = "60vh";
+  modalBody.style.overflowY = "auto";
+  modalBody.classList.add("pr-2");
+  
+  // Show modal - EXACTLY like your legal pages
+  modal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
 }
 
-// Improved Contentful Configuration
-const SPACE_ID = "gt8n4z9u155i";
-const ACCESS_TOKEN = "5pJ150DbrMTkua2vEatsNYRmcMmCC5t2CkcN6OmCfFM";
-const ENVIRONMENT = "master";
+function closeBlogModal() {
+  const modal = document.getElementById("blog-modal-overlay");
+  if (modal) {
+    modal.classList.add("hidden");
+    document.body.style.overflow = "auto";
+  }
+}
 
-// Show loading state
-document.getElementById('blog-posts').innerHTML = `
-  <div class="col-span-3 text-center py-12">
-    <div class="inline-block loading-spinner"></div>
-    <span class="text-white">Loading posts...</span>
-  </div>
-`;
+// Close modal with Escape key - EXACTLY like your legal pages
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closeBlogModal();
+  }
+});
 
-// Fetch and display blog posts
-fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/entries?access_token=${ACCESS_TOKEN}&content_type=blogPost&order=-sys.createdAt&include=2`)
-  .then(response => response.json())
-  .then(data => {
-    const blogContainer = document.getElementById('blog-posts');
-    blogContainer.innerHTML = ''; // Clear loading
+// Fixed blog loader
+async function loadBlogPosts() {
+  const container = document.getElementById('blog-posts');
+  const loading = document.getElementById('blog-loading');
+  
+  if (!container) {
+    console.error('Blog container not found');
+    return;
+  }
+  
+  try {
+    const response = await fetch('/.netlify/functions/blog-posts');
     
-    // Check if we have posts
+    if (!response.ok) {
+      throw new Error('Failed to load posts');
+    }
+    
+    const data = await response.json();
+    
+    // Hide loading
+    if (loading) {
+      loading.style.display = 'none';
+    }
+    
+    // Clear container
+    container.innerHTML = '';
+    
     if (!data.items || data.items.length === 0) {
-      blogContainer.innerHTML = `
-        <div class="col-span-3 text-center text-white py-12">
-          <p>No blog posts available yet. Check back soon!</p>
+      container.innerHTML = `
+        <div class="col-span-3 text-center py-12">
+          <div class="glass-card rounded-xl p-8 max-w-md mx-auto">
+            <h3 class="text-white text-lg font-semibold mb-2">No Posts Available</h3>
+            <p class="text-gray-300">Check back soon for new homeschool math tips!</p>
+          </div>
         </div>
       `;
       return;
     }
     
-    // Display each post
+    // Create posts
     data.items.forEach(post => {
-      const fields = post.fields || {};
-      
-      // Get image if it exists
+      // Get image if available
       let imageUrl = '';
-      if (fields.featuredImage && data.includes && data.includes.Asset) {
-        const imageId = fields.featuredImage.sys.id;
-        const asset = data.includes.Asset.find(a => a.sys.id === imageId);
+      if (post.fields.featuredImage && data.includes && data.includes.Asset) {
+        const imgId = post.fields.featuredImage.sys.id;
+        const asset = data.includes.Asset.find(a => a.sys.id === imgId);
         if (asset && asset.fields && asset.fields.file) {
-          imageUrl = 'https:' + asset.fields.file.url;
+          imageUrl = asset.fields.file.url.startsWith('//') 
+            ? 'https:' + asset.fields.file.url 
+            : asset.fields.file.url;
         }
       }
       
-      // Check if post has meaningful content (handle different content types)
-      const hasContent = fields.content && 
-        (typeof fields.content === 'string' ? fields.content.trim().length > 0 : 
-         fields.content.content && fields.content.content.length > 0);
-      const hasTitle = fields.title && typeof fields.title === 'string' && fields.title.trim().length > 0;
-      const hasSummary = fields.summary && typeof fields.summary === 'string' && fields.summary.trim().length > 0;
-      
-      // Determine if post is ready to be clickable
-      const isComplete = hasTitle && (hasContent || hasSummary);
-      
-      // Create display text (handle rich text content)
-      const title = hasTitle ? fields.title : 'Untitled Post';
-      
-      // Extract text from content (handle both string and rich text)
-      let contentText = '';
-      if (fields.content) {
-        if (typeof fields.content === 'string') {
-          contentText = fields.content;
-        } else if (fields.content.content) {
-          // Extract text from rich text structure
-          contentText = extractTextFromRichText(fields.content);
+      // Get content for modal
+      let fullContent = '<p>Content not available</p>';
+      if (post.fields.content) {
+        if (typeof post.fields.content === 'string') {
+          fullContent = post.fields.content;
+        } else if (post.fields.content.content) {
+          // Convert rich text to HTML
+          fullContent = post.fields.content.content
+            .map(node => {
+              if (node.nodeType === 'paragraph') {
+                const text = node.content?.map(c => c.value || '').join('') || '';
+                return `<p class="mb-4">${text}</p>`;
+              }
+              return '';
+            })
+            .join('');
         }
       }
       
-      const summary = hasSummary ? fields.summary : 
-                     contentText ? contentText.substring(0, 150) + '...' : 
-                     'Coming soon...';
+      // Get preview text
+      let preview = 'No preview available';
+      if (post.fields.summary) {
+        preview = post.fields.summary;
+      } else {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = fullContent;
+        const textContent = tempDiv.textContent || tempDiv.innerText || '';
+        preview = textContent.substring(0, 120) + (textContent.length > 120 ? '...' : '');
+      }
       
-      // Create blog card with conditional interactivity
-      const cardHTML = `
-        <article class="glass-card rounded-xl overflow-hidden ${isComplete ? 'cursor-pointer hover:transform hover:scale-105 transition-transform duration-200' : 'opacity-75'}" 
-                 ${isComplete ? `onclick="openBlogPost('${post.sys.id}')"` : ''}>
-          ${imageUrl ? `<img src="${imageUrl}" alt="${title}" class="w-full h-48 object-cover">` : ''}
-          <div class="p-6">
-            <div class="flex justify-between items-start mb-2">
-              <h3 class="text-xl font-bold ${isComplete ? 'text-white' : 'text-gray-400'}">${title}</h3>
-              ${!isComplete ? '<span class="text-xs bg-yellow-600 text-white px-2 py-1 rounded">Draft</span>' : ''}
-            </div>
-            <p class="text-gray-600">${summary}</p>
-            ${isComplete ? '<p class="text-blue-400 text-sm mt-3">Click to read more →</p>' : ''}
-          </div>
-        </article>
-      `;
+      const article = document.createElement('article');
+      article.className = 'glass-card rounded-xl overflow-hidden blog-card cursor-pointer';
       
-      blogContainer.innerHTML += cardHTML;
-    });
-  })
-  .catch(error => {
-    console.error("Error loading blog posts:", error);
-    document.getElementById('blog-posts').innerHTML = `
-      <div class="col-span-3 text-center text-white py-12">
-        <p>Blog posts couldn't be loaded right now.</p>
-        <p class="text-sm text-gray-400 mt-2">Please check your internet connection and try again.</p>
-      </div>
-    `;
-  });
-
-// Function to handle blog post clicks
-function openBlogPost(postId) {
-  // Fetch the specific post with full content
-  fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/entries/${postId}?access_token=${ACCESS_TOKEN}&include=2`)
-    .then(response => response.json())
-    .then(post => {
-      const fields = post.fields || {};
-      
-      // Create improved modal with proper scrolling
-      const modal = document.createElement('div');
-      modal.className = 'fixed inset-0 bg-black bg-opacity-75 flex items-start justify-center z-50 p-4 overflow-y-auto';
-      modal.style.paddingTop = '2rem';
-      modal.style.paddingBottom = '2rem';
-      
-      modal.innerHTML = `
-        <div class="bg-white rounded-xl w-full max-w-4xl mx-auto my-8 shadow-2xl" style="min-height: auto;">
-          <!-- Header with close button -->
-          <div class="sticky top-0 bg-white border-b border-gray-200 p-6 rounded-t-xl flex justify-between items-start">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-900 pr-8 leading-tight">
-              ${fields.title || 'Untitled'}
-            </h1>
-            <button onclick="closeBlogModal()" 
-                    class="text-gray-400 hover:text-gray-600 text-3xl font-bold flex-shrink-0 w-8 h-8 flex items-center justify-center">
-              &times;
-            </button>
-          </div>
-          
-          <!-- Content area -->
-          <div class="p-6 pt-4">
-            <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed">
-              ${fields.content ? 
-                (typeof fields.content === 'string' ? 
-                  formatContent(fields.content) : 
-                  formatContent(extractTextFromRichText(fields.content))
-                ) : '<p class="text-gray-500 italic">No content available for this post yet.</p>'}
-            </div>
-            
-            <!-- Close button at bottom -->
-            <div class="mt-8 pt-6 border-t border-gray-200 text-center">
-              <button onclick="closeBlogModal()" 
-                      class="bg-purple-600 text-white px-6 py-3 rounded-lg hover:bg-purple-700 transition-colors">
-                Close
-              </button>
-            </div>
+      article.innerHTML = `
+        ${imageUrl ? `
+          <img src="${imageUrl}" 
+               alt="${post.fields.title || 'Blog post'}"
+               class="w-full h-48 object-cover"
+               loading="lazy">
+        ` : ''}
+        <div class="p-6">
+          <h3 class="text-xl font-bold mb-3 text-white">
+            ${post.fields.title || 'Untitled Post'}
+          </h3>
+          <p class="text-gray-300 mb-4 leading-relaxed">
+            ${preview}
+          </p>
+          <div class="flex items-center text-purple-300 hover:text-purple-100 font-medium group">
+            Read More 
+            <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:translate-x-1" 
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
           </div>
         </div>
       `;
       
-      // Add modal to page
-      document.body.appendChild(modal);
-      
-      // Prevent body scroll when modal is open
-      document.body.style.overflow = 'hidden';
-      
-      // Store modal reference for closing
-      window.currentBlogModal = modal;
-      
-      // Close modal when clicking outside (on the backdrop)
-      modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-          closeBlogModal();
-        }
+      // Add click event to open modal
+      article.addEventListener('click', () => {
+        showBlogModal(
+          post.fields.title || 'Untitled Post',
+          fullContent,
+          imageUrl
+        );
       });
       
-      // Close modal with Escape key
-      const escapeHandler = (e) => {
-        if (e.key === 'Escape') {
-          closeBlogModal();
-          document.removeEventListener('keydown', escapeHandler);
-        }
-      };
-      document.addEventListener('keydown', escapeHandler);
-    })
-    .catch(error => {
-      console.error('Error loading post details:', error);
-      alert('Sorry, this post could not be loaded. Please try again later.');
+      container.appendChild(article);
     });
-}
-
-// Function to close blog modal
-function closeBlogModal() {
-  if (window.currentBlogModal) {
-    window.currentBlogModal.remove();
-    window.currentBlogModal = null;
-  }
-  // Restore body scroll
-  document.body.style.overflow = 'auto';
-}
-
-// Helper function to format content with proper paragraphs
-function formatContent(content) {
-  if (!content) return '';
-  
-  // Split content into paragraphs and format
-  return content
-    .split('\n\n')
-    .map(paragraph => {
-      const trimmed = paragraph.trim();
-      if (trimmed.length === 0) return '';
-      
-      // Handle headings (lines that end with : or are all caps)
-      if (trimmed.endsWith(':') || (trimmed === trimmed.toUpperCase() && trimmed.length < 50)) {
-        return `<h3 class="text-xl font-bold mt-6 mb-3 text-gray-900">${trimmed}</h3>`;
-      }
-      
-      // Regular paragraphs
-      return `<p class="mb-4">${trimmed.replace(/\n/g, '<br>')}</p>`;
-    })
-    .join('');
-}
-
-// Enhanced text extraction for rich text content
-function extractTextFromRichText(richText) {
-  if (!richText || !richText.content) return '';
-  
-  let text = '';
-  function traverse(node) {
-    if (node.nodeType === 'text') {
-      text += node.value;
-    } else if (node.nodeType === 'paragraph') {
-      if (text && !text.endsWith('\n\n')) {
-        text += '\n\n';
-      }
-      if (node.content) {
-        node.content.forEach(traverse);
-      }
-    } else if (node.content) {
-      node.content.forEach(traverse);
+    
+  } catch (error) {
+    console.error('Error:', error);
+    if (loading) {
+      loading.style.display = 'none';
     }
+    container.innerHTML = `
+      <div class="col-span-3 text-center py-12">
+        <div class="glass-card rounded-xl p-8 max-w-md mx-auto">
+          <h3 class="text-white text-lg font-semibold mb-2">Unable to Load Posts</h3>
+          <p class="text-gray-300 mb-6">Something went wrong while loading the blog posts.</p>
+          <button onclick="loadBlogPosts()" 
+                  class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors duration-200">
+            Try Again
+          </button>
+        </div>
+      </div>
+    `;
   }
-  
-  richText.content.forEach(traverse);
-  return text;
+}
+
+// Load posts when page loads
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadBlogPosts);
+} else {
+  loadBlogPosts();
 }
 </script>
+
 
   </body>
 </html>
