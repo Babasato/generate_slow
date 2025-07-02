@@ -1058,43 +1058,47 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   `;
 
   // Fetch blog posts from Contentful
-  fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/entries?access_token=${ACCESS_TOKEN}&content_type=blogPost&order=-sys.createdAt`)
-    .then(response => response.json())
-    .then(data => {
-      const blogContainer = document.getElementById('blog-posts');
-      blogContainer.innerHTML = ''; // Clear loading state
-      
-      data.items.forEach(post => {
-        // Get image URL if available
-        let imageUrl = '';
-        if (post.fields.featuredImage) {
-          const imageId = post.fields.featuredImage.sys.id;
-          const asset = data.includes.Asset.find(a => a.sys.id === imageId);
-          imageUrl = 'https:' + asset.fields.file.url;
-        }
+  // Replace the blog fetching script with this version
+fetch(`https://cdn.contentful.com/spaces/${SPACE_ID}/environments/${ENVIRONMENT}/entries?access_token=${ACCESS_TOKEN}&content_type=blogPost&order=-sys.createdAt`)
+  .then(response => response.json())
+  .then(data => {
+    const blogContainer = document.getElementById('blog-posts');
+    blogContainer.innerHTML = ''; // Clear loading state
+    
+    data.items.forEach(post => {
+      // Get image URL if available
+      let imageUrl = '';
+      if (post.fields.featuredImage) {
+        const imageId = post.fields.featuredImage.sys.id;
+        const asset = data.includes.Asset.find(a => a.sys.id === imageId);
+        imageUrl = 'https:' + asset.fields.file.url;
+      }
 
-        // Create blog card HTML
-        blogContainer.innerHTML += `
-          <article class="glass-card rounded-xl overflow-hidden blog-card">
-            ${imageUrl ? `<img src="${imageUrl}" alt="${post.fields.title}" class="w-full h-48 object-cover">` : ''}
-            <div class="p-6">
-              <h3 class="text-xl font-bold mb-2">${post.fields.title}</h3>
-              <p class="text-gray-600 mb-4">${post.fields.summary || ''}</p>
-              <a href="/blog/${post.fields.slug}" class="text-purple-600 font-medium">Read More →</a>
+      // Create blog card HTML WITHOUT links
+      blogContainer.innerHTML += `
+        <article class="glass-card rounded-xl overflow-hidden blog-card">
+          ${imageUrl ? `<img src="${imageUrl}" alt="${post.fields.title}" class="w-full h-48 object-cover">` : ''}
+          <div class="p-6">
+            <h3 class="text-xl font-bold mb-2">${post.fields.title}</h3>
+            <p class="text-gray-600 mb-4">${post.fields.summary || ''}</p>
+            <div class="text-sm text-gray-500">
+              <i class="fas fa-calendar mr-2"></i>
+              ${new Date(post.sys.createdAt).toLocaleDateString()}
             </div>
-          </article>
-        `;
-      });
-    })
-    .catch(error => {
-      console.error("Error loading blog posts:", error);
-      document.getElementById('blog-posts').innerHTML = `
-        <div class="col-span-3 text-center text-white py-12">
-          <p>Blog posts couldn't be loaded. Please try again later.</p>
-        </div>
+          </div>
+        </article>
       `;
     });
-</script>
+  })
+  .catch(error => {
+    console.error("Error loading blog posts:", error);
+    document.getElementById('blog-posts').innerHTML = `
+      <div class="col-span-3 text-center text-white py-12">
+        <p>Blog posts couldn't be loaded. Please try again later.</p>
+      </div>
+    `;
+  });
+  </script>
 
   </body>
 </html>
