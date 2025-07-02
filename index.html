@@ -1386,108 +1386,9 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 </script>
 
 
-<!-- Replace your entire blog script section with this simple version -->
-<!-- Replace your entire blog section with this -->
-<section id="blog" class="max-w-6xl mx-auto px-4 py-12">
-  <div class="text-center mb-12">
-    <h2 class="text-3xl font-bold text-white mb-4">Homeschool Math Blog</h2>
-    <p class="text-white opacity-90 text-lg">
-      Tips, strategies and inspiration for teaching math at home
-    </p>
-  </div>
-  
-  <div id="blog-posts" class="grid md:grid-cols-3 gap-8">
-    <!-- Loading state -->
-    <div id="blog-loading" class="col-span-3 text-center py-12">
-      <div class="loading-spinner"></div>
-      <span class="text-white ml-2">Loading posts...</span>
-    </div>
-  </div>
-</section>
-
-<!-- Blog Modal - EXACTLY like your legal pages modal -->
-<div id="blog-modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
-  <div class="fixed inset-0 flex items-center justify-center p-4">
-    <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] relative">
-      <!-- Modal Header -->
-      <div class="flex justify-between items-center p-6 border-b border-gray-200">
-        <h2 id="blog-modal-title" class="text-2xl font-bold text-gray-800"></h2>
-        <button onclick="closeBlogModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold leading-none">
-          ×
-        </button>
-      </div>
-      
-      <!-- Modal Body - with proper scrolling INSIDE the modal -->
-      <div id="blog-modal-body" class="p-6 overflow-y-auto" style="max-height: 60vh;">
-        <!-- Content will be loaded here -->
-      </div>
-      
-      <!-- Modal Footer -->
-      <div class="p-6 border-t border-gray-200 bg-gray-50">
-        <button onclick="closeBlogModal()" 
-                class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors duration-200">
-          Close
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
+// Replace the entire blog script with this improved version
 <script>
-// Blog modal functions - EXACTLY like your legal pages
-function showBlogModal(title, content, imageUrl) {
-  const modal = document.getElementById("blog-modal-overlay");
-  const modalTitle = document.getElementById("blog-modal-title");
-  const modalBody = document.getElementById("blog-modal-body");
-  
-  if (!modal || !modalTitle || !modalBody) {
-    console.error('Modal elements not found');
-    return;
-  }
-  
-  modalTitle.textContent = title;
-  
-  // Create content with proper styling - EXACTLY like your legal pages
-  let modalContent = '';
-  
-  if (imageUrl) {
-    modalContent += `
-      <div class="mb-6">
-        <img src="${imageUrl}" alt="${title}" class="w-full h-64 object-cover rounded-lg">
-      </div>
-    `;
-  }
-  
-  modalContent += `<div class="blog-content">${content}</div>`;
-  
-  modalBody.innerHTML = modalContent;
-  
-  // Add scrolling styles to the modal body - EXACTLY like your legal pages
-  modalBody.style.maxHeight = "60vh";
-  modalBody.style.overflowY = "auto";
-  modalBody.classList.add("pr-2");
-  
-  // Show modal - EXACTLY like your legal pages
-  modal.classList.remove("hidden");
-  document.body.style.overflow = "hidden";
-}
-
-function closeBlogModal() {
-  const modal = document.getElementById("blog-modal-overlay");
-  if (modal) {
-    modal.classList.add("hidden");
-    document.body.style.overflow = "auto";
-  }
-}
-
-// Close modal with Escape key - EXACTLY like your legal pages
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
-    closeBlogModal();
-  }
-});
-
-// Fixed blog loader
+// Enhanced blog loader with limits and better UX
 async function loadBlogPosts() {
   const container = document.getElementById('blog-posts');
   const loading = document.getElementById('blog-loading');
@@ -1498,6 +1399,7 @@ async function loadBlogPosts() {
   }
   
   try {
+    // Limit to 6 most recent posts
     const response = await fetch('/.netlify/functions/blog-posts');
     
     if (!response.ok) {
@@ -1506,18 +1408,15 @@ async function loadBlogPosts() {
     
     const data = await response.json();
     
-    // Hide loading
+    // Hide loading quickly
     if (loading) {
-      loading.style.display = 'none';
+      loading.remove(); // Remove instead of hide to fix footer issue
     }
-    
-    // Clear container
-    container.innerHTML = '';
     
     if (!data.items || data.items.length === 0) {
       container.innerHTML = `
-        <div class="col-span-3 text-center py-12">
-          <div class="glass-card rounded-xl p-8 max-w-md mx-auto">
+        <div class="col-span-3 text-center py-8">
+          <div class="glass-card rounded-xl p-6 max-w-md mx-auto">
             <h3 class="text-white text-lg font-semibold mb-2">No Posts Available</h3>
             <p class="text-gray-300">Check back soon for new homeschool math tips!</p>
           </div>
@@ -1526,8 +1425,11 @@ async function loadBlogPosts() {
       return;
     }
     
-    // Create posts
-    data.items.forEach(post => {
+    // Show only first 6 posts (or 3 for mobile-friendly)
+    const postsToShow = data.items.slice(0, 6);
+    
+    // Create posts that open in new pages
+    postsToShow.forEach(post => {
       // Get image if available
       let imageUrl = '';
       if (post.fields.featuredImage && data.includes && data.includes.Asset) {
@@ -1540,93 +1442,211 @@ async function loadBlogPosts() {
         }
       }
       
-      // Get content for modal
-      let fullContent = '<p>Content not available</p>';
-      if (post.fields.content) {
-        if (typeof post.fields.content === 'string') {
-          fullContent = post.fields.content;
-        } else if (post.fields.content.content) {
-          // Convert rich text to HTML
-          fullContent = post.fields.content.content
-            .map(node => {
-              if (node.nodeType === 'paragraph') {
-                const text = node.content?.map(c => c.value || '').join('') || '';
-                return `<p class="mb-4">${text}</p>`;
-              }
-              return '';
-            })
-            .join('');
-        }
-      }
-      
       // Get preview text
       let preview = 'No preview available';
       if (post.fields.summary) {
         preview = post.fields.summary;
-      } else {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = fullContent;
-        const textContent = tempDiv.textContent || tempDiv.innerText || '';
-        preview = textContent.substring(0, 120) + (textContent.length > 120 ? '...' : '');
+      } else if (post.fields.content) {
+        let textContent = '';
+        if (typeof post.fields.content === 'string') {
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = post.fields.content;
+          textContent = tempDiv.textContent || tempDiv.innerText || '';
+        } else if (post.fields.content.content) {
+          textContent = post.fields.content.content
+            .filter(node => node.nodeType === 'paragraph')
+            .map(para => para.content?.map(c => c.value || '').join('') || '')
+            .join(' ');
+        }
+        preview = textContent.substring(0, 150) + (textContent.length > 150 ? '...' : '');
       }
       
+      // Get publish date
+      const publishDate = new Date(post.sys.createdAt).toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+      
       const article = document.createElement('article');
-      article.className = 'glass-card rounded-xl overflow-hidden blog-card cursor-pointer';
+      article.className = 'glass-card rounded-xl overflow-hidden blog-card cursor-pointer transform transition-all duration-300 hover:scale-105';
       
       article.innerHTML = `
         ${imageUrl ? `
-          <img src="${imageUrl}" 
-               alt="${post.fields.title || 'Blog post'}"
-               class="w-full h-48 object-cover"
-               loading="lazy">
-        ` : ''}
+          <div class="relative overflow-hidden">
+            <img src="${imageUrl}" 
+                 alt="${post.fields.title || 'Blog post'}"
+                 class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+                 loading="lazy">
+            <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
+              ${publishDate}
+            </div>
+          </div>
+        ` : `
+          <div class="h-48 bg-gradient-to-br from-purple-400 to-blue-500 flex items-center justify-center">
+            <div class="text-center text-white">
+              <svg class="w-12 h-12 mx-auto mb-2 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253z"></path>
+              </svg>
+              <p class="text-sm">${publishDate}</p>
+            </div>
+          </div>
+        `}
         <div class="p-6">
-          <h3 class="text-xl font-bold mb-3 text-white">
+          <h3 class="text-xl font-bold mb-3 text-white line-clamp-2">
             ${post.fields.title || 'Untitled Post'}
           </h3>
-          <p class="text-gray-300 mb-4 leading-relaxed">
+          <p class="text-gray-300 mb-4 leading-relaxed text-sm line-clamp-3">
             ${preview}
           </p>
-          <div class="flex items-center text-purple-300 hover:text-purple-100 font-medium group">
-            Read More 
-            <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:translate-x-1" 
-                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
+          <div class="flex items-center justify-between">
+            <div class="flex items-center text-purple-300 hover:text-purple-100 font-medium group">
+              Read Full Post
+              <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:translate-x-1" 
+                   fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </div>
+            <div class="text-xs text-gray-400">
+              <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
+              </svg>
+              Opens in new tab
+            </div>
           </div>
         </div>
       `;
       
-      // Add click event to open modal
+      // Add click event to open in new page
       article.addEventListener('click', () => {
-        showBlogModal(
-          post.fields.title || 'Untitled Post',
-          fullContent,
-          imageUrl
-        );
+        // Create a new page URL with the post data
+        const postUrl = createBlogPostPage(post, imageUrl, data.includes);
+        window.open(postUrl, '_blank');
       });
       
       container.appendChild(article);
     });
     
+    // Add "View All Posts" button if there are more posts
+    if (data.items.length > 6) {
+      const viewAllDiv = document.createElement('div');
+      viewAllDiv.className = 'col-span-3 text-center mt-8';
+      viewAllDiv.innerHTML = `
+        <button onclick="showAllPosts()" 
+                class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 backdrop-blur-sm border border-white border-opacity-30">
+          View All ${data.items.length} Posts
+          <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+          </svg>
+        </button>
+      `;
+      container.appendChild(viewAllDiv);
+    }
+    
   } catch (error) {
     console.error('Error:', error);
     if (loading) {
-      loading.style.display = 'none';
+      loading.remove();
     }
     container.innerHTML = `
-      <div class="col-span-3 text-center py-12">
-        <div class="glass-card rounded-xl p-8 max-w-md mx-auto">
+      <div class="col-span-3 text-center py-8">
+        <div class="glass-card rounded-xl p-6 max-w-md mx-auto">
+          <div class="text-red-400 mb-4">
+            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
           <h3 class="text-white text-lg font-semibold mb-2">Unable to Load Posts</h3>
-          <p class="text-gray-300 mb-6">Something went wrong while loading the blog posts.</p>
+          <p class="text-gray-300 mb-4 text-sm">Please check your internet connection and try again.</p>
           <button onclick="loadBlogPosts()" 
-                  class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors duration-200">
+                  class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm transition-colors duration-200">
             Try Again
           </button>
         </div>
       </div>
     `;
   }
+}
+
+// Function to create a blog post page
+function createBlogPostPage(post, imageUrl, includes) {
+  // Get full content
+  let fullContent = '<p>Content not available</p>';
+  if (post.fields.content) {
+    if (typeof post.fields.content === 'string') {
+      fullContent = post.fields.content;
+    } else if (post.fields.content.content) {
+      fullContent = post.fields.content.content
+        .map(node => {
+          if (node.nodeType === 'paragraph') {
+            const text = node.content?.map(c => c.value || '').join('') || '';
+            return `<p style="margin-bottom: 1em; line-height: 1.6;">${text}</p>`;
+          } else if (node.nodeType === 'heading-1') {
+            const text = node.content?.map(c => c.value || '').join('') || '';
+            return `<h1 style="font-size: 2em; font-weight: bold; margin: 1.5em 0 0.5em; color: #1f2937;">${text}</h1>`;
+          } else if (node.nodeType === 'heading-2') {
+            const text = node.content?.map(c => c.value || '').join('') || '';
+            return `<h2 style="font-size: 1.5em; font-weight: bold; margin: 1.5em 0 0.5em; color: #1f2937;">${text}</h2>`;
+          }
+          return '';
+        })
+        .join('');
+    }
+  }
+  
+  const publishDate = new Date(post.sys.createdAt).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
+  
+  // Create HTML for the new page
+  const html = `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>${post.fields.title || 'Blog Post'} - Homeschool Math</title>
+      <script src="https://cdn.tailwindcss.com"></script>
+      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+      <style>
+        body { font-family: 'Nunito', sans-serif; }
+        .blog-content { line-height: 1.7; }
+        .blog-content h1, .blog-content h2, .blog-content h3 { margin: 1.5em 0 0.5em; font-weight: 600; }
+        .blog-content p { margin-bottom: 1em; }
+      </style>
+    </head>
+    <body class="bg-gray-50">
+      <div class="max-w-4xl mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+          ${imageUrl ? `<img src="${imageUrl}" alt="${post.fields.title}" class="w-full h-64 object-cover">` : ''}
+          <div class="p-8">
+            <div class="mb-6">
+              <h1 class="text-3xl font-bold text-gray-900 mb-2">${post.fields.title || 'Untitled Post'}</h1>
+              <p class="text-gray-600">Published on ${publishDate}</p>
+            </div>
+            <div class="blog-content text-gray-800">
+              ${fullContent}
+            </div>
+            <div class="mt-8 pt-6 border-t border-gray-200">
+              <button onclick="window.close()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg mr-4">
+                Close
+              </button>
+              <button onclick="window.history.back()" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg">
+                Go Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+  
+  // Create blob URL
+  const blob = new Blob([html], { type: 'text/html' });
+  return URL.createObjectURL(blob);
 }
 
 // Load posts when page loads
@@ -1636,6 +1656,7 @@ if (document.readyState === 'loading') {
   loadBlogPosts();
 }
 </script>
+
 
 
   </body>
