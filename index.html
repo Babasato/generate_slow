@@ -84,122 +84,124 @@
       rel="stylesheet"
     />
     <style>
-      body {
-        font-family: "Nunito", sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-      }
-      .fade-in {
-        animation: fadeIn 1s ease-in-out;
-      }
-      .fade-in-up {
-        animation: fadeInUp 1s ease-out;
-      }
-      @keyframes fadeIn {
-        0% {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      @keyframes fadeInUp {
-        0% {
-          opacity: 0;
-          transform: translateY(30px);
-        }
-        100% {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-      .btn-hover {
-        transition: all 0.3s ease;
-      }
-      .btn-hover:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-      }
-      .resource-card {
-        transition: all 0.3s ease;
-        cursor: pointer;
-      }
-      .resource-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-      }
-      .resource-card.active {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
-        transform: translateY(-3px);
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
-      }
-      .loading-spinner {
-        border: 2px solid transparent;
-        border-top: 2px solid white;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        animation: spin 1s linear infinite;
-        display: inline-block;
-        margin-right: 8px;
-      }
-      @keyframes spin {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
-      }
-      .feature-highlight {
-        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        font-weight: 700;
-      }
-      .mobile-menu {
-        transition: all 0.3s ease;
-        max-height: 0;
-        overflow: hidden;
-      }
-      .mobile-menu.open {
-        max-height: 500px;
-        padding: 1rem 0;
-      }
-      .blog-card {
-        transition: all 0.3s ease;
-      }
-      .blog-card:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-      }
-      
-      .standards-badge {
-        background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
-        color: white;
-        font-size: 0.7rem;
-        padding: 2px 6px;
-        border-radius: 4px;
-        font-weight: 600;
-      }
-      .cookie-banner {
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: rgba(0, 0, 0, 0.9);
-        color: white;
-        padding: 1rem;
-        z-index: 1000;
-      }
-    </style>
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
-    <style>
-      /* Remove the duplicate .glass-card definition and replace with this unified version */
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: 80px; /* Add padding for fixed header */
+}
+
+/* Fix sticky header */
+header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transform: translateY(0) !important;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button styles */
+.btn-hover {
+  transition: all 0.3s ease;
+}
+
+.btn-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.download-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.download-btn:hover:before {
+  left: 100%;
+}
+
+/* Card styles */
 .glass-card {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -207,7 +209,32 @@
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
 }
 
-/* Specific styling for blog cards */
+.resource-card {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.resource-card.active {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.icon-wrapper {
+  transition: transform 0.3s ease;
+}
+
+.resource-card:hover .icon-wrapper {
+  transform: scale(1.1);
+}
+
+/* Blog specific styles */
 .blog-card {
   background: rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(10px);
@@ -215,6 +242,7 @@
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   transition: all 0.3s ease;
   overflow: visible;
+  cursor: pointer;
 }
 
 .blog-card:hover {
@@ -222,7 +250,6 @@
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
 }
 
-/* Ensure blog section has proper layout */
 #blog {
   min-height: auto;
   overflow: visible;
@@ -234,117 +261,99 @@
   overflow: visible;
 }
 
-/* Fix for blog content */
-.blog-content * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  line-height: 1.6;
+/* Blog modal content styling */
+.blog-content {
+  line-height: 1.7;
+  color: #374151;
 }
 
-.blog-content h1, 
-.blog-content h2, 
-.blog-content h3 {
-  margin: 1em 0 0.5em;
-  font-weight: bold;
+.blog-content h1, .blog-content h2, .blog-content h3 {
+  color: #1f2937 !important;
+  font-weight: 600 !important;
+  margin: 1.5em 0 0.5em 0 !important;
 }
+
+.blog-content h1 { font-size: 1.875rem; }
+.blog-content h2 { font-size: 1.5rem; }
+.blog-content h3 { font-size: 1.25rem; }
 
 .blog-content p {
-  margin-bottom: 1em;
+  margin-bottom: 1em !important;
+  line-height: 1.7 !important;
 }
 
-/* Ensure body allows proper scrolling */
-  body {
-  font-family: "Nunito", sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
+.blog-content ul, .blog-content ol {
+  margin: 1em 0;
+  padding-left: 1.5em;
 }
 
-/* Fix any potential container issues */
-     html {
-  overflow-x: hidden;
-  overflow-y: auto;
-  scroll-behavior: smooth;
+.blog-content li {
+  margin-bottom: 0.5em;
 }
 
-      body {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-      }
+/* Loading spinner */
+.loading-spinner {
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
 
-      .download-btn {
-        transition: all 0.3s ease;
-        position: relative;
-        overflow: hidden;
-      }
+/* Feature highlight */
+.feature-highlight {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
 
-      .download-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-      }
+/* Mobile menu */
+.mobile-menu {
+  transition: all 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
+}
 
-      .download-btn:before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(
-          90deg,
-          transparent,
-          rgba(255, 255, 255, 0.2),
-          transparent
-        );
-        transition: left 0.5s;
-      }
+.mobile-menu.open {
+  max-height: 500px;
+  padding: 1rem 0;
+}
 
-      .download-btn:hover:before {
-        left: 100%;
-      }
+/* Standards badge */
+.standards-badge {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
 
-      .resource-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
+/* Cookie banner */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 1rem;
+  z-index: 1000;
+}
 
-      .resource-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-      }
+/* Fix scroll button positioning */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+}
 
-      .icon-wrapper {
-        transition: transform 0.3s ease;
-      }
-
-      .resource-card:hover .icon-wrapper {
-        transform: scale(1.1);
-      }
-
-      .loading-spinner {
-        border: 2px solid transparent;
-        border-top: 2px solid white;
-        border-radius: 50%;
-        width: 20px;
-        height: 20px;
-        animation: spin 1s linear infinite;
-        display: inline-block;
-        margin-right: 8px;
-      }
-     @keyframes spin {
-     0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-     }
-
-    .blog-content * {
-       all: revert; /* Reset inherited styles */
-       box-sizing: border-box;
-     }
-    </style>
-
-    <!-- Add this CSS to fix any remaining styling issues -->
-<style>
 /* Enhanced modal styles */
 .fixed.inset-0 {
   position: fixed !important;
@@ -381,6 +390,7 @@
   cursor: default;
 }
 </style>
+
 
     <!-- Favicon Implementation -->
     <!-- Modern browsers -->
@@ -848,14 +858,84 @@
   </div>
 </section>
 
+<!-- Blog Post Modal (matching your beautiful modal style) -->
+<div id="blog-modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+  <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col">
+    <!-- Modal Header -->
+    <div class="flex justify-between items-center p-6 border-b border-gray-200">
+      <h2 id="blog-modal-title" class="text-2xl font-bold text-gray-800"></h2>
+      <button onclick="closeBlogModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">
+        ×
+      </button>
+    </div>
+    
+    <!-- Modal Body with proper scrolling -->
+    <div id="blog-modal-body" class="flex-1 p-6 overflow-y-auto">
+      <!-- Content will be loaded here -->
+    </div>
+    
+    <!-- Modal Footer -->
+    <div class="p-6 border-t border-gray-200 bg-gray-50">
+      <button onclick="closeBlogModal()" 
+              class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors duration-200">
+        Close
+      </button>
+    </div>
+  </div>
+</div>
+
 <script>
-// Simple blog loader for Netlify
+// Blog modal functions
+function showBlogPost(slug, title, content, imageUrl) {
+  const modal = document.getElementById("blog-modal-overlay");
+  const modalTitle = document.getElementById("blog-modal-title");
+  const modalBody = document.getElementById("blog-modal-body");
+  
+  modalTitle.textContent = title;
+  
+  // Create content with proper styling
+  let modalContent = '';
+  
+  if (imageUrl) {
+    modalContent += `
+      <div class="mb-6">
+        <img src="${imageUrl}" alt="${title}" class="w-full h-64 object-cover rounded-lg">
+      </div>
+    `;
+  }
+  
+  modalContent += `
+    <div class="blog-content prose prose-lg max-w-none">
+      ${content}
+    </div>
+  `;
+  
+  modalBody.innerHTML = modalContent;
+  
+  // Show modal with same style as your other modals
+  modal.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function closeBlogModal() {
+  const modal = document.getElementById("blog-modal-overlay");
+  modal.classList.add("hidden");
+  document.body.style.overflow = "auto";
+}
+
+// Close modal with Escape key (matching your other modal)
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closeBlogModal();
+  }
+});
+
+// Enhanced blog loader
 async function loadBlogPosts() {
   const container = document.getElementById('blog-posts');
   const loading = document.getElementById('blog-loading');
   
   try {
-    // Call your Netlify function
     const response = await fetch('/.netlify/functions/blog-posts');
     
     if (!response.ok) {
@@ -866,25 +946,29 @@ async function loadBlogPosts() {
     
     // Hide loading
     loading.style.display = 'none';
-    
-    // Clear container
     container.innerHTML = '';
     
-    // Check if we have posts
     if (!data.items || data.items.length === 0) {
       container.innerHTML = `
         <div class="col-span-3 text-center py-12">
           <div class="glass-card rounded-xl p-8 max-w-md mx-auto">
-            <p class="text-white">No blog posts available yet.</p>
+            <div class="text-gray-400 mb-4">
+              <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                      d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
+                </path>
+              </svg>
+            </div>
+            <h3 class="text-white text-lg font-semibold mb-2">No Posts Available</h3>
+            <p class="text-gray-300">Check back soon for new homeschool math tips!</p>
           </div>
         </div>
       `;
       return;
     }
     
-    // Create posts
+    // Create posts with modal functionality
     data.items.forEach(post => {
-      // Get image if available
       let imageUrl = '';
       if (post.fields.featuredImage && data.includes && data.includes.Asset) {
         const imgId = post.fields.featuredImage.sys.id;
@@ -896,21 +980,38 @@ async function loadBlogPosts() {
         }
       }
       
-      // Get text preview
+      // Get content for modal
+      let fullContent = 'Content not available';
+      if (post.fields.content) {
+        if (typeof post.fields.content === 'string') {
+          fullContent = post.fields.content;
+        } else if (post.fields.content.content) {
+          // Convert rich text to HTML (basic conversion)
+          fullContent = post.fields.content.content
+            .map(node => {
+              if (node.nodeType === 'paragraph') {
+                const text = node.content?.map(c => c.value || '').join('') || '';
+                return `<p class="mb-4">${text}</p>`;
+              }
+              return '';
+            })
+            .join('');
+        }
+      }
+      
+      // Get preview text
       let preview = 'No preview available';
       if (post.fields.summary) {
         preview = post.fields.summary;
-      } else if (post.fields.content && post.fields.content.content) {
-        const textContent = post.fields.content.content
-          .filter(item => item.nodeType === 'paragraph')
-          .map(para => para.content && para.content[0] ? para.content[0].value : '')
-          .join(' ');
-        preview = textContent.substring(0, 120) + '...';
+      } else if (typeof fullContent === 'string') {
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = fullContent;
+        const textContent = tempDiv.textContent || tempDiv.innerText || '';
+        preview = textContent.substring(0, 120) + (textContent.length > 120 ? '...' : '');
       }
-      
-      // Create post card
-      const article = document.createElement('article');
-      article.className = 'glass-card rounded-xl overflow-hidden blog-card';
+     const article = document.createElement('article');
+article.className = 'glass-card rounded-xl overflow-hidden blog-card cursor-pointer';
+
       
       article.innerHTML = `
         ${imageUrl ? `
@@ -923,15 +1024,28 @@ async function loadBlogPosts() {
           <h3 class="text-xl font-bold mb-3 text-white">
             ${post.fields.title || 'Untitled Post'}
           </h3>
-          <p class="text-gray-300 mb-4">
+          <p class="text-gray-300 mb-4 leading-relaxed">
             ${preview}
           </p>
-          <a href="/blog/${post.fields.slug || 'untitled'}" 
-             class="text-purple-300 hover:text-purple-100 font-medium">
-            Read More →
-          </a>
+          <div class="flex items-center text-purple-300 hover:text-purple-100 font-medium group">
+            Read More 
+            <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:translate-x-1" 
+                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+          </div>
         </div>
       `;
+      
+      // Add click event to open modal instead of navigation
+      article.addEventListener('click', () => {
+        showBlogPost(
+          post.fields.slug || 'untitled',
+          post.fields.title || 'Untitled Post',
+          fullContent,
+          imageUrl
+        );
+      });
       
       container.appendChild(article);
     });
@@ -942,9 +1056,17 @@ async function loadBlogPosts() {
     container.innerHTML = `
       <div class="col-span-3 text-center py-12">
         <div class="glass-card rounded-xl p-8 max-w-md mx-auto">
-          <p class="text-white mb-4">Couldn't load blog posts.</p>
+          <div class="text-red-400 mb-4">
+            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 15.5c-.77.833.192 2.5 1.732 2.5z">
+              </path>
+            </svg>
+          </div>
+          <h3 class="text-white text-lg font-semibold mb-2">Unable to Load Posts</h3>
+          <p class="text-gray-300 mb-6">Something went wrong while loading the blog posts.</p>
           <button onclick="loadBlogPosts()" 
-                  class="bg-purple-600 text-white px-4 py-2 rounded">
+                  class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors duration-200">
             Try Again
           </button>
         </div>
@@ -960,6 +1082,7 @@ if (document.readyState === 'loading') {
   loadBlogPosts();
 }
 </script>
+
 
 
     <footer
