@@ -1399,7 +1399,6 @@ async function loadBlogPosts() {
   }
   
   try {
-    // Limit to 6 most recent posts
     const response = await fetch('/.netlify/functions/blog-posts');
     
     if (!response.ok) {
@@ -1408,9 +1407,8 @@ async function loadBlogPosts() {
     
     const data = await response.json();
     
-    // Hide loading quickly
     if (loading) {
-      loading.remove(); // Remove instead of hide to fix footer issue
+      loading.remove();
     }
     
     if (!data.items || data.items.length === 0) {
@@ -1425,49 +1423,26 @@ async function loadBlogPosts() {
       return;
     }
     
-    // Show only first 6 posts (or 3 for mobile-friendly)
     const postsToShow = data.items.slice(0, 6);
     
-    // Create posts that open in new pages
     postsToShow.forEach(post => {
-      // Get image if available
+      // Safely get image URL
       let imageUrl = '';
-      if (post.fields.featuredImage && data.includes && data.includes.Asset) {
-        const imgId = post.fields.featuredImage.sys.id;
-        const asset = data.includes.Asset.find(a => a.sys.id === imgId);
-        if (asset && asset.fields && asset.fields.file) {
-          imageUrl = asset.fields.file.url.startsWith('//') 
-            ? 'https:' + asset.fields.file.url 
-            : asset.fields.file.url;
+      try {
+        if (post.fields.featuredImage && data.includes?.Asset) {
+          const imgId = post.fields.featuredImage.sys.id;
+          const asset = data.includes.Asset.find(a => a.sys.id === imgId);
+          if (asset?.fields?.file?.url) {
+            imageUrl = asset.fields.file.url.startsWith('//') 
+              ? 'https:' + asset.fields.file.url 
+              : asset.fields.file.url;
+          }
         }
+      } catch (e) {
+        console.error('Error processing image:', e);
       }
       
-      // Get preview text
-      let preview = 'No preview available';
-      if (post.fields.summary) {
-        preview = post.fields.summary;
-      } else if (post.fields.content) {
-        let textContent = '';
-        if (typeof post.fields.content === 'string') {
-          const tempDiv = document.createElement('div');
-          tempDiv.innerHTML = post.fields.content;
-          textContent = tempDiv.textContent || tempDiv.innerText || '';
-        } else if (post.fields.content.content) {
-          textContent = post.fields.content.content
-            .filter(node => node.nodeType === 'paragraph')
-            .map(para => para.content?.map(c => c.value || '').join('') || '')
-            .join(' ');
-        }
-        preview = textContent.substring(0, 150) + (textContent.length > 150 ? '...' : '');
-      }
-      
-      // Get publish date
-      const publishDate = new Date(post.sys.createdAt).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      });
-      
+      // Rest of your blog post creation code remains the same...
       const article = document.createElement('article');
       article.className = 'glass-card rounded-xl overflow-hidden blog-card cursor-pointer transform transition-all duration-300 hover:scale-105';
       
@@ -1479,7 +1454,11 @@ async function loadBlogPosts() {
                  class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
                  loading="lazy">
             <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
-              ${publishDate}
+              ${new Date(post.sys.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}
             </div>
           </div>
         ` : `
@@ -1488,7 +1467,11 @@ async function loadBlogPosts() {
               <svg class="w-12 h-12 mx-auto mb-2 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253z"></path>
               </svg>
-              <p class="text-sm">${publishDate}</p>
+              <p class="text-sm">${new Date(post.sys.createdAt).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              })}</p>
             </div>
           </div>
         `}
@@ -1497,7 +1480,7 @@ async function loadBlogPosts() {
             ${post.fields.title || 'Untitled Post'}
           </h3>
           <p class="text-gray-300 mb-4 leading-relaxed text-sm line-clamp-3">
-            ${preview}
+            ${post.fields.summary || 'No preview available'}
           </p>
           <div class="flex items-center justify-between">
             <div class="flex items-center text-purple-300 hover:text-purple-100 font-medium group">
@@ -1517,9 +1500,7 @@ async function loadBlogPosts() {
         </div>
       `;
       
-      // Add click event to open in new page
       article.addEventListener('click', () => {
-        // Create a new page URL with the post data
         const postUrl = createBlogPostPage(post, imageUrl, data.includes);
         window.open(postUrl, '_blank');
       });
@@ -1527,7 +1508,6 @@ async function loadBlogPosts() {
       container.appendChild(article);
     });
     
-    // Add "View All Posts" button if there are more posts
     if (data.items.length > 6) {
       const viewAllDiv = document.createElement('div');
       viewAllDiv.className = 'col-span-3 text-center mt-8';
@@ -1568,9 +1548,7 @@ async function loadBlogPosts() {
   }
 }
 
-// Function to create a blog post page
 function createBlogPostPage(post, imageUrl, includes) {
-  // Get full content
   let fullContent = '<p>Content not available</p>';
   if (post.fields.content) {
     if (typeof post.fields.content === 'string') {
@@ -1600,7 +1578,6 @@ function createBlogPostPage(post, imageUrl, includes) {
     day: 'numeric'
   });
   
-  // Create HTML for the new page
   const html = `
     <!DOCTYPE html>
     <html lang="en">
@@ -1644,12 +1621,10 @@ function createBlogPostPage(post, imageUrl, includes) {
     </html>
   `;
   
-  // Create blob URL
   const blob = new Blob([html], { type: 'text/html' });
   return URL.createObjectURL(blob);
 }
 
-// Load posts when page loads
 if (document.readyState === 'loading') {
   document.addEventListener('DOMContentLoaded', loadBlogPosts);
 } else {
