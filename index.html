@@ -1386,252 +1386,86 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
 </script>
 
 
-// Replace the entire blog script with this improved version
+
+<!-- blog section -->
+<section id="blog" class="max-w-6xl mx-auto px-4 py-12">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold text-white mb-4">Homeschool Math Blog</h2>
+    <p class="text-white opacity-90 text-lg">
+      Tips, strategies and inspiration for teaching math at home
+    </p>
+  </div>
+  
+  <div id="blog-posts">
+  <p>Loading blog posts...</p>
+</div>
+</section>
+
 <script>
-// Enhanced blog loader with limits and better UX
 async function loadBlogPosts() {
-  const container = document.getElementById('blog-posts');
-  const loading = document.getElementById('blog-loading');
-  
-  if (!container) {
-    console.error('Blog container not found');
-    return;
-  }
-  
   try {
-    const response = await fetch('/.netlify/functions/blog-posts');
+    const response = await fetch('/posts/');
+    const posts = await response.json();
     
-    if (!response.ok) {
-      throw new Error('Failed to load posts');
-    }
+    const blogContainer = document.getElementById('blog-posts');
+    if (!blogContainer) return;
     
-    const data = await response.json();
-    
-    if (loading) {
-      loading.remove();
-    }
-    
-    if (!data.items || data.items.length === 0) {
-      container.innerHTML = `
-        <div class="col-span-3 text-center py-8">
-          <div class="glass-card rounded-xl p-6 max-w-md mx-auto">
-            <h3 class="text-white text-lg font-semibold mb-2">No Posts Available</h3>
-            <p class="text-gray-300">Check back soon for new homeschool math tips!</p>
-          </div>
-        </div>
-      `;
-      return;
-    }
-    
-    const postsToShow = data.items.slice(0, 6);
-    
-    postsToShow.forEach(post => {
-      // Safely get image URL
-      let imageUrl = '';
-      try {
-        if (post.fields.featuredImage && data.includes?.Asset) {
-          const imgId = post.fields.featuredImage.sys.id;
-          const asset = data.includes.Asset.find(a => a.sys.id === imgId);
-          if (asset?.fields?.file?.url) {
-            imageUrl = asset.fields.file.url.startsWith('//') 
-              ? 'https:' + asset.fields.file.url 
-              : asset.fields.file.url;
-          }
-        }
-      } catch (e) {
-        console.error('Error processing image:', e);
-      }
-      
-      // Rest of your blog post creation code remains the same...
-      const article = document.createElement('article');
-      article.className = 'glass-card rounded-xl overflow-hidden blog-card cursor-pointer transform transition-all duration-300 hover:scale-105';
-      
-      article.innerHTML = `
-        ${imageUrl ? `
-          <div class="relative overflow-hidden">
-            <img src="${imageUrl}" 
-                 alt="${post.fields.title || 'Blog post'}"
-                 class="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
-                 loading="lazy">
-            <div class="absolute top-2 right-2 bg-black bg-opacity-50 text-white text-xs px-2 py-1 rounded">
-              ${new Date(post.sys.createdAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}
-            </div>
-          </div>
-        ` : `
-          <div class="h-48 bg-gradient-to-br from-purple-400 to-blue-500 flex items-center justify-center">
-            <div class="text-center text-white">
-              <svg class="w-12 h-12 mx-auto mb-2 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253z"></path>
-              </svg>
-              <p class="text-sm">${new Date(post.sys.createdAt).toLocaleDateString('en-US', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric'
-              })}</p>
-            </div>
-          </div>
-        `}
-        <div class="p-6">
-          <h3 class="text-xl font-bold mb-3 text-white line-clamp-2">
-            ${post.fields.title || 'Untitled Post'}
-          </h3>
-          <p class="text-gray-300 mb-4 leading-relaxed text-sm line-clamp-3">
-            ${post.fields.summary || 'No preview available'}
-          </p>
-          <div class="flex items-center justify-between">
-            <div class="flex items-center text-purple-300 hover:text-purple-100 font-medium group">
-              Read Full Post
-              <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:translate-x-1" 
-                   fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-              </svg>
-            </div>
-            <div class="text-xs text-gray-400">
-              <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
-              </svg>
-              Opens in new tab
-            </div>
-          </div>
-        </div>
-      `;
-      
-      article.addEventListener('click', () => {
-        const postUrl = createBlogPostPage(post, imageUrl, data.includes);
-        window.open(postUrl, '_blank');
-      });
-      
-      container.appendChild(article);
-    });
-    
-    if (data.items.length > 6) {
-      const viewAllDiv = document.createElement('div');
-      viewAllDiv.className = 'col-span-3 text-center mt-8';
-      viewAllDiv.innerHTML = `
-        <button onclick="showAllPosts()" 
-                class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 backdrop-blur-sm border border-white border-opacity-30">
-          View All ${data.items.length} Posts
-          <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-          </svg>
-        </button>
-      `;
-      container.appendChild(viewAllDiv);
-    }
-    
+    blogContainer.innerHTML = posts.map(post => `
+      <article class="blog-post">
+        <h2><a href="/posts/${post.slug}">${post.title}</a></h2>
+        <p class="date">${new Date(post.date).toLocaleDateString()}</p>
+        ${post.image ? `<img src="${post.image}" alt="${post.title}" />` : ''}
+        <div class="excerpt">${post.body.substring(0, 200)}...</div>
+        <a href="/posts/${post.slug}" class="read-more">Read More</a>
+      </article>
+    `).join('');
   } catch (error) {
-    console.error('Error:', error);
-    if (loading) {
-      loading.remove();
-    }
-    container.innerHTML = `
-      <div class="col-span-3 text-center py-8">
-        <div class="glass-card rounded-xl p-6 max-w-md mx-auto">
-          <div class="text-red-400 mb-4">
-            <svg class="w-8 h-8 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-            </svg>
-          </div>
-          <h3 class="text-white text-lg font-semibold mb-2">Unable to Load Posts</h3>
-          <p class="text-gray-300 mb-4 text-sm">Please check your internet connection and try again.</p>
-          <button onclick="loadBlogPosts()" 
-                  class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm transition-colors duration-200">
-            Try Again
-          </button>
-        </div>
-      </div>
-    `;
+    console.log('Loading posts manually...');
+    // Fallback: manually load posts
+    loadPostsManually();
   }
 }
 
-function createBlogPostPage(post, imageUrl, includes) {
-  let fullContent = '<p>Content not available</p>';
-  if (post.fields.content) {
-    if (typeof post.fields.content === 'string') {
-      fullContent = post.fields.content;
-    } else if (post.fields.content.content) {
-      fullContent = post.fields.content.content
-        .map(node => {
-          if (node.nodeType === 'paragraph') {
-            const text = node.content?.map(c => c.value || '').join('') || '';
-            return `<p style="margin-bottom: 1em; line-height: 1.6;">${text}</p>`;
-          } else if (node.nodeType === 'heading-1') {
-            const text = node.content?.map(c => c.value || '').join('') || '';
-            return `<h1 style="font-size: 2em; font-weight: bold; margin: 1.5em 0 0.5em; color: #1f2937;">${text}</h1>`;
-          } else if (node.nodeType === 'heading-2') {
-            const text = node.content?.map(c => c.value || '').join('') || '';
-            return `<h2 style="font-size: 1.5em; font-weight: bold; margin: 1.5em 0 0.5em; color: #1f2937;">${text}</h2>`;
-          }
-          return '';
-        })
-        .join('');
+async function loadPostsManually() {
+  // List your post files here
+  const postFiles = [
+    '2024-01-01-my-first-post.md',
+    '2024-01-15-another-post.md'
+    // Add more as you create them
+  ];
+  
+  const blogContainer = document.getElementById('blog-posts');
+  if (!blogContainer) return;
+  
+  for (const file of postFiles) {
+    try {
+      const response = await fetch(`/posts/${file}`);
+      const content = await response.text();
+      
+      // Simple markdown parsing (you can enhance this)
+      const lines = content.split('\n');
+      const title = lines.find(line => line.startsWith('title:')).replace('title:', '').trim();
+      const date = lines.find(line => line.startsWith('date:')).replace('date:', '').trim();
+      const body = lines.slice(lines.findIndex(line => line === '---', 1) + 1).join('\n');
+      
+      const article = document.createElement('article');
+      article.className = 'blog-post';
+      article.innerHTML = `
+        <h2>${title}</h2>
+        <p class="date">${new Date(date).toLocaleDateString()}</p>
+        <div class="content">${body.substring(0, 200)}...</div>
+        <a href="/posts/${file.replace('.md', '.html')}" class="read-more">Read More</a>
+      `;
+      blogContainer.appendChild(article);
+    } catch (error) {
+      console.log(`Could not load ${file}`);
     }
   }
-  
-  const publishDate = new Date(post.sys.createdAt).toLocaleDateString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
-  
-  const html = `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>${post.fields.title || 'Blog Post'} - Homeschool Math</title>
-      <script src="https://cdn.tailwindcss.com"></script>
-      <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
-      <style>
-        body { font-family: 'Nunito', sans-serif; }
-        .blog-content { line-height: 1.7; }
-        .blog-content h1, .blog-content h2, .blog-content h3 { margin: 1.5em 0 0.5em; font-weight: 600; }
-        .blog-content p { margin-bottom: 1em; }
-      </style>
-    </head>
-    <body class="bg-gray-50">
-      <div class="max-w-4xl mx-auto px-4 py-8">
-        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-          ${imageUrl ? `<img src="${imageUrl}" alt="${post.fields.title}" class="w-full h-64 object-cover">` : ''}
-          <div class="p-8">
-            <div class="mb-6">
-              <h1 class="text-3xl font-bold text-gray-900 mb-2">${post.fields.title || 'Untitled Post'}</h1>
-              <p class="text-gray-600">Published on ${publishDate}</p>
-            </div>
-            <div class="blog-content text-gray-800">
-              ${fullContent}
-            </div>
-            <div class="mt-8 pt-6 border-t border-gray-200">
-              <button onclick="window.close()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg mr-4">
-                Close
-              </button>
-              <button onclick="window.history.back()" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-2 rounded-lg">
-                Go Back
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </body>
-    </html>
-  `;
-  
-  const blob = new Blob([html], { type: 'text/html' });
-  return URL.createObjectURL(blob);
 }
 
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', loadBlogPosts);
-} else {
-  loadBlogPosts();
-}
+// Load posts when page loads
+document.addEventListener('DOMContentLoaded', loadBlogPosts);
 </script>
-
 
 
   </body>
