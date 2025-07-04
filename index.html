@@ -234,31 +234,159 @@ header {
   transform: scale(1.1);
 }
 
-/* Blog specific styles */
-.blog-card {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  transition: all 0.3s ease;
-  overflow: visible;
-  cursor: pointer;
-}
-
-.blog-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-}
-
+/* ==================== */
+/* BLOG SECTION STYLES */
+/* ==================== */
 #blog {
-  min-height: auto;
-  overflow: visible;
   position: relative;
+  padding: 4rem 0;
 }
 
 #blog-posts {
-  min-height: 400px;
-  overflow: visible;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.blog-post-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.blog-post-image {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blog-post-card:hover .blog-post-image {
+  transform: scale(1.05);
+}
+
+.blog-post-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-post-date {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-post-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.blog-post-excerpt {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.blog-post-read-more {
+  display: inline-flex;
+  align-items: center;
+  color: #a78bfa;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.blog-post-read-more:hover {
+  color: #8b5cf6;
+  transform: translateX(3px);
+}
+
+.blog-post-read-more svg {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.blog-post-read-more:hover svg {
+  transform: translateX(2px);
+}
+
+.blog-read-more-container {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.blog-read-more-button {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.blog-read-more-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.blog-read-more-button svg {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.blog-read-more-button:hover svg {
+  transform: translateX(3px);
+}
+
+/* Loading state */
+.blog-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  grid-column: 1 / -1;
+}
+
+.blog-loading-spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.blog-loading-text {
+  color: white;
+  font-size: 1rem;
 }
 
 /* Blog modal content styling */
@@ -376,18 +504,47 @@ header {
   line-height: 1.7 !important;
 }
 
-/* Smooth scrolling for modal */
-.overflow-y-auto {
+/* Smooth scrolling inside modal */
+#modal-body {
   scroll-behavior: smooth;
+  overflow-y: auto;
+  max-height: 60vh;
 }
 
-/* Ensure backdrop is clickable */
-.fixed.inset-0.bg-black {
+/* Keep modal near bottom */
+.modal-bottom {
+  display: flex;
+  align-items: flex-end !important;
+  padding-bottom: 2rem;
+}
+
+/* Ensure modal content stays in place at the bottom */
+.modal-bottom .modal-content {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+/* Clickable background */
+#modal-overlay {
   cursor: pointer;
 }
 
-.fixed.inset-0.bg-black > div {
+#modal-overlay > .modal-content,
+#modal-overlay > .modal-container {
   cursor: default;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #blog-posts {
+    grid-template-columns: 1fr;
+  }
+  
+  .blog-post-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
 }
 </style>
 
@@ -840,7 +997,7 @@ header {
   </div>
 </section>
 
-    <!-- Blog Section -->
+<!-- Blog Section -->
 <section id="blog" class="max-w-6xl mx-auto px-4 py-12">
   <div class="text-center mb-12">
     <h2 class="text-3xl font-bold text-white mb-4">Homeschool Math Blog</h2>
@@ -849,243 +1006,37 @@ header {
     </p>
   </div>
   
+  <!-- Blog Posts Container -->
   <div id="blog-posts" class="grid md:grid-cols-3 gap-8">
-    <!-- Loading state -->
-    <div id="blog-loading" class="col-span-3 text-center py-12">
-      <div class="loading-spinner"></div>
-      <span class="text-white ml-2">Loading posts...</span>
+    <div class="text-center py-12">
+      <div class="loading-spinner mx-auto"></div>
+      <p class="text-white mt-4">Loading blog posts...</p>
     </div>
+  </div>
+  
+  <!-- Read More Button -->
+  <div class="text-center mt-8">
+    <a href="/posts/" class="inline-block bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 backdrop-blur-sm border border-white border-opacity-30">
+      View All Posts
+      <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </a>
   </div>
 </section>
 
-<!-- Blog Post Modal (matching your beautiful modal style) -->
-<div id="blog-modal-overlay" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
-  <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] flex flex-col">
-    <!-- Modal Header -->
-    <div class="flex justify-between items-center p-6 border-b border-gray-200">
-      <h2 id="blog-modal-title" class="text-2xl font-bold text-gray-800"></h2>
-      <button onclick="closeBlogModal()" class="text-gray-400 hover:text-gray-600 text-2xl font-bold">
-        ×
-      </button>
-    </div>
-    
-    <!-- Modal Body with proper scrolling -->
-    <div id="blog-modal-body" class="flex-1 p-6 overflow-y-auto">
-      <!-- Content will be loaded here -->
-    </div>
-    
-    <!-- Modal Footer -->
-    <div class="p-6 border-t border-gray-200 bg-gray-50">
-      <button onclick="closeBlogModal()" 
-              class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors duration-200">
-        Close
-      </button>
+<div id="modal-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50">
+  <div class="modal-container flex min-h-screen justify-center">
+    <div class="modal-content bg-white p-4 rounded">
+      <h2 id="modal-title"></h2>
+      <div id="modal-body"></div>
+      <button onclick="closeModal()">Close</button>
     </div>
   </div>
 </div>
 
-<script>
-// Blog modal functions
-function showBlogPost(slug, title, content, imageUrl) {
-  const modal = document.getElementById("blog-modal-overlay");
-  const modalTitle = document.getElementById("blog-modal-title");
-  const modalBody = document.getElementById("blog-modal-body");
-  
-  modalTitle.textContent = title;
-  
-  // Create content with proper styling
-  let modalContent = '';
-  
-  if (imageUrl) {
-    modalContent += `
-      <div class="mb-6">
-        <img src="${imageUrl}" alt="${title}" class="w-full h-64 object-cover rounded-lg">
-      </div>
-    `;
-  }
-  
-  modalContent += `
-    <div class="blog-content prose prose-lg max-w-none">
-      ${content}
-    </div>
-  `;
-  
-  modalBody.innerHTML = modalContent;
-  
-  // Show modal with same style as your other modals
-  modal.classList.remove("hidden");
-  document.body.style.overflow = "hidden";
-}
 
-function closeBlogModal() {
-  const modal = document.getElementById("blog-modal-overlay");
-  modal.classList.add("hidden");
-  document.body.style.overflow = "auto";
-}
-
-// Close modal with Escape key (matching your other modal)
-document.addEventListener("keydown", function (event) {
-  if (event.key === "Escape") {
-    closeBlogModal();
-  }
-});
-
-// Enhanced blog loader
-async function loadBlogPosts() {
-  const container = document.getElementById('blog-posts');
-  const loading = document.getElementById('blog-loading');
-  
-  try {
-    const response = await fetch('/.netlify/functions/blog-posts');
-    
-    if (!response.ok) {
-      throw new Error('Failed to load posts');
-    }
-    
-    const data = await response.json();
-    
-    // Hide loading
-    loading.style.display = 'none';
-    container.innerHTML = '';
-    
-    if (!data.items || data.items.length === 0) {
-      container.innerHTML = `
-        <div class="col-span-3 text-center py-12">
-          <div class="glass-card rounded-xl p-8 max-w-md mx-auto">
-            <div class="text-gray-400 mb-4">
-              <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                      d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9.5a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z">
-                </path>
-              </svg>
-            </div>
-            <h3 class="text-white text-lg font-semibold mb-2">No Posts Available</h3>
-            <p class="text-gray-300">Check back soon for new homeschool math tips!</p>
-          </div>
-        </div>
-      `;
-      return;
-    }
-    
-    // Create posts with modal functionality
-    data.items.forEach(post => {
-      let imageUrl = '';
-      if (post.fields.featuredImage && data.includes && data.includes.Asset) {
-        const imgId = post.fields.featuredImage.sys.id;
-        const asset = data.includes.Asset.find(a => a.sys.id === imgId);
-        if (asset && asset.fields && asset.fields.file) {
-          imageUrl = asset.fields.file.url.startsWith('//') 
-            ? 'https:' + asset.fields.file.url 
-            : asset.fields.file.url;
-        }
-      }
-      
-      // Get content for modal
-      let fullContent = 'Content not available';
-      if (post.fields.content) {
-        if (typeof post.fields.content === 'string') {
-          fullContent = post.fields.content;
-        } else if (post.fields.content.content) {
-          // Convert rich text to HTML (basic conversion)
-          fullContent = post.fields.content.content
-            .map(node => {
-              if (node.nodeType === 'paragraph') {
-                const text = node.content?.map(c => c.value || '').join('') || '';
-                return `<p class="mb-4">${text}</p>`;
-              }
-              return '';
-            })
-            .join('');
-        }
-      }
-      
-      // Get preview text
-      let preview = 'No preview available';
-      if (post.fields.summary) {
-        preview = post.fields.summary;
-      } else if (typeof fullContent === 'string') {
-        const tempDiv = document.createElement('div');
-        tempDiv.innerHTML = fullContent;
-        const textContent = tempDiv.textContent || tempDiv.innerText || '';
-        preview = textContent.substring(0, 120) + (textContent.length > 120 ? '...' : '');
-      }
-     const article = document.createElement('article');
-article.className = 'glass-card rounded-xl overflow-hidden blog-card cursor-pointer';
-
-      
-      article.innerHTML = `
-        ${imageUrl ? `
-          <img src="${imageUrl}" 
-               alt="${post.fields.title || 'Blog post'}"
-               class="w-full h-48 object-cover"
-               loading="lazy">
-        ` : ''}
-        <div class="p-6">
-          <h3 class="text-xl font-bold mb-3 text-white">
-            ${post.fields.title || 'Untitled Post'}
-          </h3>
-          <p class="text-gray-300 mb-4 leading-relaxed">
-            ${preview}
-          </p>
-          <div class="flex items-center text-purple-300 hover:text-purple-100 font-medium group">
-            Read More 
-            <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:translate-x-1" 
-                 fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-            </svg>
-          </div>
-        </div>
-      `;
-      
-      // Add click event to open modal instead of navigation
-      article.addEventListener('click', () => {
-        showBlogPost(
-          post.fields.slug || 'untitled',
-          post.fields.title || 'Untitled Post',
-          fullContent,
-          imageUrl
-        );
-      });
-      
-      container.appendChild(article);
-    });
-    
-  } catch (error) {
-    console.error('Error:', error);
-    loading.style.display = 'none';
-    container.innerHTML = `
-      <div class="col-span-3 text-center py-12">
-        <div class="glass-card rounded-xl p-8 max-w-md mx-auto">
-          <div class="text-red-400 mb-4">
-            <svg class="w-12 h-12 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
-                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 15.5c-.77.833.192 2.5 1.732 2.5z">
-              </path>
-            </svg>
-          </div>
-          <h3 class="text-white text-lg font-semibold mb-2">Unable to Load Posts</h3>
-          <p class="text-gray-300 mb-6">Something went wrong while loading the blog posts.</p>
-          <button onclick="loadBlogPosts()" 
-                  class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg transition-colors duration-200">
-            Try Again
-          </button>
-        </div>
-      </div>
-    `;
-  }
-}
-
-// Load posts when page loads
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', loadBlogPosts);
-} else {
-  loadBlogPosts();
-}
-</script>
-
-
-
-    <footer
+<footer
       class="mt-20 py-8 text-center text-white opacity-80 bg-gray-900 bg-opacity-50"
     >
       <div class="max-w-6xl mx-auto px-4">
@@ -1162,18 +1113,24 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-      // Cookie banner
-      const cookieBanner = document.getElementById("cookie-banner");
-      const acceptCookies = document.getElementById("accept-cookies");
+     // Cookie banner - Fixed version
+document.addEventListener('DOMContentLoaded', function() {
+  const cookieBanner = document.getElementById("cookie-banner");
+  const acceptCookies = document.getElementById("accept-cookies");
 
-      if (!localStorage.getItem("cookiesAccepted")) {
-        cookieBanner.classList.remove("hidden");
-      }
+  // Use in-memory storage since localStorage isn't available in artifacts
+  let cookiesAccepted = false;
+  
+  if (!cookiesAccepted) {
+    cookieBanner.classList.remove("hidden");
+  }
 
-      acceptCookies.addEventListener("click", function () {
-        cookieBanner.classList.add("hidden");
-        localStorage.setItem("cookiesAccepted", "true");
-      });
+  acceptCookies.addEventListener("click", function () {
+    cookieBanner.classList.add("hidden");
+    cookiesAccepted = true;
+    // In real implementation: localStorage.setItem("cookiesAccepted", "true");
+  });
+});
 
       function openDownloadForm(resourceType) {
         const url = formUrls[resourceType];
@@ -1304,49 +1261,65 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         },
       };
 
+      
+
       function showModal(type) {
-        const modal = document.getElementById("modal-overlay");
-        const title = document.getElementById("modal-title");
-        const body = document.getElementById("modal-body");
+  const modal = document.getElementById("modal-overlay");
+  const title = document.getElementById("modal-title");
+  const body = document.getElementById("modal-body");
 
-        if (modalContent[type]) {
-          title.textContent = modalContent[type].title;
-          body.innerHTML = modalContent[type].content;
+  if (modalContent[type]) {
+    title.textContent = modalContent[type].title;
+    body.innerHTML = modalContent[type].content;
 
-          // Add scrolling styles to the modal body
-          body.style.maxHeight = "60vh";
-          body.style.overflowY = "auto";
-          body.classList.add("pr-2");
+    // Add scrolling styles to the modal body
+    body.style.maxHeight = "60vh";
+    body.style.overflowY = "auto";
+    body.classList.add("pr-2");
 
-          modal.classList.remove("hidden");
-          document.body.style.overflow = "hidden";
-        }
+    // Keep modal at bottom for ALL modal types
+    const modalContainer = modal.querySelector('.flex.items-center.justify-center.min-h-screen');
+    if (modalContainer) {
+      modalContainer.style.alignItems = "flex-end";
+      modalContainer.style.paddingBottom = "2rem";
+    }
+
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  }
+}
+
+function closeModal() {
+  const modal = document.getElementById("modal-overlay");
+  modal.classList.add("hidden");
+  document.body.style.overflow = "auto";
+  
+  // Reset modal position
+  const modalContainer = modal.querySelector('.flex.items-center.justify-center.min-h-screen');
+  if (modalContainer) {
+    modalContainer.style.alignItems = "center";
+    modalContainer.style.paddingBottom = "0";
+  }
+}
+
+// Close modal with Escape key
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closeModal();
+  }
+});
+
+// Close modal when clicking outside
+document.addEventListener('DOMContentLoaded', function() {
+  const modalOverlay = document.getElementById("modal-overlay");
+  if (modalOverlay) {
+    modalOverlay.addEventListener("click", function(event) {
+      if (event.target === this) {
+        closeModal();
       }
-
-      function closeModal() {
-        const modal = document.getElementById("modal-overlay");
-        modal.classList.add("hidden");
-        document.body.style.overflow = "auto";
-      }
-
-      // Close modal with Escape key
-      document.addEventListener("keydown", function (event) {
-        if (event.key === "Escape") {
-          closeModal();
-        }
-      });
-    </script>
-
-    <script>
-      document.querySelectorAll('a[href="#"]').forEach((link) => {
-        link.addEventListener("click", (e) => {
-          e.preventDefault();
-          window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-          });
-        });
-      });
+    });
+  }
+});
     </script>
 
     <!-- JavaScript to handle downloads after form submission -->
@@ -1385,44 +1358,34 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   }
 </script>
 
-
-
-<!-- blog section -->
-<section id="blog" class="max-w-6xl mx-auto px-4 py-12">
-  <div class="text-center mb-12">
-    <h2 class="text-3xl font-bold text-white mb-4">Homeschool Math Blog</h2>
-    <p class="text-white opacity-90 text-lg">
-      Tips, strategies and inspiration for teaching math at home
-    </p>
-  </div>
-  
-  <div id="blog-posts">
-  <p>Loading blog posts...</p>
-</div>
-</section>
-
 <script>
+// Replace your existing blog loading code with:
 async function loadBlogPosts() {
   try {
-    const response = await fetch('/posts/');
+    const response = await fetch('/.netlify/functions/posts'); // Fixed URL
+    
+    // Add some debugging
+    console.log('Response status:', response.status);
+    console.log('Response ok:', response.ok);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
     const posts = await response.json();
     
-    const blogContainer = document.getElementById('blog-posts');
-    if (!blogContainer) return;
-    
-    blogContainer.innerHTML = posts.map(post => `
-      <article class="blog-post">
-        <h2><a href="/posts/${post.slug}">${post.title}</a></h2>
-        <p class="date">${new Date(post.date).toLocaleDateString()}</p>
-        ${post.image ? `<img src="${post.image}" alt="${post.title}" />` : ''}
-        <div class="excerpt">${post.body.substring(0, 200)}...</div>
-        <a href="/posts/${post.slug}" class="read-more">Read More</a>
+    const container = document.getElementById('blog-posts');
+    container.innerHTML = posts.slice(0, 3).map(post => `
+      <article class="blog-post-card">
+        <div class="blog-post-content">
+          <h3 class="blog-post-title">${post.title}</h3>
+          <p class="blog-post-excerpt">${post.description}</p>
+          <a href="/blog.html" class="blog-post-read-more">Read More →</a>
+        </div>
       </article>
     `).join('');
   } catch (error) {
-    console.log('Loading posts manually...');
-    // Fallback: manually load posts
-    loadPostsManually();
+    console.error('Error loading posts:', error);
   }
 }
 
