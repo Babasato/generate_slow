@@ -1,0 +1,34 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "static/images/uploads"
+public_folder: "/static/images/uploads"
+
+collections:
+  - name: "blog"
+    label: "Blog Posts"
+    folder: "blog"  # Changed from "content/blog" to just "blog"
+    create: true
+    slug: "{{slug}}"  # Simplified slug
+    fields:
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Description", name: "description", widget: "text"}
+      - {label: "Featured Image", name: "featured_image", widget: "image", required: false}
+      - {label: "Tags", name: "tags", widget: "list", default: ["math", "homeschool"]}
+      - {label: "Category", name: "category", widget: "select", options: ["elementary", "middle-school", "high-school", "resources", "tips"]}
+      - {label: "Grade Level", name: "grade_level", widget: "select", multiple: true, options: ["K", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]}
+      - {label: "Difficulty", name: "difficulty", widget: "select", options: ["beginner", "intermediate", "advanced"]}
+      - {label: "Time to Read (minutes)", name: "read_time", widget: "number", value_type: "int", default: 5}
+      - {label: "Draft", name: "draft", widget: "boolean", default: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+# Simplified - remove editorial workflow for now
+# publish_mode: editorial_workflow
+
+# Search functionality
+search: false  # Disable for now to avoid issues
+
+# Custom logo
+logo_url: /images/logo.png
