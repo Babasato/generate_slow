@@ -2781,11 +2781,8 @@ document.addEventListener('DOMContentLoaded', function() {
 // Replace your existing blog loading code with:
 async function loadBlogPosts() {
   try {
-    const response = await fetch('/.netlify/functions/posts'); // Fixed URL
-    
-    // Add some debugging
+    const response = await fetch('/.netlify/functions/posts');
     console.log('Response status:', response.status);
-    console.log('Response ok:', response.ok);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -2794,19 +2791,31 @@ async function loadBlogPosts() {
     const posts = await response.json();
     
     const container = document.getElementById('blog-posts');
+    if (!container) {
+      console.error('Blog posts container not found');
+      return;
+    }
+    
     container.innerHTML = posts.slice(0, 3).map(post => `
       <article class="blog-post-card">
         <div class="blog-post-content">
           <h3 class="blog-post-title">${post.title}</h3>
-          <p class="blog-post-excerpt">${post.description}</p>
-          <a href="/blog.html" class="blog-post-read-more">Read More →</a>
+          <p class="blog-post-excerpt">${post.description || 'No description available'}</p>
+          <a href="/blog/${post.slug}" class="blog-post-read-more">Read More →</a>
         </div>
       </article>
     `).join('');
   } catch (error) {
     console.error('Error loading posts:', error);
+    const container = document.getElementById('blog-posts');
+    if (container) {
+      container.innerHTML = '<p>Failed to load blog posts. Please try again later.</p>';
+    }
   }
 }
+
+// Load posts when page loads
+document.addEventListener('DOMContentLoaded', loadBlogPosts);
 
 async function loadPostsManually() {
   // List your post files here
