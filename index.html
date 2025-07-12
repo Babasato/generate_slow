@@ -1,0 +1,2973 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Free homeschool math resources for parents. Get math tips, trackers, games and guides to help with your homeschooling journey."
+    />
+
+    <!-- SEO Meta Tags -->
+    <title>Free Homeschool Math Resources | HomeschoolMath</title>
+    <meta
+      name="keywords"
+      content="homeschool math, free math worksheets, homeschool curriculum, math games, teaching math at home"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://homeschoolmath.site/" />
+    <meta property="og:title" content="Free Homeschool Math Resources" />
+    <meta
+      property="og:description"
+      content="Get free math resources including weekly tips, printable trackers, math games and curriculum guides for homeschool parents."
+    />
+    <meta
+      property="og:image"
+      content="https://homeschoolmath.site/images/social-preview.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://homeschoolmath.site/" />
+    <meta property="twitter:title" content="Free Homeschool Math Resources" />
+    <meta
+      property="twitter:description"
+      content="Get free math resources including weekly tips, printable trackers, math games and curriculum guides for homeschool parents."
+    />
+    <meta
+      property="twitter:image"
+      content="https://homeschoolmath.site/images/social-preview.jpg"
+    />
+
+    <!-- Production-Ready Favicon Code -->
+    <!-- 2024 Favicon (never touch this again unless you redesign) -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon.png?v=2"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon-32x32.png?v=2"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon-16x16.png?v=2"
+    />
+    <link rel="manifest" href="/site.webmanifest?v=2" />
+    <link rel="shortcut icon" href="/favicon.ico?v=2" />
+
+    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: 80px; /* Add padding for fixed header */
+}
+
+/* Fix sticky header */
+header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transform: translateY(0) !important;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button styles */
+.btn-hover {
+  transition: all 0.3s ease;
+}
+
+.btn-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.download-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.download-btn:hover:before {
+  left: 100%;
+}
+
+/* Card styles */
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* ===================== */
+/* RESOURCE CARD STYLES  */
+/* ===================== */
+.resource-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.resource-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--card-accent), var(--card-accent-secondary));
+}
+
+.resource-card-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.resource-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--card-icon);
+}
+
+.resource-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: white;
+  line-height: 1.3;
+}
+
+.resource-description {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.resource-meta {
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.resource-meta i {
+  margin-right: 0.5rem;
+  color: var(--card-icon);
+}
+
+.resource-form {
+  margin-top: auto;
+}
+
+.resource-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Card-specific colors */
+.card-purple {
+  --card-accent: #8b5cf6;
+  --card-accent-secondary: #7c3aed;
+  --card-icon: #a78bfa;
+  --badge-bg: #f5f3ff;
+  --badge-text: #5b21b6;
+}
+
+.card-blue {
+  --card-accent: #3b82f6;
+  --card-accent-secondary: #2563eb;
+  --card-icon: #93c5fd;
+  --badge-bg: #dbeafe;
+  --badge-text: #1e40af;
+}
+
+.card-green {
+  --card-accent: #10b981;
+  --card-accent-secondary: #059669;
+  --card-icon: #6ee7b7;
+  --badge-bg: #d1fae5;
+  --badge-text: #065f46;
+}
+
+.card-yellow {
+  --card-accent: #f59e0b;
+  --card-accent-secondary: #d97706;
+  --card-icon: #fcd34d;
+  --badge-bg: #fef3c7;
+  --badge-text: #92400e;
+}
+
+.card-red {
+  --card-accent: #ef4444;
+  --card-accent-secondary: #dc2626;
+  --card-icon: #fca5a5;
+  --badge-bg: #fee2e2;
+  --badge-text: #991b1b;
+}
+
+.card-bundle {
+  --card-accent: #8b5cf6;
+  --card-accent-secondary: #ec4899;
+  --card-icon: #c4b5fd;
+  --badge-bg: #fce7f3;
+  --badge-text: #9d174d;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.15));
+}
+
+/* Input and button styles */
+.resource-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.resource-input:focus {
+  outline: none;
+  border-color: var(--card-accent);
+  box-shadow: 0 0 0 3px rgba(var(--card-accent-rgb), 0.2);
+}
+
+.resource-button {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(to right, var(--card-accent), var(--card-accent-secondary));
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resource-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(var(--card-accent-rgb), 0.3);
+}
+
+.resource-button i {
+  margin-right: 0.5rem;
+}
+
+/* Bundle special styling */
+.bundle-badge {
+  background: linear-gradient(to right, #f59e0b, #f97316);
+  color: #1e293b;
+  font-weight: 800;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .resource-card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .resource-badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.75rem;
+  }
+}
+
+/* ==================== */
+/* BLOG SECTION STYLES */
+/* ==================== */
+#blog {
+  position: relative;
+  padding: 4rem 0;
+}
+
+#blog-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.blog-post-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.blog-post-image {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blog-post-card:hover .blog-post-image {
+  transform: scale(1.05);
+}
+
+.blog-post-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-post-date {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-post-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.blog-post-excerpt {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.blog-post-read-more {
+  display: inline-flex;
+  align-items: center;
+  color: #a78bfa;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.blog-post-read-more:hover {
+  color: #8b5cf6;
+  transform: translateX(3px);
+}
+
+.blog-post-read-more svg {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.blog-post-read-more:hover svg {
+  transform: translateX(2px);
+}
+
+.blog-read-more-container {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.blog-read-more-button {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.blog-read-more-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.blog-read-more-button svg {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.blog-read-more-button:hover svg {
+  transform: translateX(3px);
+}
+
+/* Loading state */
+.blog-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  grid-column: 1 / -1;
+}
+
+.blog-loading-spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.blog-loading-text {
+  color: white;
+  font-size: 1rem;
+}
+
+/* Blog modal content styling */
+.blog-content {
+  line-height: 1.7;
+  color: #374151;
+}
+
+.blog-content h1, .blog-content h2, .blog-content h3 {
+  color: #1f2937 !important;
+  font-weight: 600 !important;
+  margin: 1.5em 0 0.5em 0 !important;
+}
+
+.blog-content h1 { font-size: 1.875rem; }
+.blog-content h2 { font-size: 1.5rem; }
+.blog-content h3 { font-size: 1.25rem; }
+
+.blog-content p {
+  margin-bottom: 1em !important;
+  line-height: 1.7 !important;
+}
+
+.blog-content ul, .blog-content ol {
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+
+.blog-content li {
+  margin-bottom: 0.5em;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Feature highlight */
+.feature-highlight {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Mobile menu */
+.mobile-menu {
+  transition: all 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
+}
+
+.mobile-menu.open {
+  max-height: 500px;
+  padding: 1rem 0;
+}
+
+/* Standards badge */
+.standards-badge {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Cookie banner */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+/* Fix scroll button positioning */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+}
+
+
+/* Enhanced modal styles */
+.fixed.inset-0 {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+/* Ensure modal content is readable */
+.prose h3 {
+  color: #1f2937 !important;
+  font-weight: 700 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.prose p {
+  margin-bottom: 1rem !important;
+  line-height: 1.7 !important;
+}
+
+/* Smooth scrolling inside modal */
+#modal-body {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+/* Keep modal near bottom */
+.modal-bottom {
+  display: flex;
+  align-items: flex-end !important;
+  padding-bottom: 2rem;
+}
+
+/* Ensure modal content stays in place at the bottom */
+.modal-bottom .modal-content {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+/* Clickable background */
+#modal-overlay {
+  cursor: pointer;
+}
+
+#modal-overlay > .modal-content,
+#modal-overlay > .modal-container {
+  cursor: default;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #blog-posts {
+    grid-template-columns: 1fr;
+  }
+  
+  .blog-post-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+
+/* FAQ Styles */
+.worksheet-faq {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.worksheet-faq h3 {
+    text-align: center;
+    font-size: 1.8em;
+    color: #7c3aed;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.worksheet-faq h3:after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 4px;
+    background: #c084fc;
+    margin: 15px auto 0;
+}
+
+.faq-item {
+    margin-bottom: 10px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(124, 58, 237, 0.1);
+}
+
+.faq-question {
+    width: 100%;
+    text-align: left;
+    background: white;
+    border: none;
+    padding: 20px 25px;
+    font-size: 1.1em;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+    background: #f8f5ff;
+}
+
+.faq-icon {
+    font-size: 1.5em;
+    color: #7c3aed;
+    transition: transform 0.3s ease;
+}
+
+.faq-question.active .faq-icon {
+    transform: rotate(45deg);
+}
+
+.faq-answer {
+    background: #f9f9f9;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, padding 0.3s ease;
+}
+
+.faq-answer.show {
+    max-height: 500px; /* Adjust based on your longest content */
+    padding: 20px 25px;
+}
+
+.faq-answer p {
+    color: #555;
+    line-height: 1.6;
+    margin: 0;
+}
+
+</style>
+
+
+    <!-- Favicon Implementation -->
+    <!-- Modern browsers -->
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+
+    <!-- Safari/iOS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Fallback -->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/site.webmanifest" />
+  </head>
+
+  <body class="text-gray-800">
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="cookie-banner hidden">
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between"
+      >
+        <p class="mb-4 md:mb-0">
+          We use cookies to provide our services. By continuing to use our site,
+          you consent to our use of cookies.
+        </p>
+        <button
+          id="accept-cookies"
+          class="bg-purple-600 text-white px-4 py-2 rounded-lg"
+        >
+          Accept
+        </button>
+      </div>
+    </div>
+
+    <header class="glass-card shadow-lg py-4 sticky top-0 z-50 fade-in">
+      <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+          <img src="favicon.svg" alt="Homeschool Math Logo" class="w-10 h-10" />
+          <a
+            href="#"
+            class="text-2xl font-bold text-purple-700 hover:text-purple-800 transition-colors"
+          >
+            Homeschool Math
+          </a>
+        </div>
+        <nav class="space-x-6 hidden md:flex items-center">
+           <a
+            href="#math-worksheets"
+            class="text-gray-700 hover:text-purple-700 font-medium py-2"
+            >Math Worksheets</a
+          >
+          <a
+            href="#blog"
+            class="text-gray-700 hover:text-purple-700 font-medium"
+            >Blog</a
+          >
+          <a
+            href="free-resources.html"
+            class="text-gray-700 hover:text-purple-700 font-medium"
+           >Free resources</a
+          >
+        </nav>
+        <button id="mobile-menu-button" class="md:hidden text-purple-700">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+
+      <div
+        id="mobile-menu"
+        class="mobile-menu md:hidden bg-white w-full absolute left-0 shadow-lg"
+      >
+        <div class="max-w-6xl mx-auto px-4 flex flex-col space-y-3">
+          <a
+            href="#math-worksheets"
+            class="text-gray-700 hover:text-purple-700 font-medium py-2"
+            >Math Worksheets</a
+          >
+          <a
+            href="#blog"
+            class="text-gray-700 hover:text-purple-700 font-medium py-2"
+            >Blog</a
+          >
+          <a
+            href="free-resources.html"
+            class="text-gray-700 hover:text-purple-700 font-medium py-2"
+            >Free resources</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <!-- NEW: Legal Pages Modal -->
+    <div
+      id="modal-overlay"
+      class="fixed inset-0 bg-black bg-opacity-50 modal hidden z-50"
+      onclick="closeModal()"
+    >
+      <div class="flex items-center justify-center min-h-screen p-4">
+        <div
+          class="bg-white rounded-lg shadow-xl max-w-2xl w-full modal-content"
+          onclick="event.stopPropagation()"
+        >
+          <!-- Modal Header -->
+          <div class="flex justify-between items-center p-6 border-b">
+            <h2 id="modal-title" class="text-2xl font-bold text-gray-800"></h2>
+            <button
+              onclick="closeModal()"
+              class="text-gray-400 hover:text-gray-600 text-2xl font-bold"
+            >
+              ×
+            </button>
+          </div>
+
+          <!-- Modal Content -->
+          <div id="modal-body" class="p-6 text-gray-700 leading-relaxed">
+            <!-- Content will be populated by JavaScript -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="max-w-6xl mx-auto px-4 py-16 text-center fade-in">
+      <h1 class="text-4xl md:text-5xl font-bold mb-6 text-white">
+        Simple <span class="feature-highlight">Math Worksheets</span> for Homeschoolers
+      </h1>
+      <p
+        class="text-lg md:text-xl text-white opacity-90 mb-8 max-w-3xl mx-auto"
+      >
+        Create unlimited, customized math worksheets in seconds. Perfect for homeschool families who need practice sheets that match their child's learning level.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4 mb-8">
+        <div
+          class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full px-4 py-2 text-white text-sm md:text-base"
+        >
+          <i class="fas fa-magic mr-2"></i>Instant Generation
+        </div>
+        <div
+          class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full px-4 py-2 text-white text-sm md:text-base"
+        >
+          <i class="fas fa-sliders-h mr-2"></i>Fully Customizable
+        </div>
+        <div
+          class="bg-white bg-opacity-20 backdrop-filter backdrop-blur-lg rounded-full px-4 py-2 text-white text-sm md:text-base"
+        >
+          <i class="fas fa-infinity mr-2"></i>Unlimited Use
+        </div>
+      </div>
+      <a
+        href="free-resources.html"
+        class="bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold py-3 px-8 rounded-lg btn-hover inline-block"
+      >
+        Get Free Resources
+      </a>
+    </section>
+
+    <!-- Math-Worksheets Section -->
+<section id="math-worksheets" class="worksheet-generator-section">
+    <div class="worksheet-container">
+        <div class="worksheet-header">
+            <h1>🎓 Premium Math Worksheet Generator</h1>
+            <p>Unlimited grade-appropriate math practice for grades 1-6</p>
+            <div class="trial-badge" id="trialBadge">
+                Free Trial: <span id="worksheetsLeft">3</span> worksheets left
+            </div>
+        </div>
+
+        <div class="upgrade-banner" id="upgradeBanner">
+            🚀 You've used all your free worksheets! Upgrade now for unlimited access.
+            <button onclick="showPaymentWall()">Upgrade Now</button>
+        </div>
+
+        <div class="worksheet-controls">
+            <div class="control-group">
+                <div class="control-item">
+                    <label for="gradeLevel">Grade Level:</label>
+                    <select id="gradeLevel" onchange="updateGradeInfo()">
+                        <option value="1">Grade 1</option>
+                        <option value="2">Grade 2</option>
+                        <option value="3" selected>Grade 3</option>
+                        <option value="4">Grade 4</option>
+                        <option value="5">Grade 5</option>
+                        <option value="6">Grade 6</option>
+                    </select>
+                    <div class="grade-info" id="gradeInfo">
+                        <h4>Grade 3 Skills:</h4>
+                        <p>Multiplication tables (1-10), basic division, addition/subtraction with regrouping</p>
+                    </div>
+                </div>
+
+                <div class="control-item">
+                    <label for="operationType">Operation Type:</label>
+                    <select id="operationType">
+                        <option value="mixed">Mixed Operations</option>
+                        <option value="addition">Addition Only</option>
+                        <option value="subtraction">Subtraction Only</option>
+                        <option value="multiplication">Multiplication Only</option>
+                        <option value="division">Division Only</option>
+                    </select>
+                </div>
+
+                <div class="control-item">
+                    <label for="numProblems">Number of Problems:</label>
+                    <select id="numProblems">
+                        <option value="15">15</option>
+                        <option value="20" selected>20</option>
+                        <option value="25">25</option>
+                        <option value="30">30</option>
+                    </select>
+                </div>
+
+                <div class="control-item">
+                    <label for="worksheetTitle">Worksheet Title:</label>
+                    <input type="text" id="worksheetTitle" value="Math Practice" placeholder="Enter title...">
+                </div>
+
+                <div class="control-item">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="includeAnswers" checked>
+                        <label for="includeAnswers">Include Answer Key</label>
+                    </div>
+                </div>
+
+                <div class="control-item">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="includeWordProblems">
+                        <label for="includeWordProblems">Include Word Problems</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button class="btn btn-primary" id="generateBtn" onclick="generateWorksheet()">
+                    ✨ Generate Worksheet
+                </button>
+                <button class="btn btn-secondary" onclick="printWorksheet()">
+                    🖨️ Print Worksheet
+                </button>
+            </div>
+        </div>
+
+        <div class="worksheet-output-container">
+            <div class="no-content">
+                <h3>Ready to Create!</h3>
+                <p>Select a grade level and click "Generate Worksheet" to create grade-appropriate math practice.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Wall Modal -->
+    <div class="payment-wall" id="paymentWall">
+        <div class="payment-modal">
+            <button class="close-modal" onclick="closePaymentWall()">×</button>
+            <h3>🎓 Unlock Unlimited Worksheets!</h3>
+            <div class="pricing-options">
+                <div class="price-option">
+                    <div class="price">$6/month</div>
+                    <p>Flexible subscription • Cancel anytime</p>
+                    <a href="#" class="btn btn-primary gumroad-button">Subscribe Now</a>
+                </div>
+                <div class="price-option">
+                    <div class="price">$24</div>
+                    <p>One-time purchase • Lifetime access</p>
+                    <a href="#" class="btn btn-primary gumroad-button">Buy Lifetime Access</a>
+                </div>
+            </div>
+
+            <div class="license-key-section">
+                <h4>Already Purchased?</h4>
+                <p>Enter your license key to unlock premium features:</p>
+                <input type="text" id="licenseKey" placeholder="Enter license key...">
+                <button class="btn btn-primary" onclick="validateLicenseKeyInput()">Activate License</button>
+            </div>
+
+            <div class="features">
+                <h4>What you get:</h4>
+                <ul>
+                    <li>Unlimited worksheet generation</li>
+                    <li>All grade levels (1-6)</li>
+                    <li>All operation types</li>
+                    <li>Word problems included</li>
+                    <li>Print-ready format</li>
+                    <li>Answer keys included</li>
+                    <li>PDF downloads</li>
+                    <li>Replace $100+ worth of workbooks</li>
+                </ul>
+            </div>
+
+            <p style="color: #666; font-size: 0.9em; margin-top: 15px;">
+                Secure payment processing<br>
+                7-day money-back guarantee
+            </p>
+        </div>
+    </div>
+
+    <style>
+        .worksheet-generator-section {
+            font-family: 'Arial', sans-serif;
+            padding: 20px;
+            margin: 40px 0;
+        }
+
+        .worksheet-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .worksheet-header {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .worksheet-header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .worksheet-header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .trial-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+            .trial-badge {
+                top: 10px;
+                right: 10px;
+                padding: 5px 10px;
+                font-size: 0.7em;
+            }
+        }
+
+        .upgrade-banner {
+            background: linear-gradient(135deg, #f59e0b, #f97316);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            display: none;
+        }
+
+        .upgrade-banner.show {
+            display: block;
+        }
+
+        .upgrade-banner button {
+            background: white;
+            color: #f59e0b;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .upgrade-banner button:hover {
+            transform: scale(1.05);
+        }
+
+        .worksheet-controls {
+            padding: 30px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .control-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .control-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .control-item:hover {
+            border-color: #7c3aed;
+            transform: translateY(-2px);
+        }
+
+        .control-item label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .control-item select, .control-item input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .control-item select:focus, .control-item input:focus {
+            outline: none;
+            border-color: #7c3aed;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: auto;
+            transform: scale(1.2);
+        }
+
+        .grade-info {
+            background: #f3e8ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 10px;
+            border-left: 4px solid #7c3aed;
+        }
+
+        .grade-info h4 {
+            color: #7c3aed;
+            margin-bottom: 5px;
+        }
+
+        .grade-info p {
+            color: #555;
+            font-size: 0.9em;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #7c3aed, #a855f7);
+            color: white;
+            box-shadow: 0 5px 15px rgba(124, 58, 237, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(124, 58, 237, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #c084fc, #a855f7);
+            color: white;
+            box-shadow: 0 5px 15px rgba(192, 132, 252, 0.4);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(192, 132, 252, 0.6);
+        }
+
+        .btn-disabled {
+            background: #e5e7eb;
+            color: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .btn-disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        .worksheet-output-container {
+            padding: 30px;
+            min-height: 400px;
+        }
+
+        .worksheet {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        .worksheet-header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #7c3aed;
+            padding-bottom: 20px;
+        }
+
+        .worksheet-header h2 {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .worksheet-header .info {
+            color: #666;
+            font-size: 1.1em;
+        }
+
+        .problems-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .problem {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #e9ecef;
+            text-align: center;
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+
+        .problem:hover {
+            border-color: #7c3aed;
+            background: #f3e8ff;
+        }
+
+        .problem-number {
+            font-size: 0.8em;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .equation {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .answer-line {
+            border-bottom: 2px solid #333;
+            width: 60px;
+            margin: 10px auto;
+            height: 2px;
+        }
+
+        .word-problem {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            padding: 20px;
+            text-align: left;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .word-problem .question {
+            color: #d97706;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .answer-key {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 3px solid #c084fc;
+        }
+
+        .answer-key h3 {
+            color: #c084fc;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+
+        .answers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+        }
+
+        .answer-item {
+            background: #f0fdf4;
+            padding: 8px;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            color: #166534;
+        }
+
+        .payment-wall {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .payment-wall.show {
+            display: flex;
+        }
+
+        .payment-modal {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            position: relative;
+        }
+
+        .payment-modal h3 {
+            color: #7c3aed;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .pricing-options {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            gap: 20px;
+        }
+
+        .price-option {
+            flex: 1;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .price-option .price {
+            font-size: 2em;
+            font-weight: bold;
+            color: #333;
+            margin: 10px 0;
+        }
+
+        .price-option p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .price-option .gumroad-button {
+            display: inline-block;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        .license-key-section {
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .license-key-section input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+        }
+
+        .license-key-section button {
+            margin-top: 10px;
+        }
+
+        .features {
+            text-align: left;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .features h4 {
+            color: #7c3aed;
+            margin-bottom: 10px;
+        }
+
+        .features ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .features li {
+            padding: 8px 0;
+            color: #333;
+        }
+
+        .features li:before {
+            content: "✓";
+            color: #10b981;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            color: #666;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+        }
+
+        .no-content {
+            text-align: center;
+            padding: 60px;
+            color: #999;
+        }
+
+        .no-content h3 {
+            margin-bottom: 10px;
+            color: #7c3aed;
+        }
+
+        .download-section {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 2px solid #10b981;
+        }
+
+        .download-section h3 {
+            color: #10b981;
+            margin-bottom: 15px;
+        }
+
+        .download-btn {
+            background: #10b981;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .toast.success {
+            background: #10b981;
+        }
+
+        .toast.error {
+            background: #ef4444;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .worksheet-container, .worksheet-container * {
+                visibility: visible;
+            }
+            .worksheet-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .worksheet-header, .worksheet-controls, .download-section {
+                display: none;
+            }
+            
+            .worksheet-output-container {
+                padding: 0;
+            }
+            
+            .worksheet {
+                box-shadow: none;
+                margin: 0;
+                padding: 20px;
+            }
+            
+            .problem {
+                background: white;
+                border: 1px solid #ccc;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .control-item {
+                padding: 15px;
+            }
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+            .worksheet-output-container {
+                padding: 15px;
+            }
+            .problems-grid {
+                grid-template-columns: 1fr;
+            }
+            .pricing-options {
+                flex-direction: column;
+            }
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js@1.12.0/src/toastify.min.css">
+
+    <script>
+        // Mock storage for environments without localStorage
+        const mockStorage = {
+            data: {},
+            getItem(key) {
+                return this.data[key] || null;
+            },
+            setItem(key, value) {
+                this.data[key] = value;
+            }
+        };
+        const storage = mockStorage;
+
+        // User state management
+        let userState = {
+            isPremium: false,
+            worksheetsGenerated: 0,
+            maxFreeWorksheets: 3,
+            licenseKey: null
+        };
+
+        // Load user state
+        async function loadUserState() {
+            const saved = storage.getItem('mathWorksheetUser');
+            if (saved) {
+                userState = JSON.parse(saved);
+                if (userState.licenseKey) {
+                    userState.isPremium = await validateLicenseKey(userState.licenseKey, true);
+                }
+            }
+            updateUI();
+        }
+
+        // Save user state to storage
+        function saveUserState() {
+            storage.setItem('mathWorksheetUser', JSON.stringify(userState));
+        }
+
+        // Update UI based on user state
+        function updateUI() {
+            const worksheetsLeft = userState.maxFreeWorksheets - userState.worksheetsGenerated;
+            const trialBadge = document.getElementById('trialBadge');
+            const upgradeBanner = document.getElementById('upgradeBanner');
+            const generateBtn = document.getElementById('generateBtn');
+
+            if (userState.isPremium) {
+                trialBadge.innerHTML = '✨ Premium User';
+                trialBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+                upgradeBanner.classList.remove('show');
+                generateBtn.classList.remove('btn-disabled');
+                generateBtn.disabled = false;
+            } else if (worksheetsLeft <= 0) {
+                trialBadge.innerHTML = 'Trial Expired';
+                trialBadge.style.background = 'rgba(239, 68, 68, 0.2)';
+                upgradeBanner.classList.add('show');
+                generateBtn.classList.add('btn-disabled');
+                generateBtn.disabled = true;
+                generateBtn.innerHTML = '🔒 Upgrade to Generate';
+            } else {
+                document.getElementById('worksheetsLeft').textContent = worksheetsLeft;
+                upgradeBanner.classList.remove('show');
+                generateBtn.classList.remove('btn-disabled');
+                generateBtn.disabled = false;
+            }
+        }
+
+        // Mock license validation
+        async function validateLicenseKey(key, isStored = false) {
+            if (!key) return false;
+            // Accept any non-empty key for testing
+            const isValid = key.length > 0;
+            if (isValid) {
+                return true;
+            } else {
+                if (!isStored) {
+                    Toastify({
+                        text: 'Invalid license key. Please check and try again.',
+                        className: 'error'
+                    }).showToast();
+                }
+                return false;
+            }
+        }
+
+        async function validateLicenseKeyInput() {
+            const key = document.getElementById('licenseKey').value.trim();
+            const button = document.querySelector('.license-key-section button');
+            const originalText = button.textContent;
+            button.textContent = 'Validating...';
+            button.disabled = true;
+            
+            try {
+                const isValid = await validateLicenseKey(key);
+                if (isValid) {
+                    userState.isPremium = true;
+                    userState.licenseKey = key;
+                    saveUserState();
+                    updateUI();
+                    closePaymentWall();
+                    Toastify({
+                        text: '🎉 License activated! You now have unlimited access.',
+                        className: 'success'
+                    }).showToast();
+                }
+            } finally {
+                button.textContent = originalText;
+                button.disabled = false;
+            }
+        }
+
+        let currentProblems = [];
+        let currentAnswers = [];
+
+        const gradeSpecs = {
+            1: {
+                title: "Grade 1 Skills",
+                description: "Addition/subtraction within 20, counting, simple shapes",
+                operations: ['addition', 'subtraction'],
+                numberRange: { min: 1, max: 10 },
+                allowNegative: false
+            },
+            2: {
+                title: "Grade 2 Skills",
+                description: "Addition/subtraction within 100, intro multiplication (2×, 5×, 10×)",
+                operations: ['addition', 'subtraction', 'multiplication'],
+                numberRange: { min: 1, max: 20 },
+                multiplicationMax: 5,
+                allowNegative: false
+            },
+            3: {
+                title: "Grade 3 Skills",
+                description: "Multiplication tables (1-10), basic division, addition/subtraction with regrouping",
+                operations: ['addition', 'subtraction', 'multiplication', 'division'],
+                numberRange: { min: 1, max: 50 },
+                multiplicationMax: 10,
+                allowNegative: false
+            },
+            4: {
+                title: "Grade 4 Skills",
+                description: "All operations, larger numbers, multi-digit multiplication",
+                operations: ['addition', 'subtraction', 'multiplication', 'division'],
+                numberRange: { min: 1, max: 100 },
+                multiplicationMax: 12,
+                allowNegative: false
+            },
+            5: {
+                title: "Grade 5 Skills",
+                description: "Decimals, fractions, advanced multiplication/division",
+                operations: ['addition', 'subtraction', 'multiplication', 'division'],
+                numberRange: { min: 1, max: 200 },
+                multiplicationMax: 15,
+                allowNegative: true,
+                includeDecimals: true
+            },
+            6: {
+                title: "Grade 6 Skills",
+                description: "All operations with larger numbers, fractions, integers",
+                operations: ['addition', 'subtraction', 'multiplication', 'division'],
+                numberRange: { min: 1, max: 500 },
+                multiplicationMax: 20,
+                allowNegative: true,
+                includeDecimals: true
+            }
+        };
+
+        const wordProblemTemplates = {
+            addition: [
+                "Sarah has {num1} stickers. Her friend gives her {num2} more stickers. How many stickers does Sarah have now?",
+                "There are {num1} birds in a tree. {num2} more birds fly to the tree. How many birds are in the tree now?",
+                "Tom scored {num1} points in the first game and {num2} points in the second game. How many points did he score in total?"
+            ],
+            subtraction: [
+                "Maria had {num1} marbles. She gave {num2} marbles to her brother. How many marbles does Maria have left?",
+                "There were {num1} cookies in the jar. The family ate {num2} cookies. How many cookies are left?",
+                "A parking lot had {num1} cars. {num2} cars drove away. How many cars are still in the parking lot?"
+            ],
+            multiplication: [
+                "Each box contains {num1} pencils. If there are {num2} boxes, how many pencils are there in total?",
+                "A garden has {num1} rows of flowers. Each row has {num2} flowers. How many flowers are in the garden?",
+                "If one pizza has {num1} slices and we order {num2} pizzas, how many slices do we have?"
+            ],
+            division: [
+                "There are {num1} candies to be shared equally among {num2} children. How many candies does each child get?",
+                "A teacher has {num1} students and wants to make groups of {num2}. How many groups can she make?",
+                "If {num1} apples are packed into bags of {num2} apples each, how many bags are needed?"
+            ]
+        };
+
+        function updateGradeInfo() {
+            const grade = parseInt(document.getElementById('gradeLevel').value);
+            const spec = gradeSpecs[grade];
+            const infoDiv = document.getElementById('gradeInfo');
+            
+            infoDiv.innerHTML = `
+                <h4>${spec.title}:</h4>
+                <p>${spec.description}</p>
+            `;
+        }
+
+        function generateWorksheet() {
+            if (!userState.isPremium && userState.worksheetsGenerated >= userState.maxFreeWorksheets) {
+                showPaymentWall();
+                return;
+            }
+
+            const grade = parseInt(document.getElementById('gradeLevel').value);
+            const operationType = document.getElementById('operationType').value;
+            const numProblems = parseInt(document.getElementById('numProblems').value);
+            const worksheetTitle = document.getElementById('worksheetTitle').value || 'Math Practice';
+            const includeAnswers = document.getElementById('includeAnswers').checked;
+            const includeWordProblems = document.getElementById('includeWordProblems').checked;
+
+            if (worksheetTitle.length > 50) {
+                Toastify({
+                    text: 'Worksheet title must be 50 characters or less.',
+                    className: 'error'
+                }).showToast();
+                return;
+            }
+
+            const spec = gradeSpecs[grade];
+            const problems = [];
+            const answers = [];
+
+            let operations = [];
+            if (operationType === 'mixed') {
+                operations = spec.operations;
+            } else {
+                operations = [operationType];
+            }
+
+            const regularProblems = includeWordProblems ? Math.floor(numProblems * 0.7) : numProblems;
+            
+            for (let i = 0; i < regularProblems; i++) {
+                const operation = operations[Math.floor(Math.random() * operations.length)];
+                const problem = generateProblem(operation, spec);
+                problems.push(problem);
+                answers.push(problem.answer);
+            }
+
+            if (includeWordProblems) {
+                const wordProblems = numProblems - regularProblems;
+                for (let i = 0; i < wordProblems; i++) {
+                    const operation = operations[Math.floor(Math.random() * operations.length)];
+                    const problem = generateWordProblem(operation, spec);
+                    problems.push(problem);
+                    answers.push(problem.answer);
+                }
+            }
+
+            currentProblems = problems;
+            currentAnswers = answers;
+
+            if (!userState.isPremium) {
+                userState.worksheetsGenerated++;
+                saveUserState();
+                updateUI();
+            }
+
+            const worksheetHTML = createWorksheetHTML(problems, answers, worksheetTitle, includeAnswers, grade);
+            document.querySelector('.worksheet-output-container').innerHTML = worksheetHTML;
+            Toastify({
+                text: 'Worksheet generated successfully!',
+                className: 'success'
+            }).showToast();
+        }
+
+        function generateProblem(operation, spec) {
+            let num1, num2, answer, equation;
+
+            switch (operation) {
+                case 'addition':
+                    num1 = Math.floor(Math.random() * spec.numberRange.max) + spec.numberRange.min;
+                    num2 = Math.floor(Math.random() * spec.numberRange.max) + spec.numberRange.min;
+                    answer = num1 + num2;
+                    equation = `${num1} + ${num2} = `;
+                    break;
+
+                case 'subtraction':
+                    num1 = Math.floor(Math.random() * spec.numberRange.max) + spec.numberRange.min;
+                    num2 = Math.floor(Math.random() * num1) + 1;
+                    answer = num1 - num2;
+                    equation = `${num1} - ${num2} = `;
+                    break;
+
+                case 'multiplication':
+                    const maxMult = spec.multiplicationMax || 10;
+                    num1 = Math.floor(Math.random() * maxMult) + 1;
+                    num2 = Math.floor(Math.random() * maxMult) + 1;
+                    answer = num1 * num2;
+                    equation = `${num1} × ${num2} = `;
+                    break;
+
+                case 'division':
+                    const maxDiv = spec.multiplicationMax || 10;
+                    num2 = Math.floor(Math.random() * maxDiv) + 1;
+                    num1 = num2 * (Math.floor(Math.random() * maxDiv) + 1);
+                    answer = num1 / num2;
+                    equation = `${num1} ÷ ${num2} = `;
+                    break;
+            }
+
+            return {
+                type: 'regular',
+                operation,
+                equation,
+                answer,
+                num1,
+                num2
+            };
+        }
+
+        function generateWordProblem(operation, spec) {
+            const templates = wordProblemTemplates[operation];
+            if (!templates) return generateProblem(operation, spec);
+
+            const template = templates[Math.floor(Math.random() * templates.length)];
+            let num1, num2, answer;
+
+            switch (operation) {
+                case 'addition':
+                    num1 = Math.floor(Math.random() * 20) + 1;
+                    num2 = Math.floor(Math.random() * 20) + 1;
+                    answer = num1 + num2;
+                    break;
+
+                case 'subtraction':
+                    num1 = Math.floor(Math.random() * 50) + 10;
+                    num2 = Math.floor(Math.random() * num1) + 1;
+                    answer = num1 - num2;
+                    break;
+
+                case 'multiplication':
+                    num1 = Math.floor(Math.random() * 8) + 2;
+                    num2 = Math.floor(Math.random() * 8) + 2;
+                    answer = num1 * num2;
+                    break;
+
+                case 'division':
+                    num2 = Math.floor(Math.random() * 8) + 2;
+                    num1 = num2 * (Math.floor(Math.random() * 8) + 2);
+                    answer = num1 / num2;
+                    break;
+            }
+
+            const question = template.replace('{num1}', num1).replace('{num2}', num2);
+
+            return {
+                type: 'word',
+                operation,
+                question,
+                answer,
+                num1,
+                num2
+            };
+        }
+
+        function createWorksheetHTML(problems, answers, title, includeAnswers, grade) {
+            const date = new Date().toLocaleDateString();
+            
+            let html = `
+                <div class="worksheet">
+                    <div class="worksheet-header">
+                        <h2>${title} - Grade ${grade}</h2>
+                        <div class="info">
+                            <strong>Date:</strong> ${date} | 
+                            <strong>Problems:</strong> ${problems.length} | 
+                            <strong>Name:</strong> _________________________
+                        </div>
+                    </div>
+                    
+                    <div class="problems-grid">
+            `;
+
+            problems.forEach((problem, index) => {
+                if (problem.type === 'word') {
+                    html += `
+                        <div class="problem word-problem">
+                            <div class="problem-number">${index + 1}.</div>
+                            <div class="question">${problem.question}</div>
+                            <div style="margin-top: 15px;">
+                                <strong>Answer:</strong> <span class="answer-line" style="display: inline-block; width: 80px; border-bottom: 2px solid #333; margin-left: 10px;"></span>
+                            </div>
+                        </div>
+                    `;
+                } else {
+                    html += `
+                        <div class="problem">
+                            <div class="problem-number">${index + 1}.</div>
+                            <div class="equation">${problem.equation}</div>
+                            <div class="answer-line"></div>
+                        </div>
+                    `;
+                }
+            });
+
+            html += `</div>`;
+
+            if (includeAnswers) {
+                html += `
+                    <div class="answer-key">
+                        <h3>📝 Answer Key</h3>
+                        <div class="answers-grid">
+                `;
+
+                answers.forEach((answer, index) => {
+                    html += `
+                        <div class="answer-item">
+                            ${index + 1}. ${answer}
+                        </div>
+                    `;
+                });
+
+                html += `
+                        </div>
+                    </div>
+                `;
+            }
+
+            if (userState.isPremium) {
+                html += `
+                    <div class="download-section">
+                        <h3>📥 Download Options</h3>
+                        <p>Save this worksheet for offline use:</p>
+                        <button class="download-btn" onclick="downloadWorksheet()">
+                            Download PDF
+                        </button>
+                        <button class="download-btn" onclick="window.print()" style="margin-left: 10px;">
+                            Print Now
+                        </button>
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+            return html;
+        }
+
+        function showPaymentWall() {
+            document.getElementById('paymentWall').classList.add('show');
+        }
+
+        function closePaymentWall() {
+            document.getElementById('paymentWall').classList.remove('show');
+        }
+
+        function downloadWorksheet() {
+            if (!userState.isPremium) {
+                showPaymentWall();
+                Toastify({
+                    text: 'Upgrade to premium to download PDFs!',
+                    className: 'error'
+                }).showToast();
+                return;
+            }
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const worksheet = document.querySelector('.worksheet');
+
+            html2canvas(worksheet, { scale: 2 }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const imgProps = doc.getImageProperties(imgData);
+                const pdfWidth = doc.internal.pageSize.getWidth();
+                const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+
+                doc.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+                doc.save(`${document.getElementById('worksheetTitle').value || 'Math Practice'}.pdf`);
+                Toastify({
+                    text: 'PDF downloaded successfully!',
+                    className: 'success'
+                }).showToast();
+            }).catch(error => {
+                console.error('PDF Error:', error);
+                Toastify({
+                    text: 'Error downloading PDF. Please try again.',
+                    className: 'error'
+                }).showToast();
+            });
+        }
+
+        function printWorksheet() {
+            if (currentProblems.length === 0) {
+                Toastify({
+                    text: 'Please generate a worksheet first!',
+                    className: 'error'
+                }).showToast();
+                return;
+            }
+
+            const originalContent = document.body.innerHTML;
+            const worksheet = document.querySelector('.worksheet');
+            const header = worksheet.querySelector('.worksheet-header').outerHTML;
+            const answerKey = worksheet.querySelector('.answer-key') ? worksheet.querySelector('.answer-key').outerHTML : '';
+
+            document.body.innerHTML = `
+                <div class="printable-content">
+                    <div class="worksheet-page">
+                        ${header.replace('class="info"', 'class="info" style="color: #333; background: #f3e8ff; padding: 8px; border-radius: 4px;"')}
+                        <div class="problems-container">
+                            ${createTwoColumnLayout(worksheet)}
+                        </div>
+                    </div>
+                    ${answerKey ? `
+                    <div class="answer-key-page">
+                        ${answerKey}
+                    </div>
+                    ` : ''}
+                </div>
+                
+                <style>
+                    @media print {
+                        body * {
+                            visibility: hidden;
+                        }
+                        .printable-content, .printable-content * {
+                            visibility: visible;
+                        }
+                        .printable-content {
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            width: 100%;
+                            font-size: 14px;
+                        }
+                        .worksheet-header .info {
+                            color: #333 !important;
+                            background: #f3e8ff !important;
+                            padding: 8px !important;
+                            border-radius: 4px !important;
+                            display: inline-block !important;
+                        }
+                        .problems-container {
+                            column-count: 2;
+                            column-gap: 20px;
+                            margin-top: 20px;
+                        }
+                        .problem {
+                            break-inside: avoid;
+                            page-break-inside: avoid;
+                            margin-bottom: 20px;
+                            padding: 10px;
+                        }
+                        .answer-key-page {
+                            page-break-before: always;
+                            padding-top: 20px;
+                        }
+                        .answer-key h3 {
+                            text-align: center;
+                            margin-bottom: 20px;
+                        }
+                        .answers-grid {
+                            display: grid;
+                            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                            gap: 10px;
+                        }
+                        @page {
+                            size: auto;
+                            margin: 15mm;
+                        }
+                    }
+                </style>
+            `;
+            
+            window.print();
+            document.body.innerHTML = originalContent;
+
+            function createTwoColumnLayout(worksheet) {
+                const problems = worksheet.querySelectorAll('.problem');
+                let html = '';
+                problems.forEach(problem => {
+                    html += problem.outerHTML;
+                });
+                return html;
+            }
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            loadUserState();
+        });
+    </script>
+</section>
+     
+
+      <!-- Trust Indicators -->
+      <div class="text-center mt-12">
+        <div
+          class="flex justify-center items-center space-x-8 text-white opacity-80"
+        >
+          <div class="flex items-center">
+            <i class="fas fa-shield-alt mr-2"></i>
+            <span class="text-sm">No spam, ever</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-clock mr-2"></i>
+            <span class="text-sm">Instant download</span>
+          </div>
+          <div class="flex items-center">
+            <i class="fas fa-users mr-2"></i>
+            <span class="text-sm">Join 500+ homeschool parents</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="max-w-6xl mx-auto px-4 py-16">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl font-bold text-white mb-4">
+          Why Homeschool Parents Love Our Resources
+        </h2>
+        <p class="text-white opacity-90 text-lg">
+          Practical tools designed specifically for homeschool families
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        <article class="glass-card p-6 rounded-xl text-center">
+          <i class="fas fa-clock text-4xl text-purple-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Save Time</h3>
+          <p class="text-gray-600">
+            Our resources are ready-to-use so you can focus on teaching instead
+            of preparation.
+          </p>
+        </article>
+
+        <article class="glass-card p-6 rounded-xl text-center">
+          <i class="fas fa-child text-4xl text-blue-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Kid-Tested</h3>
+          <p class="text-gray-600">
+            All materials are tested by real homeschool families to ensure they
+            work in real-world settings.
+          </p>
+        </article>
+
+        <article class="glass-card p-6 rounded-xl text-center">
+          <i class="fas fa-graduation-cap text-4xl text-green-600 mb-4"></i>
+          <h3 class="text-xl font-bold mb-2">Aligned to Standards</h3>
+          <p class="text-gray-600">
+            Our resources cover key math concepts aligned with common
+            educational standards.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <!-- Blog Section -->
+<section id="blog" class="max-w-6xl mx-auto px-4 py-12">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold text-white mb-4">Homeschool Math Blog</h2>
+    <p class="text-white opacity-90 text-lg">
+      Tips, strategies and inspiration for teaching math at home
+    </p>
+  </div>
+  
+  <!-- Blog Posts Container -->
+  <div id="blog-posts" class="grid md:grid-cols-3 gap-8">
+    <div class="text-center py-12">
+      <div class="loading-spinner mx-auto"></div>
+      <p class="text-white mt-4">Loading blog posts...</p>
+    </div>
+  </div>
+  
+  <!-- Read More Button -->
+  <div class="text-center mt-8">
+    <a href="/posts/" class="inline-block bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-6 py-3 rounded-lg font-semibold transition-all duration-300 backdrop-blur-sm border border-white border-opacity-30">
+      View All Posts
+      <svg class="w-4 h-4 inline ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<div id="modal-overlay" class="hidden fixed inset-0 bg-black bg-opacity-50">
+  <div class="modal-container flex min-h-screen justify-center">
+    <div class="modal-content bg-white p-4 rounded">
+      <h2 id="modal-title"></h2>
+      <div id="modal-body"></div>
+      <button onclick="closeModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+
+    <!-- Email Signup Section -->
+<section id="newsletter" class="max-w-4xl mx-auto px-4 py-12">
+  <div class="glass-card p-6 md:p-8 rounded-2xl text-center">
+    <h2 class="text-2xl font-bold mb-4">Stay Connected</h2>
+    <p class="text-gray-600 mb-6">
+      Get the math resources busy homeschool parents love
+    </p>
+    
+    <form
+      action="https://getform.io/f/axoynywb"
+      method="POST"
+      class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto"
+    >
+      <input
+        type="email"
+        name="email"
+        placeholder="Your Email"
+        required
+        class="flex-1 border-2 border-gray-200 rounded-lg px-4 py-3 focus:border-purple-500 focus:outline-none"
+      />
+      <input type="hidden" name="source" value="Newsletter Signup">
+      <button
+        type="submit"
+        class="bg-purple-600 text-white font-semibold py-3 px-6 rounded-lg btn-hover whitespace-nowrap"
+      >
+        I'm in
+      </button>
+    </form>
+  </div>
+</section>
+
+<!-- FAQ Section -->
+    <div class="worksheet-faq">
+        <h3>Frequently Asked Questions</h3>
+        
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>How many worksheets can I generate for free?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <p>You can generate 3 worksheets for free during the trial period. After that, you can choose from our two plans: $6/month for flexible access or $24 for lifetime unlimited worksheet generation across all grade levels.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>Can I save my worksheet templates?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <p>Yes! Premium users can save their favorite configurations and generate variations of the same template. You can also name and organize your templates for easy access later.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>What payment methods do you accept?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <p>We accept all major credit cards and PayPal through Gumroad, our secure payment processor. Choose from our monthly plan at $6/month or get lifetime access for just $24 with no recurring charges.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>Can I use these worksheets for my entire class?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <p>Absolutely! Our license allows teachers to generate unlimited worksheets for their students. You can even create differentiated worksheets for different skill levels in your classroom.</p>
+            </div>
+        </div>
+        
+        <div class="faq-item">
+            <button class="faq-question">
+                <span>Do you offer refunds?</span>
+                <span class="faq-icon">+</span>
+            </button>
+            <div class="faq-answer">
+                <p>We offer a 7-day money-back guarantee for lifetime purchases only. If you're not completely satisfied with the worksheet generator, we'll refund your payment with no questions asked.</p>
+            </div>
+        </div>
+    </div>
+
+
+
+<footer
+      class="mt-20 py-8 text-center text-white opacity-80 bg-gray-900 bg-opacity-50"
+    >
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="flex flex-col md:flex-row justify-between items-center">
+          <div class="mb-4 md:mb-0">
+            <p>&copy; 2025 Homeschool Math. Made for homeschool families.</p>
+          </div>
+          <nav class="flex space-x-6">
+            <a href="#" onclick="showModal('privacy')" class="hover:text-white"
+              >Privacy</a
+            >
+            <a href="#" onclick="showModal('terms')" class="hover:text-white"
+              >Terms</a
+            >
+            <a href="#" onclick="showModal('contact')" class="hover:text-white"
+              >Contact</a
+            >
+          </nav>
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById("mobile-menu-button");
+      const mobileMenu = document.getElementById("mobile-menu");
+
+      mobileMenuButton.addEventListener("click", function () {
+        mobileMenu.classList.toggle("open");
+        const icon = mobileMenuButton.querySelector("i");
+        if (mobileMenu.classList.contains("open")) {
+          icon.classList.remove("fa-bars");
+          icon.classList.add("fa-times");
+        } else {
+          icon.classList.remove("fa-times");
+          icon.classList.add("fa-bars");
+        }
+      });
+
+      // Close mobile menu when clicking on a link
+      document.querySelectorAll("#mobile-menu a").forEach((link) => {
+        link.addEventListener("click", function () {
+          mobileMenu.classList.remove("open");
+          mobileMenuButton.querySelector("i").classList.remove("fa-times");
+          mobileMenuButton.querySelector("i").classList.add("fa-bars");
+        });
+      });
+
+      // Smooth scroll for anchor links with offset for fixed header
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    const href = this.getAttribute("href");
+    
+    // Skip if it's just a # link
+    if (href === "#" || href === "#!") {
+      return true; // Let default behavior occur
+    }
+    
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) {
+      const headerOffset = 80;
+      const elementPosition = target.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+      
+      // Update URL without page jump
+      history.pushState(null, null, href);
+    }
+  });
+});
+
+     // Cookie banner - Fixed version
+document.addEventListener('DOMContentLoaded', function() {
+  const cookieBanner = document.getElementById("cookie-banner");
+  const acceptCookies = document.getElementById("accept-cookies");
+
+  // Use in-memory storage since localStorage isn't available in artifacts
+  let cookiesAccepted = false;
+  
+  if (!cookiesAccepted) {
+    cookieBanner.classList.remove("hidden");
+  }
+
+  acceptCookies.addEventListener("click", function () {
+    cookieBanner.classList.add("hidden");
+    cookiesAccepted = true;
+    // In real implementation: localStorage.setItem("cookiesAccepted", "true");
+  });
+});
+
+      function openDownloadForm(resourceType) {
+        const url = formUrls[resourceType];
+        if (url) {
+          // Open in new tab
+          window.open(url, "_blank");
+
+          // Optional: Track the click for analytics
+          if (typeof gtag !== "undefined") {
+            gtag("event", "download_click", {
+              resource_type: resourceType,
+            });
+          }
+        } else {
+          alert("Download form not yet configured for this resource.");
+        }
+      }
+
+      // Optional: Add some interactive effects
+      document.addEventListener("DOMContentLoaded", function () {
+        // Animate cards on scroll
+        const observerOptions = {
+          threshold: 0.1,
+          rootMargin: "0px 0px -50px 0px",
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
+            }
+          });
+        }, observerOptions);
+
+        // Observe all resource cards
+        document.querySelectorAll(".resource-card").forEach((card) => {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(20px)";
+          card.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+          observer.observe(card);
+        });
+      });
+    </script>
+
+    <!-- Updated Legal Pages Script -->
+    <script>
+      const modalContent = {
+        privacy: {
+          title: "Privacy Policy",
+          content: `
+      <h3 class="text-lg font-semibold mb-4">Information Collection</h3>
+      <p class="mb-4">We collect personal information that you voluntarily provide when subscribing to our resources, downloading materials, or contacting us for support.</p>
+      
+      <h3 class="text-lg font-semibold mb-4">How We Use Your Information</h3>
+      <p class="mb-4">Your information is used exclusively to:</p>
+      <ul class="list-disc list-inside mb-4 space-y-2">
+          <li>Deliver the free resources you've requested</li>
+          <li>Send occasional updates about new homeschool math resources</li>
+          <li>Respond to your questions and provide customer support</li>
+          <li>Improve our website content and user experience</li>
+      </ul>
+      
+      <h3 class="text-lg font-semibold mb-4">Data Protection</h3>
+      <p class="mb-4">We implement industry-standard security measures to safeguard your personal information against unauthorized access, disclosure, alteration, or destruction. Your email address will never be sold, rented, or shared with third parties without your explicit consent.</p>
+      
+      <h3 class="text-lg font-semibold mb-4">Your Rights</h3>
+      <p class="mb-4">You may unsubscribe from our communications at any time using the unsubscribe link in our emails, or by contacting us directly. You can also request to have your personal information updated or deleted.</p>
+      
+      <h3 class="text-lg font-semibold mb-4">Contact Information</h3>
+      <p>For questions regarding this Privacy Policy or your personal data, please reach out using the contact information provided in our Contact section.</p>
+    `,
+        },
+        terms: {
+          title: "Terms of Service",
+          content: `
+      <h3 class="text-lg font-semibold mb-4">Agreement to Terms</h3>
+      <p class="mb-4">By accessing our website and downloading our resources, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.</p>
+      
+      <h3 class="text-lg font-semibold mb-4">Permitted Use</h3>
+      <p class="mb-4">Our resources are provided for personal, non-commercial educational use in homeschool settings. You are granted permission to:</p>
+      <ul class="list-disc list-inside mb-4 space-y-2">
+          <li>Download and use materials for your own homeschool family</li>
+          <li>Print resources for personal educational purposes</li>
+          <li>Share our website link with other homeschool families</li>
+      </ul>
+      
+      <h3 class="text-lg font-semibold mb-4">Prohibited Activities</h3>
+      <p class="mb-4">You may not:</p>
+      <ul class="list-disc list-inside mb-4 space-y-2">
+          <li>Redistribute, resell, or commercially exploit our materials</li>
+          <li>Remove copyright notices or attribution from our resources</li>
+          <li>Modify our materials and redistribute them as your own</li>
+          <li>Use automated systems to access or download our content</li>
+      </ul>
+      
+      <h3 class="text-lg font-semibold mb-4">Service Availability</h3>
+      <p class="mb-4">While we strive to maintain continuous access to our resources, we cannot guarantee uninterrupted service. We reserve the right to modify, suspend, or discontinue any aspect of our website with or without notice.</p>
+      
+      <h3 class="text-lg font-semibold mb-4">Limitation of Liability</h3>
+      <p>Our resources are provided "as is" for educational purposes. We make no warranties regarding their effectiveness and shall not be liable for any damages arising from their use.</p>
+    `,
+        },
+        contact: {
+          title: "Contact Us",
+          content: `
+      <h3 class="text-lg font-semibold mb-4">We're Here to Help</h3>
+      <p class="mb-6">Have questions about our resources or need support with homeschool math? We'd love to connect with you and provide assistance however we can.</p>
+      
+      <div class="bg-gray-50 p-4 rounded-lg">
+    <h4 class="font-semibold text-gray-800 mb-2">Contact Us</h4>
+    <p class="text-gray-600">bob@homeschoolmath.site</p>
+    <p class="text-sm text-gray-500 mt-1">Questions about resources, downloads, technical issues, or general inquiries</p>
+</div>
+          
+          <div class="bg-gray-50 p-4 rounded-lg">
+              <h4 class="font-semibold text-gray-800 mb-2">Response Time</h4>
+              <p class="text-gray-600">Monday - Friday: 9:00 AM - 5:00 PM (EST)</p>
+              <p class="text-sm text-gray-500 mt-1">We typically respond within 24-48 hours during business days</p>
+          </div>
+      </div>
+      
+      <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+          <h4 class="font-semibold text-blue-800 mb-2">Get the Best Help</h4>
+          <p class="text-blue-700 text-sm">When contacting us, please include details about which resource you're referring to or the specific challenge you're facing. This helps us provide more targeted assistance!</p>
+      </div>
+    `,
+        },
+      };
+
+      
+
+      function showModal(type) {
+  const modal = document.getElementById("modal-overlay");
+  const title = document.getElementById("modal-title");
+  const body = document.getElementById("modal-body");
+
+  if (modalContent[type]) {
+    title.textContent = modalContent[type].title;
+    body.innerHTML = modalContent[type].content;
+
+    // Add scrolling styles to the modal body
+    body.style.maxHeight = "60vh";
+    body.style.overflowY = "auto";
+    body.classList.add("pr-2");
+
+    // Keep modal at bottom for ALL modal types
+    const modalContainer = modal.querySelector('.flex.items-center.justify-center.min-h-screen');
+    if (modalContainer) {
+      modalContainer.style.alignItems = "flex-end";
+      modalContainer.style.paddingBottom = "2rem";
+    }
+
+    modal.classList.remove("hidden");
+    document.body.style.overflow = "hidden";
+  }
+}
+
+function closeModal() {
+  const modal = document.getElementById("modal-overlay");
+  modal.classList.add("hidden");
+  document.body.style.overflow = "auto";
+  
+  // Reset modal position
+  const modalContainer = modal.querySelector('.flex.items-center.justify-center.min-h-screen');
+  if (modalContainer) {
+    modalContainer.style.alignItems = "center";
+    modalContainer.style.paddingBottom = "0";
+  }
+}
+
+// Close modal with Escape key
+document.addEventListener("keydown", function (event) {
+  if (event.key === "Escape") {
+    closeModal();
+  }
+});
+
+// Close modal when clicking outside
+document.addEventListener('DOMContentLoaded', function() {
+  const modalOverlay = document.getElementById("modal-overlay");
+  if (modalOverlay) {
+    modalOverlay.addEventListener("click", function(event) {
+      if (event.target === this) {
+        closeModal();
+      }
+    });
+  }
+});
+    </script>
+
+    <!-- JavaScript to handle downloads after form submission -->
+<script>
+  document.querySelectorAll('.inline-form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const resourceName = formData.get('resource');
+      const downloadUrl = getDownloadUrl(resourceName);
+
+      // Submit to Getform
+      fetch(this.action, {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(() => {
+        window.open(downloadUrl, '_blank'); // Trigger download
+      }).catch(() => {
+        window.open(downloadUrl, '_blank'); // Fallback download
+      });
+    });
+  });
+
+  // Map resources to their download URLs
+  function getDownloadUrl(resource) {
+    const resources = {
+      "Essential Math Tips Guide": "/downloads/math_tips.pdf",
+      "Printable Math Tracker PDF": "/downloads/progress_tracker.pdf",
+      "Quick Math Games for Kids": "/downloads/math_games.pdf",
+      "Homeschool Math Resource Guide": "/downloads/resource_guide.pdf",
+      "Math Success Checklist": "/downloads/success_checklist.pdf",
+      "All Resources Bundle": "/downloads/all-resources.zip"
+    };
+    return resources[resource] || '#';
+  }
+</script>
+
+<script>
+// Replace your existing blog loading code with:
+async function loadBlogPosts() {
+  try {
+    const response = await fetch('/.netlify/functions/posts');
+    console.log('Response status:', response.status);
+    
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    
+    const posts = await response.json();
+    console.log('Posts loaded:', posts.length);
+    
+    const container = document.getElementById('blog-posts');
+    if (!container) {
+      console.error('Blog posts container not found');
+      return;
+    }
+
+    // Clear loading content
+    container.innerHTML = '';
+    
+    // If no posts, show message
+    if (!posts || posts.length === 0) {
+      container.innerHTML = `
+        <div class="col-span-full text-center py-12">
+          <p class="text-white text-lg">No blog posts found.</p>
+        </div>
+      `;
+      return;
+    }
+
+    // Display first 3 posts (or all if less than 3)
+    const postsToShow = posts.slice(0, 3);
+    
+    postsToShow.forEach(post => {
+      const postElement = document.createElement('div');
+      postElement.className = 'bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-lg overflow-hidden hover:bg-opacity-20 transition-all duration-300';
+      
+      postElement.innerHTML = `
+        <div class="p-6">
+          ${post.featured_image ? `
+            <img src="${post.featured_image}" alt="${post.title}" class="w-full h-48 object-cover rounded-lg mb-4">
+          ` : ''}
+          
+          <div class="flex items-center gap-2 mb-3">
+            ${post.tags && post.tags.length > 0 ? post.tags.map(tag => 
+              `<span class="bg-white bg-opacity-20 text-white text-xs px-2 py-1 rounded-full">${tag}</span>`
+            ).join('') : ''}
+          </div>
+          
+          <h3 class="text-xl font-bold text-white mb-3 line-clamp-2">${post.title}</h3>
+          
+          <p class="text-white opacity-90 text-sm mb-4 line-clamp-3">
+            ${post.description || extractTextFromHTML(post.body, 150)}
+          </p>
+          
+          <div class="flex items-center justify-between text-sm text-white opacity-75">
+            <span>${formatDate(post.date)}</span>
+            <span>${post.read_time}</span>
+          </div>
+          
+          <div class="mt-4">
+            <a href="/posts/${post.slug}" class="inline-flex items-center text-white hover:text-opacity-80 transition-colors">
+              Read More
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </a>
+          </div>
+        </div>
+      `;
+      
+      container.appendChild(postElement);
+    });
+    
+    console.log('Blog posts displayed successfully');
+    
+  } catch (error) {
+    console.error('Error loading posts:', error);
+    
+    const container = document.getElementById('blog-posts');
+    if (container) {
+      container.innerHTML = `
+        <div class="col-span-full text-center py-12">
+          <p class="text-white text-lg">Error loading blog posts. Please try again later.</p>
+        </div>
+      `;
+    }
+  }
+}
+
+// Helper function to extract text from HTML
+function extractTextFromHTML(html, maxLength = 150) {
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  const text = div.textContent || div.innerText || '';
+  return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
+}
+
+// Helper function to format date
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  return date.toLocaleDateString('en-US', { 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  });
+}
+
+// Make sure to call the function when page loads
+document.addEventListener('DOMContentLoaded', loadBlogPosts);
+</script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Fix for cross-page navigation
+    setTimeout(function() {
+        if (window.location.hash) {
+            const targetElement = document.querySelector(window.location.hash);
+            if (targetElement) {
+                const headerHeight = document.querySelector('header').offsetHeight || 80;
+                const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - (headerHeight + 20);
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+    }, 100);
+
+});
+
+// FAQ Accordion Functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const currentAnswer = this.nextElementSibling;
+            const currentIcon = this.querySelector('.faq-icon');
+            const isCurrentlyActive = this.classList.contains('active');
+            
+            // Close all other FAQs first
+            document.querySelectorAll('.faq-item').forEach(item => {
+                if (item !== this.parentElement) {
+                    const otherAnswer = item.querySelector('.faq-answer');
+                    const otherIcon = item.querySelector('.faq-icon');
+                    const otherQuestion = item.querySelector('.faq-question');
+                    
+                    otherQuestion.classList.remove('active');
+                    otherAnswer.classList.remove('show');
+                    otherIcon.textContent = '+';
+                }
+            });
+            
+            // Toggle current FAQ
+            if (isCurrentlyActive) {
+                this.classList.remove('active');
+                currentAnswer.classList.remove('show');
+                currentIcon.textContent = '+';
+            } else {
+                this.classList.add('active');
+                currentAnswer.classList.add('show');
+                currentIcon.textContent = '-';
+            }
+        });
+    });
+    
+    // Optional: Open first FAQ by default
+    // faqQuestions[0].click();
+});
+
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const resourceLink = document.querySelector('a[href="free-resources.html"]');
+    if (resourceLink) {
+      resourceLink.addEventListener('click', (e) => {
+        e.preventDefault();
+        const url = '/free-resources.html'; // Use absolute path for consistency
+        console.log('Navigating to:', url);
+        window.location.href = url;
+      });
+    } else {
+      console.warn('Resource link not found on this page');
+    }
+  });
+</script>
+
+  </body>
+</html>
