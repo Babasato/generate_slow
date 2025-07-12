@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Free homeschool math resources for parents. Get math tips, trackers, games and guides to help with your homeschooling journey."
+    />
+
+    <!-- SEO Meta Tags -->
+    <title>Free Homeschool Math Resources | HomeschoolMath</title>
+    <meta
+      name="description"
+      content="Get free printable math trackers, games, and teaching guides for homeschool families. Grade-level resources to make math easier for parents and fun for kids."
+    />
+    <meta
+      name="keywords"
+      content="homeschool math, free math worksheets, homeschool curriculum, math games, teaching math at home"
+    />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://homeschoolmath.com/" />
+    <meta property="og:title" content="Free Homeschool Math Resources" />
+    <meta
+      property="og:description"
+      content="Get free math resources including weekly tips, printable trackers, math games and curriculum guides for homeschool parents."
+    />
+    <meta
+      property="og:image"
+      content="https://homeschoolmath.com/images/social-preview.jpg"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://homeschoolmath.com/" />
+    <meta property="twitter:title" content="Free Homeschool Math Resources" />
+    <meta
+      property="twitter:description"
+      content="Get free math resources including weekly tips, printable trackers, math games and curriculum guides for homeschool parents."
+    />
+    <meta
+      property="twitter:image"
+      content="https://homeschoolmath.com/images/social-preview.jpg"
+    />
+
+    <!-- Production-Ready Favicon Code -->
+    <!-- 2024 Favicon (never touch this again unless you redesign) -->
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-touch-icon.png?v=2"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="/favicon-32x32.png?v=2"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="/favicon-16x16.png?v=2"
+    />
+    <link rel="manifest" href="/site.webmanifest?v=2" />
+    <link rel="shortcut icon" href="/favicon.ico?v=2" />
+
+    
+    <link
+      href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <style>
+/* Reset and base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  overflow-x: hidden;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding-top: 80px; /* Add padding for fixed header */
+}
+
+/* Fix sticky header */
+header {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transform: translateY(0) !important;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  transition: transform 0.3s ease;
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Button styles */
+.btn-hover {
+  transition: all 0.3s ease;
+}
+
+.btn-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.download-btn {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.download-btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.download-btn:hover:before {
+  left: 100%;
+}
+
+/* Card styles */
+.glass-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* ===================== */
+/* RESOURCE CARD STYLES  */
+/* ===================== */
+.resource-card {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 1rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.resource-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.resource-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--card-accent), var(--card-accent-secondary));
+}
+
+.resource-card-content {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.resource-icon {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  margin-bottom: 1.25rem;
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--card-icon);
+}
+
+.resource-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  color: white;
+  line-height: 1.3;
+}
+
+.resource-description {
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  flex-grow: 1;
+}
+
+.resource-meta {
+  display: flex;
+  align-items: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.resource-meta i {
+  margin-right: 0.5rem;
+  color: var(--card-icon);
+}
+
+.resource-form {
+  margin-top: auto;
+}
+
+.resource-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: var(--badge-bg);
+  color: var(--badge-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  z-index: 10;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Card-specific colors */
+.card-purple {
+  --card-accent: #8b5cf6;
+  --card-accent-secondary: #7c3aed;
+  --card-icon: #a78bfa;
+  --badge-bg: #f5f3ff;
+  --badge-text: #5b21b6;
+}
+
+.card-blue {
+  --card-accent: #3b82f6;
+  --card-accent-secondary: #2563eb;
+  --card-icon: #93c5fd;
+  --badge-bg: #dbeafe;
+  --badge-text: #1e40af;
+}
+
+.card-green {
+  --card-accent: #10b981;
+  --card-accent-secondary: #059669;
+  --card-icon: #6ee7b7;
+  --badge-bg: #d1fae5;
+  --badge-text: #065f46;
+}
+
+.card-yellow {
+  --card-accent: #f59e0b;
+  --card-accent-secondary: #d97706;
+  --card-icon: #fcd34d;
+  --badge-bg: #fef3c7;
+  --badge-text: #92400e;
+}
+
+.card-red {
+  --card-accent: #ef4444;
+  --card-accent-secondary: #dc2626;
+  --card-icon: #fca5a5;
+  --badge-bg: #fee2e2;
+  --badge-text: #991b1b;
+}
+
+.card-bundle {
+  --card-accent: #8b5cf6;
+  --card-accent-secondary: #ec4899;
+  --card-icon: #c4b5fd;
+  --badge-bg: #fce7f3;
+  --badge-text: #9d174d;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.15));
+}
+
+/* Input and button styles */
+.resource-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: white;
+  margin-bottom: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.resource-input:focus {
+  outline: none;
+  border-color: var(--card-accent);
+  box-shadow: 0 0 0 3px rgba(var(--card-accent-rgb), 0.2);
+}
+
+.resource-button {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(to right, var(--card-accent), var(--card-accent-secondary));
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resource-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(var(--card-accent-rgb), 0.3);
+}
+
+.resource-button i {
+  margin-right: 0.5rem;
+}
+
+/* Bundle special styling */
+.bundle-badge {
+  background: linear-gradient(to right, #f59e0b, #f97316);
+  color: #1e293b;
+  font-weight: 800;
+  padding: 0.5rem 1rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .resource-card {
+    margin-bottom: 1.5rem;
+  }
+  
+  .resource-badge {
+    font-size: 0.7rem;
+    padding: 0.25rem 0.75rem;
+  }
+}
+
+
+/* ==================== */
+/* BLOG SECTION STYLES */
+/* ==================== */
+#blog {
+  position: relative;
+  padding: 4rem 0;
+}
+
+#blog-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.blog-post-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 1rem;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-post-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+.blog-post-image {
+  height: 200px;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.blog-post-card:hover .blog-post-image {
+  transform: scale(1.05);
+}
+
+.blog-post-content {
+  padding: 1.5rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.blog-post-date {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+}
+
+.blog-post-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.blog-post-excerpt {
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+.blog-post-read-more {
+  display: inline-flex;
+  align-items: center;
+  color: #a78bfa;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin-top: auto;
+}
+
+.blog-post-read-more:hover {
+  color: #8b5cf6;
+  transform: translateX(3px);
+}
+
+.blog-post-read-more svg {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.blog-post-read-more:hover svg {
+  transform: translateX(2px);
+}
+
+.blog-read-more-container {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+.blog-read-more-button {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+}
+
+.blog-read-more-button:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.blog-read-more-button svg {
+  width: 1rem;
+  height: 1rem;
+  margin-left: 0.5rem;
+  transition: transform 0.2s ease;
+}
+
+.blog-read-more-button:hover svg {
+  transform: translateX(3px);
+}
+
+/* Loading state */
+.blog-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem;
+  grid-column: 1 / -1;
+}
+
+.blog-loading-spinner {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-top: 3px solid white;
+  border-radius: 50%;
+  width: 2.5rem;
+  height: 2.5rem;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+.blog-loading-text {
+  color: white;
+  font-size: 1rem;
+}
+
+/* Blog modal content styling */
+.blog-content {
+  line-height: 1.7;
+  color: #374151;
+}
+
+.blog-content h1, .blog-content h2, .blog-content h3 {
+  color: #1f2937 !important;
+  font-weight: 600 !important;
+  margin: 1.5em 0 0.5em 0 !important;
+}
+
+.blog-content h1 { font-size: 1.875rem; }
+.blog-content h2 { font-size: 1.5rem; }
+.blog-content h3 { font-size: 1.25rem; }
+
+.blog-content p {
+  margin-bottom: 1em !important;
+  line-height: 1.7 !important;
+}
+
+.blog-content ul, .blog-content ol {
+  margin: 1em 0;
+  padding-left: 1.5em;
+}
+
+.blog-content li {
+  margin-bottom: 0.5em;
+}
+
+/* Loading spinner */
+.loading-spinner {
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+  margin-right: 8px;
+}
+
+/* Feature highlight */
+.feature-highlight {
+  background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 700;
+}
+
+/* Mobile menu - FIXED VERSION */
+.mobile-menu {
+  transition: all 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.mobile-menu.open {
+  max-height: 500px;
+  padding: 1rem 0;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Standards badge */
+.standards-badge {
+  background: linear-gradient(135deg, #48bb78 0%, #38a169 100%);
+  color: white;
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Cookie banner */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.9);
+  color: white;
+  padding: 1rem;
+  z-index: 1000;
+}
+
+/* Fix scroll button positioning */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 999;
+}
+
+/* Enhanced modal styles */
+.fixed.inset-0 {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+}
+
+
+/* Ensure modal content is readable */
+.prose h3 {
+  color: #1f2937 !important;
+  font-weight: 700 !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.prose p {
+  margin-bottom: 1rem !important;
+  line-height: 1.7 !important;
+}
+
+/* Smooth scrolling inside modal */
+#modal-body {
+  scroll-behavior: smooth;
+  overflow-y: auto;
+  max-height: 60vh;
+}
+
+/* Keep modal near bottom */
+.modal-bottom {
+  display: flex;
+  align-items: flex-end !important;
+  padding-bottom: 2rem;
+}
+
+/* Ensure modal content stays in place at the bottom */
+.modal-bottom .modal-content {
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+/* Clickable background */
+#modal-overlay {
+  cursor: pointer;
+}
+
+#modal-overlay > .modal-content,
+#modal-overlay > .modal-container {
+  cursor: default;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  #blog-posts {
+    grid-template-columns: 1fr;
+  }
+  
+  .blog-post-card {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+}
+</style>
+
+
+    <!-- Favicon Implementation -->
+    <!-- Modern browsers -->
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16" />
+
+    <!-- Safari/iOS -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+    <!-- Fallback -->
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/site.webmanifest" />
+  </head>
+
+  <body class="text-gray-800">
+    <!-- Cookie Banner -->
+    <div id="cookie-banner" class="cookie-banner hidden">
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between"
+      >
+        <p class="mb-4 md:mb-0">
+          We use cookies to provide our services. By continuing to use our site,
+          you consent to our use of cookies.
+        </p>
+        <button
+          id="accept-cookies"
+          class="bg-purple-600 text-white px-4 py-2 rounded-lg"
+        >
+          Accept
+        </button>
+      </div>
+    </div>
+
+    <header class="glass-card shadow-lg py-4 sticky top-0 z-50 fade-in">
+      <div class="max-w-6xl mx-auto px-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+          <img src="favicon.svg" alt="Homeschool Math Logo" class="w-10 h-10" />
+          <a
+            href="#"
+            class="text-2xl font-bold text-purple-700 hover:text-purple-800 transition-colors"
+          >
+            Homeschool Math
+          </a>
+        </div>
+        <nav class="space-x-6 hidden md:flex items-center">
+           <a
+            href="index.html#math-worksheets"
+            class="text-gray-700 hover:text-purple-700 font-medium py-2"
+            >Math Worksheets</a
+          >
+          <a
+            href="index.html#blog"
+            class="text-gray-700 hover:text-purple-700 font-medium"
+            >Blog</a
+          >
+          <a
+            href="free-resources.html"
+            class="text-gray-700 hover:text-purple-700 font-medium"
+           >Free resources</a
+          >
+        </nav>
+        <button id="mobile-menu-button" class="md:hidden text-purple-700">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+
+      <div
+        id="mobile-menu"
+        class="mobile-menu md:hidden bg-white w-full absolute left-0 shadow-lg"
+      >
+        <div class="max-w-6xl mx-auto px-4 flex flex-col space-y-3">
+          <a
+            href="index.html#math-worksheets"
+            class="text-gray-700 hover:text-purple-700 font-medium py-2"
+            >Math Worksheets</a
+          >
+          <a
+            href="index.html#blog"
+            class="text-gray-700 hover:text-purple-700 font-medium py-2"
+            >Blog</a
+          >
+          <a
+            href="#free-resources.html"
+            class="text-gray-700 hover:text-purple-700 font-medium py-2"
+            >Free resources</a
+          >
+        </div>
+      </div>
+    </header>
+
+<!-- Improved Free Resources Section -->
+<section id="resources" class="max-w-7xl mx-auto px-4 py-16">
+  <div class="text-center mb-16">
+    <span class="inline-block bg-white/10 text-white px-4 py-2 rounded-full text-sm font-medium mb-4 backdrop-blur-sm">
+      <i class="fas fa-star mr-2"></i>New & Improved Resources
+    </span>
+    <h2 class="text-4xl font-bold text-white mb-4">
+      Essential Math Tools for Homeschool Success
+    </h2>
+    <p class="text-white/90 text-xl max-w-3xl mx-auto">
+      Download our professionally designed math resources to simplify your homeschooling journey
+    </p>
+  </div>
+
+  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Resource 1 - Math Activity Kit -->
+    <div class="resource-card card-purple">
+      <div class="resource-card-content">
+        <div class="resource-icon">
+          <i class="fas fa-shapes"></i>
+        </div>
+        <h3 class="resource-title">Math Activity Kit</h3>
+        <p class="resource-description">
+        Perfect for visual and kinesthetic learners.
+        </p>
+        <div class="resource-meta">
+          <i class="fas fa-file-pdf"></i>
+          <span>It's really fun!</span>
+        </div>
+        <a href="https://homeschoolmath.gumroad.com/l/araei" class="resource-button" target="_blank">
+  <i class="fas fa-download"></i>
+  Get Free Kit
+</a>
+      </div>
+      <div class="resource-badge">MOST POPULAR</div>
+    </div>
+
+    <!-- Resource 2 - Progress Tracker -->
+    <div class="resource-card card-blue">
+      <div class="resource-card-content">
+        <div class="resource-icon">
+          <i class="fas fa-chart-line"></i>
+        </div>
+        <h3 class="resource-title">Progress Tracker System</h3>
+        <p class="resource-description">
+          Beautifully designed tracking sheets for math milestones with automated progress reports. Track weekly progress effortlessly.
+        </p>
+        <div class="resource-meta">
+          <i class="fas fa-table"></i>
+          <span>Printable + Digital Version</span>
+        </div>
+        <a href="https://homeschoolmath.gumroad.com/l/kavnlj" class="resource-button" target="_blank">
+  <i class="fas fa-download"></i>
+  Download Tracker
+</a>
+      </div>
+    </div>
+
+    <!-- Resource 3 - Math Games -->
+    <div class="resource-card card-green">
+      <div class="resource-card-content">
+        <div class="resource-icon">
+          <i class="fas fa-gamepad"></i>
+        </div>
+        <h3 class="resource-title">Math Game Collection</h3>
+        <p class="resource-description">
+          15 no-prep math games with printable cards and instructions for all elementary levels. Make math practice fun!
+        </p>
+        <div class="resource-meta">
+          <i class="fas fa-dice"></i>
+          <span>Game Cards + Instructions</span>
+        </div>
+        <a href="https://homeschoolmath.gumroad.com/l/xakark" class="resource-button" target="_blank">
+  <i class="fas fa-download"></i>
+  Get Games
+</a>
+      </div>
+    </div>
+
+    <!-- Resource 4 - Curriculum Guide -->
+    <div class="resource-card card-yellow">
+      <div class="resource-card-content">
+        <div class="resource-icon">
+          <i class="fas fa-compass"></i>
+        </div>
+        <h3 class="resource-title">Curriculum Navigator</h3>
+        <p class="resource-description">
+          Year-at-a-glance planning guide with monthly math themes and resource recommendations. Never wonder what to teach next.
+        </p>
+        <div class="resource-meta">
+          <i class="fas fa-calendar-alt"></i>
+          <span>36-week Planner</span>
+        </div>
+        <a href="https://homeschoolmath.gumroad.com/l/nwsaa" class="resource-button" target="_blank">
+  <i class="fas fa-download"></i>
+  Get Guide
+</a>
+      </div>
+    </div>
+
+    <!-- Resource 5 - Problem Solving -->
+    <div class="resource-card card-red">
+      <div class="resource-card-content">
+        <div class="resource-icon">
+          <i class="fas fa-lightbulb"></i>
+        </div>
+        <h3 class="resource-title">Problem Solving Kit</h3>
+        <p class="resource-description">
+          15 word problems with visual models and step-by-step solution guides. Build critical thinking skills.
+        </p>
+        <div class="resource-meta">
+          <i class="fas fa-question-circle"></i>
+          <span>Grades 1-6 • With Answers</span>
+        </div>
+        <a href="https://homeschoolmath.gumroad.com/l/xpywn" class="resource-button" target="_blank">
+  <i class="fas fa-download"></i>
+  Download Kit
+</a>
+      </div>
+    </div>
+
+    <!-- Resource 6 - Full Bundle -->
+    <div class="resource-card card-bundle md:col-span-2 lg:col-span-1">
+      <div class="resource-card-content">
+        <div class="resource-icon">
+          <i class="fas fa-gem"></i>
+        </div>
+        <h3 class="resource-title">Complete Math Bundle</h3>
+        <p class="resource-description">
+          Get all 5 resources in one convenient download. Everything you need for homeschool math.
+        </p>
+        <div class="resource-meta">
+          <i class="fas fa-box-open"></i>
+          <span>All Resources + Bonuses</span>
+        </div>
+        <div class="mb-4">
+          <div class="text-white font-medium mb-2">Includes:</div>
+          <ul class="text-white/85 text-sm space-y-1">
+            <li class="flex items-center"><i class="fas fa-check-circle text-purple-300 mr-2"></i> Math Activity Kit</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-blue-300 mr-2"></i> Progress Tracker</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-green-300 mr-2"></i> Game Collection</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-yellow-300 mr-2"></i> Curriculum Guide</li>
+            <li class="flex items-center"><i class="fas fa-check-circle text-red-300 mr-2"></i> Problem Solving Kit</li>
+          </ul>
+        </div>
+        <a href="https://homeschoolmath.gumroad.com/l/uebgs" class="resource-button" target="_blank">
+  <i class="fas fa-download"></i>
+  Download Full Bundle
+</a>
+      </div>
+      <div class="resource-badge bundle-badge">BEST VALUE</div>
+    </div>
+  </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuButton && mobileMenu) {
+        // Start with menu hidden
+        mobileMenu.classList.add('hidden');
+        
+        mobileMenuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            
+            // Toggle the menu
+            if (mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.remove('hidden');
+                mobileMenu.classList.add('open');
+            } else {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('open');
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!mobileMenuButton.contains(e.target) && !mobileMenu.contains(e.target)) {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('open');
+            }
+        });
+        
+        // Close menu when window is resized to desktop
+        window.addEventListener('resize', function() {
+            if (window.innerWidth >= 768) {
+                mobileMenu.classList.add('hidden');
+                mobileMenu.classList.remove('open');
+            }
+        });
+    }
+});
+</script>
+
+<!-- ALTERNATIVE SIMPLER APPROACH -->
+<!-- If the above doesn't work, try this simpler version: -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    
+    if (mobileMenuButton && mobileMenu) {
+        // Start with menu hidden
+        mobileMenu.style.display = 'none';
+        
+        mobileMenuButton.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('Menu button clicked'); // Debug line
+            
+            if (mobileMenu.style.display === 'none') {
+                mobileMenu.style.display = 'block';
+                console.log('Menu opened'); // Debug line
+            } else {
+                mobileMenu.style.display = 'none';
+                console.log('Menu closed'); // Debug line
+            }
+        });
+    } else {
+        console.log('Mobile menu elements not found'); // Debug line
+    }
+});
+</script>
