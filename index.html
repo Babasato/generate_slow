@@ -2955,17 +2955,10 @@ document.addEventListener('DOMContentLoaded', function() {
     
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const resourceLink = document.querySelector('a[href="free-resources.html"]');
-    if (resourceLink) {
-      resourceLink.addEventListener('click', (e) => {
-        e.preventDefault();
-        const url = '/free-resources.html';
-        console.log('Navigating to:', url);
-        window.location.href = url;
-      });
-    } else {
-      console.warn('Resource link not found on this page');
-    }
+    document.querySelector('a[href="free-resources.html"]')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.location.href = '/free-resources.html';
+    });
   });
 </script>
 
