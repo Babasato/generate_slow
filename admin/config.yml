@@ -1,5 +1,6 @@
-backend: GitHub
-  name: test
+backend:
+  name: git-gateway
+  branch: main  # Adjust to your actual branch
 media_folder: "static/images/uploads"
 public_folder: "/static/images/uploads"
 collections:
