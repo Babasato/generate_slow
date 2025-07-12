@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Babasato/generate_slow # Replace with your repo, e.g., "johnDoe/homeschoolmath"
   branch: main
 media_folder: "static/images/uploads"
 public_folder: "/static/images/uploads"
