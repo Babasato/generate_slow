@@ -2952,14 +2952,14 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
-<a href="free-resources.html">Free Resources</a>
+    
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const resourceLink = document.querySelector('a[href="free-resources.html"]');
     if (resourceLink) {
       resourceLink.addEventListener('click', (e) => {
         e.preventDefault();
-        const url = '/free-resources.html'; // Use absolute path for consistency
+        const url = '/free-resources.html';
         console.log('Navigating to:', url);
         window.location.href = url;
       });
