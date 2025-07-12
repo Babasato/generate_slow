@@ -1,20 +1,3 @@
 backend:
-  name: github
-  repo: Babasato/generate_slow
+  name: git-gateway
   branch: main
-  client_id: "Ov23liAQ7WB14gKkQ1pC"  # Your GitHub OAuth App Client ID
-  auth_type: "oauth"  # Explicitly using OAuth flow
-media_folder: "static/images/uploads"
-public_folder: "/static/images/uploads"
-collections:
-  - name: "blog"
-    label: "Blog Posts"
-    folder: "blog"
-    create: true
-    slug: "{{slug}}"
-    extension: md
-    format: frontmatter
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Body", name: "body", widget: "markdown" }
