@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Test Post",
+    "slug": "test-post",
+    "description": "This is a test post",
+    "date": "2025-07-12T09:00:00Z",
+    "read_time": "5 min read",
+    "tags": ["math", "test"],
+    "category": "resources",
+    "grade_level": ["1", "2"],
+    "difficulty": "beginner",
+    "body": "This is a test post content."
+  }
+]
