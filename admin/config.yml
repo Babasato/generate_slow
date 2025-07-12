@@ -1,10 +1,7 @@
-backend:
-  name: git-gateway
-  branch: main
-
+backend: GitHub
+  name: test
 media_folder: "static/images/uploads"
 public_folder: "/static/images/uploads"
-
 collections:
   - name: "blog"
     label: "Blog Posts"
