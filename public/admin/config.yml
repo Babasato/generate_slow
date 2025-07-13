@@ -1,17 +1,17 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: Babasato/generate_slow
   branch: main
-media_folder: "static/images/uploads"
-public_folder: "/static/images/uploads"
+media_folder: "static/images/uploads"  # This might need to be "public/images/uploads"
+public_folder: "/images/uploads"
 collections:
   - name: "blog"
     label: "Blog Posts"
-    folder: "blog"
+    folder: "blog"                      # This might need to be "public/blog"
     create: true
-    slug: "{{slug}}"
-    extension: md
-    format: frontmatter
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "date", widget: "datetime" }
+      - { label: "Draft", name: "draft", widget: "boolean", default: false }
       - { label: "Body", name: "body", widget: "markdown" }
