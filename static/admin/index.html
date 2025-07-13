@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Content Manager</title>
 </head>
-<body><script src="https://unpkg.com/@sveltia/cms@0.30.14/dist/sveltia-cms.js" type="module"></script>
+<body><script>
+  console.log('HTML loaded');
+</script>
+<script src="https://unpkg.com/lodash@4.17.21/lodash.min.js"></script>
+<script>
+  setTimeout(() => {
+    console.log('Lodash loaded:', typeof _);
+  }, 1000);
+</script>
 </body>
 </html>
