@@ -1,6 +1,0 @@
-backend:
-  name: git-gateway
-  branch: main
-media_folder: "uploads"  # Simpler path
-public_folder: "/uploads"
-publish_mode: editorial_workflow
