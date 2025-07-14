@@ -2788,7 +2788,9 @@ async function loadBlogPosts() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    const posts = await response.json();
+    // FIX: Get the data object first, then extract posts array
+    const data = await response.json();
+    const posts = data.posts || [];
     console.log('Posts loaded:', posts.length);
     
     const container = document.getElementById('blog-posts');
@@ -2832,12 +2834,12 @@ async function loadBlogPosts() {
           <h3 class="text-xl font-bold text-white mb-3 line-clamp-2">${post.title}</h3>
           
           <p class="text-white opacity-90 text-sm mb-4 line-clamp-3">
-            ${post.description || extractTextFromHTML(post.body, 150)}
+            ${post.description || extractTextFromHTML(post.content, 150)}
           </p>
           
           <div class="flex items-center justify-between text-sm text-white opacity-75">
             <span>${formatDate(post.date)}</span>
-            <span>${post.read_time}</span>
+            <span>${post.read_time || 'Quick read'}</span>
           </div>
           
           <div class="mt-4">
@@ -2952,7 +2954,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
-    
+
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     document.querySelector('a[href="free-resources.html"]')?.addEventListener('click', (e) => {
