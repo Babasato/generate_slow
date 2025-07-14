@@ -2,14 +2,12 @@ backend:
   name: github
   repo: Babasato/generate_slow
   branch: main
-
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
-
 collections:
   - name: "blog"
     label: "Blog Posts"
-    folder: "blog"
+    folder: "content/blog"
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     fields:
@@ -18,5 +16,7 @@ collections:
       - { label: "Description", name: "description", widget: "text", required: false }
       - { label: "Featured Image", name: "image", widget: "image", required: false }
       - { label: "Draft", name: "draft", widget: "boolean", default: false }
+      - { label: "Tags", name: "tags", widget: "list", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
       - { label: "Tags", name: "tags", widget: "list", required: false }
       - { label: "Body", name: "body", widget: "markdown" }
