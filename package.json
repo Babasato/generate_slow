@@ -1,17 +1,7 @@
 {
-  "name": "homeschool-math-site",
+  "name": "my-blog",
   "version": "1.0.0",
-  "description": "Homeschool math blog site",
-  "main": "index.js",
-  "scripts": {
-    "build": "echo 'Build complete'",
-    "dev": "netlify dev"
-  },
   "dependencies": {
     "gray-matter": "^4.0.3"
-  },
-  "devDependencies": {},
-  "engines": {
-    "node": ">=14.0.0"
   }
 }
