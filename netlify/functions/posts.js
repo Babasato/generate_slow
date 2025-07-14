@@ -83,3 +83,46 @@ exports.handler = async (event, context) => {
     };
   }
 };
+
+const fs = require('fs').promises;
+const path = require('path');
+const matter = require('gray-matter');
+
+exports.handler = async function () {
+  try {
+    const postsDir = path.join(__dirname, '../../content/blog');
+    const files = await fs.readdir(postsDir);
+
+    const posts = await Promise.all(
+      files
+        .filter(file => file.endsWith('.md'))
+        .map(async file => {
+          const filePath = path.join(postsDir, file);
+          const fileContent = await fs.readFile(filePath, 'utf8');
+          const { data, content } = matter(fileContent);
+          const slug = file.replace(/\.md$/, '');
+          return {
+            slug,
+            title: data.title,
+            date: data.date,
+            description: data.description,
+            featured_image: data.image,
+            tags: data.tags || [],
+            content,
+            read_time: Math.ceil(content.split(' ').length / 200) + ' min read'
+          };
+        })
+    );
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ posts })
+    };
+  } catch (error) {
+    console.error('Error in posts function:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: 'Failed to load posts' })
+    };
+  }
+};
