@@ -1,18 +1,13 @@
 [build]
   publish = "."
+  functions = "netlify/functions"
 
-[[redirects]]
-  from = "/blog/:slug"
-  to = "/blog.html"
-  status = 200
-
-[[redirects]]
-  from = "/posts/:slug"
-  to = "/blog.html"
-  status = 200
-
-# Admin access
 [[redirects]]
   from = "/admin/*"
   to = "/admin/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/blog/*"
+  to = "/static/blog.html"
   status = 200
