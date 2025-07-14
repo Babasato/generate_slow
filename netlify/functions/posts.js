@@ -1,9 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 
-// Simple frontmatter parser since gray-matter might not be available
+// Simple frontmatter parser
 function parseFrontmatter(content) {
-  const frontmatterRegex = /^---\s*\n([\s\S]*?)\n---\s*\n([\s\S]*)$/;
+  const frontmatterRegex = /^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/;
   const match = content.match(frontmatterRegex);
   
   if (!match) {
@@ -22,16 +22,16 @@ function parseFrontmatter(content) {
       const key = line.substring(0, colonIndex).trim();
       let value = line.substring(colonIndex + 1).trim();
       
-      // Remove quotes if present
+      // Remove quotes
       if (value.startsWith('"') && value.endsWith('"')) {
         value = value.slice(1, -1);
       }
       
-      // Handle boolean values
+      // Handle boolean
       if (value === 'true') value = true;
       if (value === 'false') value = false;
       
-      // Handle arrays (tags)
+      // Handle arrays
       if (value.startsWith('[') && value.endsWith(']')) {
         value = value.slice(1, -1).split(',').map(item => item.trim().replace(/"/g, ''));
       }
@@ -45,17 +45,33 @@ function parseFrontmatter(content) {
 
 exports.handler = async (event, context) => {
   try {
-    const postsDirectory = path.join(process.cwd(), 'content', 'blog');
+    // Try different possible paths
+    const possiblePaths = [
+      path.join(process.cwd(), 'content', 'blog'),
+      path.join(process.cwd(), 'content/blog'),
+      path.join('/opt/build/repo/content/blog'),
+      path.join('/opt/build/repo/content', 'blog')
+    ];
     
-    // Check if directory exists
-    if (!fs.existsSync(postsDirectory)) {
+    let postsDirectory = null;
+    for (const tryPath of possiblePaths) {
+      if (fs.existsSync(tryPath)) {
+        postsDirectory = tryPath;
+        break;
+      }
+    }
+    
+    if (!postsDirectory) {
       return {
         statusCode: 200,
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'
         },
-        body: JSON.stringify({ posts: [] })
+        body: JSON.stringify({ 
+          posts: [],
+          debug: `Tried paths: ${possiblePaths.join(', ')}`
+        })
       };
     }
     
@@ -67,12 +83,7 @@ exports.handler = async (event, context) => {
         const fileContents = fs.readFileSync(fullPath, 'utf8');
         const { data, content } = parseFrontmatter(fileContents);
         
-        // Create slug from filename
         const slug = name.replace(/\.md$/, '').replace(/^\d{4}-\d{2}-\d{2}-/, '');
-        
-        // Calculate read time
-        const wordCount = content.split(' ').length;
-        const readTime = Math.ceil(wordCount / 200);
         
         return {
           slug,
@@ -83,8 +94,7 @@ exports.handler = async (event, context) => {
           tags: Array.isArray(data.tags) ? data.tags : (data.tags ? [data.tags] : []),
           draft: data.draft === true,
           content: content.trim(),
-          read_time: `${readTime} min read`,
-          featured_image: data.image || null
+          read_time: `${Math.ceil(content.split(' ').length / 200)} min read`
         };
       })
       .filter(post => !post.draft)
@@ -99,7 +109,6 @@ exports.handler = async (event, context) => {
       body: JSON.stringify({ posts })
     };
   } catch (error) {
-    console.error('Error loading posts:', error);
     return {
       statusCode: 500,
       headers: {
@@ -107,8 +116,8 @@ exports.handler = async (event, context) => {
         'Access-Control-Allow-Origin': '*'
       },
       body: JSON.stringify({ 
-        error: 'Failed to load posts',
-        details: error.message 
+        error: error.message,
+        stack: error.stack
       })
     };
   }
