@@ -1,6 +1,9 @@
 [build]
   publish = "."
   functions = "netlify/functions"
+  
+[functions]
+  included_files = ["content/**"]  # <-- Add this
 
 [[redirects]]
   from = "/admin/*"
