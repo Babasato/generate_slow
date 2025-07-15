@@ -1,4 +1,5 @@
-const postsDirectory = path.join(process.cwd(), 'content', 'blog');
+const path = require('path');  // <-- Add this line
+const fs = require('fs');     // <-- This should already be there
 
 // Simple frontmatter parser
 function parseFrontmatter(content) {
