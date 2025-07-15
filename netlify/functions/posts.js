@@ -31,7 +31,7 @@ function parseFrontmatter(content) {
       if (value === 'true') value = true;
       if (value === 'false') value = false;
       
-      // Handle arrays
+      // Handle arrays (both formats)
       if (value.startsWith('[') && value.endsWith(']')) {
         value = value.slice(1, -1).split(',').map(item => item.trim().replace(/"/g, ''));
       }
@@ -45,23 +45,67 @@ function parseFrontmatter(content) {
 
 exports.handler = async (event, context) => {
   try {
-    // Try different possible paths
+    // More comprehensive path checking
     const possiblePaths = [
+      // Current working directory variants
       path.join(process.cwd(), 'content', 'blog'),
       path.join(process.cwd(), 'content/blog'),
+      
+      // Netlify build variants
       path.join('/opt/build/repo/content/blog'),
-      path.join('/opt/build/repo/content', 'blog')
+      path.join('/opt/build/repo/content', 'blog'),
+      
+      // Alternative build locations
+      path.join(__dirname, '..', '..', 'content', 'blog'),
+      path.join(__dirname, '..', '..', 'content/blog'),
+      
+      // Function directory relative
+      path.join(__dirname, 'content', 'blog'),
+      path.join(__dirname, 'content/blog'),
+      
+      // Root relative
+      path.join('/', 'var', 'task', 'content', 'blog'),
+      path.join('/', 'tmp', 'content', 'blog')
     ];
     
     let postsDirectory = null;
+    let foundPaths = [];
+    
+    // Check each path and log what we find
     for (const tryPath of possiblePaths) {
-      if (fs.existsSync(tryPath)) {
-        postsDirectory = tryPath;
-        break;
+      try {
+        if (fs.existsSync(tryPath)) {
+          postsDirectory = tryPath;
+          foundPaths.push(`Found: ${tryPath}`);
+          break;
+        } else {
+          foundPaths.push(`Not found: ${tryPath}`);
+        }
+      } catch (err) {
+        foundPaths.push(`Error checking ${tryPath}: ${err.message}`);
       }
     }
     
     if (!postsDirectory) {
+      // Let's also try to find any content folder
+      const contentSearchPaths = [
+        path.join(process.cwd(), 'content'),
+        path.join('/opt/build/repo/content'),
+        path.join(__dirname, '..', '..', 'content')
+      ];
+      
+      let contentFound = [];
+      for (const contentPath of contentSearchPaths) {
+        try {
+          if (fs.existsSync(contentPath)) {
+            const contents = fs.readdirSync(contentPath);
+            contentFound.push(`Content dir ${contentPath}: ${contents.join(', ')}`);
+          }
+        } catch (err) {
+          contentFound.push(`Error reading ${contentPath}: ${err.message}`);
+        }
+      }
+      
       return {
         statusCode: 200,
         headers: {
@@ -70,34 +114,65 @@ exports.handler = async (event, context) => {
         },
         body: JSON.stringify({ 
           posts: [],
-          debug: `Tried paths: ${possiblePaths.join(', ')}`
+          debug: {
+            message: "No blog directory found",
+            searchPaths: foundPaths,
+            contentSearch: contentFound,
+            cwd: process.cwd(),
+            __dirname: __dirname
+          }
         })
       };
     }
     
-    const fileNames = fs.readdirSync(postsDirectory);
+    let fileNames;
+    try {
+      fileNames = fs.readdirSync(postsDirectory);
+    } catch (err) {
+      return {
+        statusCode: 200,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ 
+          posts: [],
+          debug: {
+            message: `Found directory but can't read: ${postsDirectory}`,
+            error: err.message
+          }
+        })
+      };
+    }
+    
     const posts = fileNames
       .filter(name => name.endsWith('.md'))
       .map(name => {
-        const fullPath = path.join(postsDirectory, name);
-        const fileContents = fs.readFileSync(fullPath, 'utf8');
-        const { data, content } = parseFrontmatter(fileContents);
-        
-        const slug = name.replace(/\.md$/, '').replace(/^\d{4}-\d{2}-\d{2}-/, '');
-        
-        return {
-          slug,
-          title: data.title || 'Untitled',
-          date: data.date || new Date().toISOString(),
-          description: data.description || '',
-          image: data.image || null,
-          tags: Array.isArray(data.tags) ? data.tags : (data.tags ? [data.tags] : []),
-          draft: data.draft === true,
-          content: content.trim(),
-          read_time: `${Math.ceil(content.split(' ').length / 200)} min read`
-        };
+        try {
+          const fullPath = path.join(postsDirectory, name);
+          const fileContents = fs.readFileSync(fullPath, 'utf8');
+          const { data, content } = parseFrontmatter(fileContents);
+          
+          // Generate slug from filename (remove date prefix and .md extension)
+          const slug = name.replace(/\.md$/, '').replace(/^\d{4}-\d{2}-\d{2}-/, '');
+          
+          return {
+            slug,
+            title: data.title || 'Untitled',
+            date: data.date || new Date().toISOString(),
+            description: data.description || '',
+            image: data.image || null,
+            tags: Array.isArray(data.tags) ? data.tags : (data.tags ? [data.tags] : []),
+            draft: data.draft === true,
+            content: content.trim(),
+            read_time: `${Math.ceil(content.split(' ').length / 200)} min read`
+          };
+        } catch (err) {
+          console.error(`Error processing ${name}:`, err);
+          return null;
+        }
       })
-      .filter(post => !post.draft)
+      .filter(post => post !== null && !post.draft)
       .sort((a, b) => new Date(b.date) - new Date(a.date));
 
     return {
@@ -106,7 +181,14 @@ exports.handler = async (event, context) => {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify({ posts })
+      body: JSON.stringify({ 
+        posts,
+        debug: {
+          directory: postsDirectory,
+          filesFound: fileNames,
+          postsProcessed: posts.length
+        }
+      })
     };
   } catch (error) {
     return {
