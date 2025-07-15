@@ -1,9 +1,6 @@
 [build]
   publish = "."
   functions = "netlify/functions"
-  
-[functions]
-  included_files = ["content/**"]  # <-- Add this
 
 [[redirects]]
   from = "/admin/*"
@@ -11,17 +8,11 @@
   status = 200
 
 [[redirects]]
-  from = "/blog/*"
+  from = "/blog/:slug"
   to = "/static/blog.html"
   status = 200
 
-# Add these two new rules:
 [[redirects]]
-  from = "/netlify/functions/posts.js"
-  to = "/.netlify/functions/posts"
-  status = 200
-
-[[redirects]]
-  from = "/.netlify/functions/posts"
-  to = "netlify/functions/posts.js"
+  from = "/posts/:slug"
+  to = "/static/blog.html"
   status = 200
