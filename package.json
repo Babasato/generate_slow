@@ -1,7 +1,0 @@
-{
-  "name": "my-blog",
-  "version": "1.0.0",
-  "dependencies": {
-    "gray-matter": "^4.0.3"
-  }
-}
