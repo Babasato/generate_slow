@@ -2788,7 +2788,6 @@ async function loadBlogPosts() {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
     
-    // FIX: Get the data object first, then extract posts array
     const data = await response.json();
     const posts = data.posts || [];
     console.log('Posts loaded:', posts.length);
@@ -2819,10 +2818,13 @@ async function loadBlogPosts() {
       const postElement = document.createElement('div');
       postElement.className = 'bg-white bg-opacity-10 backdrop-blur-sm border border-white border-opacity-20 rounded-lg overflow-hidden hover:bg-opacity-20 transition-all duration-300';
       
+      // Generate slug from filename or title
+      const slug = post.slug || generateSlug(post.title);
+      
       postElement.innerHTML = `
         <div class="p-6">
-          ${post.featured_image ? `
-            <img src="${post.featured_image}" alt="${post.title}" class="w-full h-48 object-cover rounded-lg mb-4">
+          ${post.image ? `
+            <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover rounded-lg mb-4">
           ` : ''}
           
           <div class="flex items-center gap-2 mb-3">
@@ -2843,7 +2845,7 @@ async function loadBlogPosts() {
           </div>
           
           <div class="mt-4">
-            <a href="/posts/${post.slug}" class="inline-flex items-center text-white hover:text-opacity-80 transition-colors">
+            <a href="/posts/${slug}" class="inline-flex items-center text-white hover:text-opacity-80 transition-colors">
               Read More
               <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -2872,11 +2874,28 @@ async function loadBlogPosts() {
   }
 }
 
-// Helper function to extract text from HTML
-function extractTextFromHTML(html, maxLength = 150) {
-  const div = document.createElement('div');
-  div.innerHTML = html;
-  const text = div.textContent || div.innerText || '';
+// Helper function to generate slug from title
+function generateSlug(title) {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9 -]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
+
+// Helper function to extract text from HTML/Markdown
+function extractTextFromHTML(content, maxLength = 150) {
+  // Remove markdown syntax
+  const text = content
+    .replace(/#{1,6}\s?/g, '') // Remove headers
+    .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold
+    .replace(/\*(.*?)\*/g, '$1') // Remove italic
+    .replace(/\[(.*?)\]\(.*?\)/g, '$1') // Remove links
+    .replace(/`(.*?)`/g, '$1') // Remove code
+    .replace(/\n/g, ' ') // Replace newlines with spaces
+    .trim();
+  
   return text.length > maxLength ? text.substring(0, maxLength) + '...' : text;
 }
 
