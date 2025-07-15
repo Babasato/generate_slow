@@ -11,3 +11,14 @@
   from = "/blog/*"
   to = "/static/blog.html"
   status = 200
+
+# Add these two new rules:
+[[redirects]]
+  from = "/netlify/functions/posts.js"
+  to = "/.netlify/functions/posts"
+  status = 200
+
+[[redirects]]
+  from = "/.netlify/functions/posts"
+  to = "netlify/functions/posts.js"
+  status = 200
