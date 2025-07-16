@@ -2333,7 +2333,7 @@ header {
     <div class="text-center mb-12">
         <h2 class="text-3xl font-bold text-white mb-4">Homeschool Math Blog</h2>
         <p class="text-white opacity-90 text-lg">
-            Tips, strategies, and inspiration for teaching math at home
+            Daily tips, strategies, and inspiration for teaching math at home
         </p>
     </div>
     
@@ -2350,7 +2350,7 @@ header {
         
         <!-- View All Posts Button -->
         <div class="buttons">
-            <a href="https://homeschoolmath.substack.com/archive" 
+            <a href="https://homeschoolmathtips.blogspot.com" 
                target="_blank" 
                rel="noopener noreferrer"
                class="btn btn-primary">
@@ -2363,7 +2363,7 @@ header {
 <script>
 // RSS to JSON proxy service (handles CORS)
 const RSS_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
-const SUBSTACK_RSS = 'https://homeschoolmath.substack.com/feed';
+const BLOGGER_RSS = 'https://homeschoolmathtips.blogspot.com/feeds/posts/default';
 
 // Function to extract text from HTML
 function stripHtml(html) {
@@ -2395,16 +2395,24 @@ function formatDate(dateString) {
 function extractTags(title, content) {
     const defaultTags = ['math', 'homeschool'];
     
-    // Simple keyword matching for additional tags
+    // Enhanced keyword matching for additional tags
     const keywords = {
         'manipulative': ['resources', 'manipulatives'],
         'trick': ['teaching', 'strategy'],
+        'tip': ['teaching', 'strategy'],
         'warm-up': ['teaching', 'strategy'],
         'anxiety': ['teaching', 'strategy'],
         'worksheet': ['resources', 'worksheets'],
         'problem': ['teaching', 'problems'],
         'tool': ['resources', 'tools'],
-        'grade': ['grades', 'teaching']
+        'grade': ['grades', 'teaching'],
+        'activity': ['activities', 'teaching'],
+        'game': ['games', 'fun'],
+        'lesson': ['lessons', 'teaching'],
+        'assessment': ['assessment', 'teaching'],
+        'curriculum': ['curriculum', 'resources'],
+        'free': ['free', 'resources'],
+        'printable': ['printables', 'resources']
     };
     
     const text = (title + ' ' + content).toLowerCase();
@@ -2464,7 +2472,7 @@ function createBlogPostHTML(post) {
 // Function to load blog posts
 async function loadBlogPosts() {
     try {
-        const response = await fetch(`${RSS_PROXY}${encodeURIComponent(SUBSTACK_RSS)}`);
+        const response = await fetch(`${RSS_PROXY}${encodeURIComponent(BLOGGER_RSS)}`);
         const data = await response.json();
         
         if (data.status === 'ok' && data.items) {
@@ -2495,42 +2503,22 @@ async function loadBlogPosts() {
         
         loading.style.display = 'none';
         
-        // Your current manual posts as fallback
+        // Fallback posts with daily focus
         container.innerHTML = `
-            <div class="control-item">
-                <div style="display: flex; gap: 8px; margin-bottom: 15px;">
-                    <span style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; font-size: 0.75em; font-weight: 600; padding: 6px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">math</span>
-                    <span style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; font-size: 0.75em; font-weight: 600; padding: 6px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">homeschool</span>
-                </div>
-                <h3 style="font-size: 1.3em; font-weight: 700; color: #1e293b; margin-bottom: 12px; line-height: 1.3;">Welcome to Homeschool Math: Your Go-To for Math Resources and Deals!</h3>
-                <p style="color: #64748b; font-size: 0.95em; margin-bottom: 15px; line-height: 1.5; flex-grow: 1;">
-                    Discover our Math Worksheet Generator for Grades 1–6, with tips and deals for homeschoolers.
-                </p>
-                <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: #94a3b8; margin-bottom: 20px; padding-top: 15px; border-top: 1px solid #e2e8f0;">
-                    <span style="font-weight: 500;">July 15, 2025</span>
-                    <span style="font-style: italic;">1 min read</span>
-                </div>
-                <a href="https://homeschoolmath.substack.com/p/welcome-to-homeschool-math-your-go" 
-                   target="_blank" 
-                   rel="noopener noreferrer"
-                   class="btn btn-secondary" style="align-self: flex-start; margin-top: auto;">
-                    Read More →
-                </a>
-            </div>
             <div class="control-item">
                 <div style="display: flex; gap: 8px; margin-bottom: 15px;">
                     <span style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; font-size: 0.75em; font-weight: 600; padding: 6px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">teaching</span>
                     <span style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; font-size: 0.75em; font-weight: 600; padding: 6px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">strategy</span>
                 </div>
-                <h3 style="font-size: 1.3em; font-weight: 700; color: #1e293b; margin-bottom: 12px; line-height: 1.3;">The 5-Minute Math Trick That Changed Everything</h3>
+                <h3 style="font-size: 1.3em; font-weight: 700; color: #1e293b; margin-bottom: 12px; line-height: 1.3;">Quick Math Warm-Up: 5 Minutes to Better Number Sense</h3>
                 <p style="color: #64748b; font-size: 0.95em; margin-bottom: 15px; line-height: 1.5; flex-grow: 1;">
-                    How one simple strategy transforms daily math routines and reduces math anxiety for homeschool families.
+                    Start every math lesson with this simple warm-up routine that builds number confidence and fluency.
                 </p>
                 <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: #94a3b8; margin-bottom: 20px; padding-top: 15px; border-top: 1px solid #e2e8f0;">
                     <span style="font-weight: 500;">July 16, 2025</span>
-                    <span style="font-style: italic;">8 min read</span>
+                    <span style="font-style: italic;">3 min read</span>
                 </div>
-                <a href="https://homeschoolmath.substack.com/p/the-5-minute-math-trick-that-changed" 
+                <a href="https://homeschoolmathtips.blogspot.com" 
                    target="_blank" 
                    rel="noopener noreferrer"
                    class="btn btn-secondary" style="align-self: flex-start; margin-top: auto;">
@@ -2540,17 +2528,37 @@ async function loadBlogPosts() {
             <div class="control-item">
                 <div style="display: flex; gap: 8px; margin-bottom: 15px;">
                     <span style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; font-size: 0.75em; font-weight: 600; padding: 6px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">resources</span>
-                    <span style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; font-size: 0.75em; font-weight: 600; padding: 6px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">manipulatives</span>
+                    <span style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; font-size: 0.75em; font-weight: 600; padding: 6px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">printables</span>
                 </div>
-                <h3 style="font-size: 1.3em; font-weight: 700; color: #1e293b; margin-bottom: 12px; line-height: 1.3;">The $3 Math Manipulative That Works for Every Grade</h3>
+                <h3 style="font-size: 1.3em; font-weight: 700; color: #1e293b; margin-bottom: 12px; line-height: 1.3;">Free Skip Counting Charts for Every Learning Style</h3>
                 <p style="color: #64748b; font-size: 0.95em; margin-bottom: 15px; line-height: 1.5; flex-grow: 1;">
-                    Discover the affordable math tool that transforms abstract concepts into hands-on learning for all grade levels.
+                    Download colorful skip counting charts that make multiplication tables fun and memorable for visual learners.
                 </p>
                 <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: #94a3b8; margin-bottom: 20px; padding-top: 15px; border-top: 1px solid #e2e8f0;">
-                    <span style="font-weight: 500;">July 16, 2025</span>
-                    <span style="font-style: italic;">6 min read</span>
+                    <span style="font-weight: 500;">July 15, 2025</span>
+                    <span style="font-style: italic;">4 min read</span>
                 </div>
-                <a href="https://open.substack.com/pub/homeschoolmath/p/the-3-math-manipulative-that-works" 
+                <a href="https://homeschoolmathtips.blogspot.com" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   class="btn btn-secondary" style="align-self: flex-start; margin-top: auto;">
+                    Read More →
+                </a>
+            </div>
+            <div class="control-item">
+                <div style="display: flex; gap: 8px; margin-bottom: 15px;">
+                    <span style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; font-size: 0.75em; font-weight: 600; padding: 6px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">activities</span>
+                    <span style="background: linear-gradient(135deg, #7c3aed, #a855f7); color: white; font-size: 0.75em; font-weight: 600; padding: 6px 12px; border-radius: 12px; text-transform: uppercase; letter-spacing: 0.5px;">games</span>
+                </div>
+                <h3 style="font-size: 1.3em; font-weight: 700; color: #1e293b; margin-bottom: 12px; line-height: 1.3;">Math Games Using Only Playing Cards</h3>
+                <p style="color: #64748b; font-size: 0.95em; margin-bottom: 15px; line-height: 1.5; flex-grow: 1;">
+                    Transform a simple deck of cards into powerful math practice with these engaging games for all grade levels.
+                </p>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8em; color: #94a3b8; margin-bottom: 20px; padding-top: 15px; border-top: 1px solid #e2e8f0;">
+                    <span style="font-weight: 500;">July 14, 2025</span>
+                    <span style="font-style: italic;">5 min read</span>
+                </div>
+                <a href="https://homeschoolmathtips.blogspot.com" 
                    target="_blank" 
                    rel="noopener noreferrer"
                    class="btn btn-secondary" style="align-self: flex-start; margin-top: auto;">
@@ -2567,7 +2575,6 @@ document.addEventListener('DOMContentLoaded', loadBlogPosts);
 // Optional: Refresh posts every 30 minutes
 setInterval(loadBlogPosts, 30 * 60 * 1000);
 </script>
-
 
     <!-- Email Signup Section -->
 <section id="newsletter" class="max-w-4xl mx-auto px-4 py-12">
