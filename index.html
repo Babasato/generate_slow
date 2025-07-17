@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-20S3GKW7QB"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-20S3GKW7QB');
-</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
@@ -1683,6 +1674,20 @@ header {
                 flex-direction: column;
             }
         }
+        @media (max-width: 600px) {
+    .problem {
+        font-size: 1.1em;
+    }
+    .word-problem {
+        font-size: 0.9em;
+    }
+    .answer-key {
+        margin-top: 30px;
+    }
+    .answer-key h3 {
+        font-size: 1.3em;
+    }
+}
     </style>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -2227,6 +2232,12 @@ header {
                             column-gap: 20px;
                             margin-top: 20px;
                         }
+                          @media (max-width: 768px) {
+                         .problems-container {
+                         column-count: 1;
+                         column-gap: 0;
+                        }
+                        }
                         .problem {
                             break-inside: avoid;
                             page-break-inside: avoid;
@@ -2247,9 +2258,26 @@ header {
                             gap: 10px;
                         }
                         @page {
-                            size: auto;
-                            margin: 15mm;
-                        }
+    size: auto;
+    margin: 15mm;
+}
+@media (max-width: 768px) {
+    @page {
+        margin: 10mm;
+    }
+    .problem {
+        margin-bottom: 15px;
+        padding: 8px;
+        font-size: 12px;
+    }
+    .worksheet-header h2 {
+        font-size: 1.5em;
+    }
+    .answers-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+        gap: 8px;
+    }
+}
                     }
                 </style>
             `;
@@ -2584,6 +2612,7 @@ document.addEventListener('DOMContentLoaded', loadBlogPosts);
 // Optional: Refresh posts every 30 minutes
 setInterval(loadBlogPosts, 30 * 60 * 1000);
 </script>
+
 
     <!-- Email Signup Section -->
 <section id="newsletter" class="max-w-4xl mx-auto px-4 py-12">
