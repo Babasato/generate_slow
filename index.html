@@ -2086,47 +2086,29 @@ header {
             
             let html = `
                 <div class="worksheet">
-            <div class="worksheet-header" style="text-align: center;">
-                <div style="
-                    background: white;
-                    padding: 10px 12px;
-                    border-radius: 8px;
-                    border: 2px solid #7c3aed;
-                    margin: 0 auto 10px auto;
-                    font-size: 1.1em;
-                    font-weight: bold;
-                    color: #333;
-                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                    display: inline-block;
-                    max-width: 95%;
-                    text-align: center;
-                ">
-                    <span style="color: #7c3aed;">Grade:</span> ${grade} • 
-                    <span style="color: #7c3aed;">Date:</span> ${date} • 
-                    <span style="color: #7c3aed;">Problems:</span> ${problems.length}
-                </div>
-                
-                <h2 style="margin: 5px 0 15px 0;">${title}</h2>
-                
-                <div style="
-                    background: white;
-                    padding: 12px;
-                    border-radius: 8px;
-                    border: 2px solid #7c3aed;
-                    margin: 0 auto;
-                    font-size: 1.1em;
-                    font-weight: bold;
-                    color: #333;
-                    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-                    display: inline-block;
-                    max-width: 95%;
-                    text-align: center;
-                    width: 300px;
-                ">
-                    <span style="color: #7c3aed;">Name:</span> 
-                    <div style="display: inline-block; width: 200px; border-bottom: 2px solid #333; margin-left: 10px; margin-bottom: -5px;"></div>
-                </div>
+        <div class="worksheet-header" style="text-align: center;">
+            <div style="
+                background: white;
+                padding: 12px;
+                border-radius: 8px;
+                border: 2px solid #7c3aed;
+                margin: 0 auto 15px auto;
+                font-size: 1.1em;
+                font-weight: bold;
+                color: #333;
+                box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+                display: inline-block;
+                max-width: 95%;
+                text-align: center;
+            ">
+                <span style="color: #7c3aed;">Grade:</span> ${grade} • 
+                <span style="color: #7c3aed;">Date:</span> ${date} • 
+                <span style="color: #7c3aed;">Problems:</span> ${problems.length}
             </div>
+            
+            <h2 style="margin: 0 0 20px 0; font-size: 1.5em;">${title}</h2>
+            
+        </div>
                     
                     <div class="problems-grid">
             `;
