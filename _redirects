@@ -8,3 +8,4 @@ http://homeschoolmath.site/*  https://homeschoolmath.site/:splat  301!
 http://www.homeschoolmath.site/*  https://homeschoolmath.site/:splat  301!
 https://www.homeschoolmath.site/*  https://homeschoolmath.site/:splat  301!
 /blog  https://homeschoolmathtips.blogspot.com  301!
+/free-resources  /free-resources.html  301!
