@@ -2435,16 +2435,14 @@ async function loadBlogPosts() {
             const container = document.getElementById('blog-posts-container');
             const loading = document.getElementById('blog-loading');
             
-            // Hide loading
-            loading.style.display = 'none';
+            // Hide loading (will be replaced by container.innerHTML below)
+            // loading.style.display = 'none';
             
             // Get the latest 3 posts
             const posts = data.items.slice(0, 3);
-            
             // Create HTML for each post
             const postsHTML = posts.map(post => createBlogPostHTML(post)).join('');
-            
-            // Insert posts into container
+            // Insert posts into container (this automatically removes the loading div)
             container.innerHTML = postsHTML;
             
         } else {
@@ -2457,7 +2455,7 @@ async function loadBlogPosts() {
         const container = document.getElementById('blog-posts-container');
         const loading = document.getElementById('blog-loading');
         
-        loading.style.display = 'none';
+        // loading.style.display = 'none';
         
         // Fallback posts with daily focus
         container.innerHTML = `
