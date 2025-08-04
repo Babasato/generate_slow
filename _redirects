@@ -4,8 +4,6 @@
 /resource-guide     https://homeschoolmath.gumroad.com/l/nwsaa   301!
 /checklist          https://homeschoolmath.gumroad.com/l/xpywn   301!
 /all-resources      https://homeschoolmath.gumroad.com/l/uebgs   301!
-http://homeschoolmath.site/*  https://homeschoolmath.site/:splat  301!
-http://www.homeschoolmath.site/*  https://homeschoolmath.site/:splat  301!
-https://www.homeschoolmath.site/*  https://homeschoolmath.site/:splat  301!
 /blog  https://homeschoolmathtips.blogspot.com  301!
 /free-resources  /free-resources.html  301!
+
